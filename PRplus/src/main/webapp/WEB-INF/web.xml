@@ -4,4 +4,14 @@
 
 <web-app>
   <display-name>Archetype Created Web Application</display-name>
+  <servlet>
+  	<servlet-name>ImportFromUrl</servlet-name>
+  	<display-name>ImportFromUrl</display-name>
+  	<description>This class adds all the new players to the session's player list. It does not sort. </description>
+  	<servlet-class>ImportFromUrl</servlet-class>
+  </servlet>
+  <servlet-mapping>
+  	<servlet-name>ImportFromUrl</servlet-name>
+  	<url-pattern>/ImportFromUrl</url-pattern>
+  </servlet-mapping>
 </web-app>

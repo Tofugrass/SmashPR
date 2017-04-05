@@ -1,0 +1,13 @@
+data objects that need to be stored in each session
+
+ArrayList<Tournament> tournaments = new ArrayList<Tournament>();
+ArrayList<Player> players = new ArrayList<Player>();
+ArrayList<Player> manualTournamentResults = new ArrayList<Player>();
+ArrayList<Match> includedMatches = new ArrayList<Match>();
+ArrayList<Match> excludedMatches = new ArrayList<Match>();
+ArrayList<TournamentPlacings> includedPlacings = new ArrayList<TournamentPlacings>();
+ArrayList<TournamentPlacings> excludedPlacings = new ArrayList<TournamentPlacings>();
+SortablePlayerList pr = new SortablePlayerList(players, 2);
+
+url to import from will be request.getParameter("importUrl");
+game to pick from challonge will be request.getParameter("game");
