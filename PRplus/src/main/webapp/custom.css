@@ -1,0 +1,56 @@
+.row{
+    margin-top:40px;
+    padding: 0 10px;
+}
+
+.clickable{
+    cursor: pointer;   
+}
+.panel-heading span {
+	margin-top: -20px;
+	font-size: 15px;
+}
+#fixed{
+    position: fixed;
+    top: 90px;
+    max-width: 45%;
+    min-width: 45%;
+    z-index: 2;
+}
+#absolute{
+   
+	max-width: 100%;
+    min-width: 100%;
+}
+.panel-heading{
+    position: relative;
+}
+
+.panel-heading.accordion-toggle:after {
+    /* symbol for "opening" panels */
+    font-family:'Glyphicons Halflings';
+    /* essential for enabling glyphicon */
+    content:"\e235";
+    /* adjust as needed, taken from bootstrap.css */
+    float: right;
+    position: absolute;
+    bottom: 15px;
+    right: 5px;
+    font-size: 15pt;
+    /* adjust as needed */
+    color: grey;
+    /* adjust as needed */
+}
+.panel-heading.accordion-toggle.collapsed:after {
+    /* symbol for "collapsed" panels */
+    content:"\e234";
+    /* adjust as needed, taken from bootstrap.css */
+}
+
+.panel-heading:hover {
+    cursor: pointer;
+}
+
+.panel-heading:hover h4 {
+    text-decoration: underline;
+}

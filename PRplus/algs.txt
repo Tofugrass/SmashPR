@@ -9,5 +9,6 @@ ArrayList<TournamentPlacings> includedPlacings = new ArrayList<TournamentPlacing
 ArrayList<TournamentPlacings> excludedPlacings = new ArrayList<TournamentPlacings>();
 SortablePlayerList pr = new SortablePlayerList(players, 2);
 
+file to import from will be request.getParameter("importFile");
 url to import from will be request.getParameter("importUrl");
 game to pick from challonge will be request.getParameter("game");

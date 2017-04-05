@@ -45,20 +45,10 @@ public class ImportFromUrl extends HttpServlet {
 		else {
 			//1 initialize all objects we need, these are the players, matches, tournaments and standings
 			HttpSession session = request.getSession();
-			@SuppressWarnings("unchecked")
-			ArrayList<Player> players = (ArrayList<Player>) session.getAttribute("players");
-			@SuppressWarnings("unchecked")
-			ArrayList<Match> includedMatches =  (ArrayList<Match>) session.getAttribute("includedMatches");
-			@SuppressWarnings("unchecked")
-			ArrayList<Tournament> tournaments = (ArrayList<Tournament>) session.getAttribute("tournaments");
-			@SuppressWarnings("unchecked")
-			ArrayList<TournamentPlacings> includedPlacings = (ArrayList<TournamentPlacings>) session.getAttribute("includedPlacings");
-
-			//2 if any of them are null, we will create a new one
-			if(players == null) players = new ArrayList<Player>();
-			if(includedMatches == null) includedMatches = new ArrayList<Match>();
-			if(tournaments == null) tournaments = new ArrayList<Tournament>();
-			if(includedPlacings == null) includedPlacings = new ArrayList<TournamentPlacings>();
+			ArrayList<Player> players = method.getSessionPlayers(session);
+			ArrayList<Match> includedMatches = method.getSessionIncludedMatches(session);
+			ArrayList<Tournament> tournaments = method.getSessionTournaments(session);
+			ArrayList<TournamentPlacings> includedPlacings = method.getSessionIncludedPlacings(session);
 
 			//3 import the standings and matches
 			String url = request.getParameter("importUrl");
@@ -263,12 +253,9 @@ public class ImportFromUrl extends HttpServlet {
 					JSONObject curr = (JSONObject) groups.get(i);
 					Long phase_group = (Long) curr.get("id");
 					String new_request = "https://api.smash.gg/phase_group/"+phase_group+"?expand[]=sets&expand[]=entrants&expand[]=standings&expand[]=seeds";
-
 					//System.out.println("_____________");
 					//System.out.println(new_request);
-
 					pageText = method.getPageTextFromURLString(new_request);
-
 					JSONObject group_wrapper = null;
 					try {
 						group_wrapper = (JSONObject) parser.parse(pageText);
@@ -312,7 +299,6 @@ public class ImportFromUrl extends HttpServlet {
 							}
 							tempPlayers[index] = method.addSmashGGPlayer(players, smashGGPlayers, entrantID,  entrantName).getPlayer();
 						}
-
 						for(int j = 0; j < curr_entrants.size(); j++){
 							//System.out.println(tempPlayers[j].getName());
 							newTourney.addResults(tempPlayers[j]);
@@ -330,8 +316,6 @@ public class ImportFromUrl extends HttpServlet {
 						Long wID = (Long) set.get("winnerId");
 						Long lID = (Long) set.get("loserId");
 						if((Long) set.get("entrant1Score") != null && wID != null && lID != null && (Long) set.get("entrant2Score") != null){
-							//	System.out.println(wID);
-
 							int aScore = ((Long) set.get("entrant1Score")).intValue();
 							int bScore = ((Long) set.get("entrant2Score")).intValue();
 							Match match;
@@ -359,8 +343,5 @@ public class ImportFromUrl extends HttpServlet {
 			session.setAttribute("pr", new SortablePlayerList(players, 2));
 			method.alertAndRedirect("Everything imported successfully", request, response);
 		}
-
 	}
-
-
 }

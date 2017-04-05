@@ -10,8 +10,18 @@
   	<description>This class adds all the new players to the session's player list. It does not sort. </description>
   	<servlet-class>ImportFromUrl</servlet-class>
   </servlet>
+  <servlet>
+  	<servlet-name>ImportFromFile</servlet-name>
+  	<display-name>ImportFromFile</display-name>
+  	<description></description>
+  	<servlet-class>ImportFromFile</servlet-class>
+  </servlet>
   <servlet-mapping>
   	<servlet-name>ImportFromUrl</servlet-name>
   	<url-pattern>/ImportFromUrl</url-pattern>
+  </servlet-mapping>
+  <servlet-mapping>
+  	<servlet-name>ImportFromFile</servlet-name>
+  	<url-pattern>/ImportFromFile</url-pattern>
   </servlet-mapping>
 </web-app>

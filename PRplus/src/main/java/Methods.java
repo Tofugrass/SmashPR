@@ -4,6 +4,7 @@ import java.util.ArrayList;
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
 
 import org.apache.http.client.ClientProtocolException;
 import org.apache.http.client.methods.CloseableHttpResponse;
@@ -31,6 +32,36 @@ public class Methods {
 			}
 		}
 		throw new Exception("There must have been a weird character");
+	}
+	public ArrayList<Player> getSessionPlayers(HttpSession session){
+		ArrayList<Player> players = (ArrayList<Player>) session.getAttribute("players");
+		if(players!=null)return players;
+		return new ArrayList<Player>() ;
+	}
+	public ArrayList<Match> getSessionIncludedMatches(HttpSession session){
+		ArrayList<Match> includedMatches = (ArrayList<Match>) session.getAttribute("includedMatches");
+		if(includedMatches!=null)return includedMatches;
+		return new ArrayList<Match>() ;
+	}
+	public ArrayList<Match> getSessionExcludedMatches(HttpSession session){
+		ArrayList<Match> excludedMatches = (ArrayList<Match>) session.getAttribute("excludedMatches");
+		if(excludedMatches!=null)return excludedMatches;
+		return new ArrayList<Match>() ;
+	}
+	public ArrayList<Tournament> getSessionTournaments(HttpSession session) {
+		ArrayList<Tournament> tournaments = (ArrayList<Tournament>) session.getAttribute("tournaments");
+		if(tournaments!=null)return tournaments;
+		return new ArrayList<Tournament>() ;
+	}
+	public ArrayList<TournamentPlacings> getSessionIncludedPlacings(HttpSession session) {
+		ArrayList<TournamentPlacings> includedPlacings = (ArrayList<TournamentPlacings>) session.getAttribute("includedPlacings");
+		if(includedPlacings!=null)return includedPlacings;
+		return new ArrayList<TournamentPlacings>() ;
+	}
+	public ArrayList<TournamentPlacings> getSessionExcludedPlacings(HttpSession session) {
+		ArrayList<TournamentPlacings> excludedPlacings = (ArrayList<TournamentPlacings>) session.getAttribute("excludedPlacings");
+		if(excludedPlacings!=null)return excludedPlacings;
+		return new ArrayList<TournamentPlacings>() ;
 	}
 	public String trimSponsor(String name){
 		name = name.substring(name.lastIndexOf("|")+1).trim().toUpperCase();
@@ -163,16 +194,12 @@ public class Methods {
 		response.close();
 		return((JSONObject) new JSONParser().parse(responseString));
 	}
-
-
 	public Player getPlayerFromName(String name, ArrayList<Player> players) throws Exception{
 		for (int i = 0; i < players.size(); i++)
 			if(players.get(i).getName().equals(name)) return players.get(i);
 		//System.out.println(name);
 		throw new Exception("There must have been a weird character");
 	}
-
-
 	public void enterMatch(Match match, ArrayList<Match> matchList){
 		Player player = match.getWinner();
 		boolean rankingExisted = false;
@@ -225,8 +252,6 @@ public class Methods {
 		player.addLoss(match);
 		matchList.add(match);
 	}
-
-
 	public void enterPlacing(Player player, String name, int placing, ArrayList<Player> players, ArrayList<TournamentPlacings> placingsList){
 		int place = placing;
 		if (placing >= 1088)
@@ -323,4 +348,9 @@ public class Methods {
 			}
 		}
 	}
+
+
+
+
+
 }
