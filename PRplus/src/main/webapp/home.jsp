@@ -1,3 +1,12 @@
+<%@ page import="java.util.*"%>
+<%@ page import="javax.servlet.http.HttpServletRequest"%>
+<%@ page import="javax.servlet.http.HttpServletResponse"%>
+<%@ page import="java.io.IOException"%>
+<%@ page import="org.json.simple.JSONArray"%>
+<%@ page import="org.json.simple.JSONObject"%>
+<%@ page import="org.json.simple.parser.JSONParser"%>
+<%@ page import="org.json.simple.parser.ParseException"%>
+
 <!DOCTYPE html>
 <html lang="en">
 
@@ -20,7 +29,17 @@
 <script src="https://oss.maxcdn.com/respond/1.4.2/respond.min.js"></script>
 <![endif]-->
     </head>
+<%
+ArrayList<Tournament> tournaments = new ArrayList<Tournament>();
+ArrayList<Player> players = new ArrayList<Player>();
+ArrayList<Player> manualTournamentResults = new ArrayList<Player>();
+ArrayList<Match> includedMatches = new ArrayList<Match>();
+ArrayList<Match> excludedMatches = new ArrayList<Match>();
+ArrayList<TournamentPlacings> includedPlacings = new ArrayList<TournamentPlacings>();
+ArrayList<TournamentPlacings> excludedPlacings = new ArrayList<TournamentPlacings>();
+SortablePlayerList pr = new SortablePlayerList(players, 2);
 
+%>
     <body>
 
         <nav class="navbar navbar-inverse navbar-fixed-top">
@@ -51,7 +70,7 @@
         <!--input-->
         <div class="container">
             <div class="row">
-                <div class="col-lg-6 col-md-6 col-sm-6 col-xs-12 pull-left">
+                <div class="col-lg-6 col-md-6 col-sm-3 col-xs-3 pull-left">
                     <div class="panel-group animated fadeInUp" id="fixed">
                         <div class="panel panel-default">
                             <div class="panel-heading accordion-toggle collapsed" data-toggle="collapse" data-parent="#fixed" data-target="#load">
@@ -107,52 +126,25 @@
                 </div>
 
                 <!-- players -->
-                <div class="container">
-                    <div class="row">
-                        <div class="col-lg-6 col-md-6 col-sm-6 col-xs-12 pull-right">
+
+                        <div class="col-lg-6 col-md-6 col-sm-3 col-xs-3 pull-right">
+                        
                             <div class="panel-group animated fadeInUp" id="absolute">
+                             <% for(int i = 100; i>0; i--){%>
+                             
                                 <div class="panel panel-default hoverable">
-                                    <div class="panel-heading">
+                                <div class="panel-heading accordion-toggle collapsed" data-toggle="collapse" data-parent="#fixed" data-target="#collapse<%=i%>">
                                         <h4 class="panel-title">
-                                            <a data-toggle="collapse" data-parent="#accordion" href="#collapse1">
-                                                Collapsible Group 1</a>
+                                        Player <%=i %>
                                         </h4>
                                     </div>
-                                    <div id="collapse1" class="panel-collapse collapse">
-                                        <div class="panel-body">Lorem ipsum dolor sit amet, consectetur adipisicing elit,
-                                            sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad
-                                            minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea
-                                            commodo consequat.</div>
+                                    <div id="collapse<%=i%>" class="panel-collapse collapse">
+                                        <div class="panel-body">
+                                        </div>
                                     </div>
                                 </div>
-                                <div class="panel panel-default">
-                                    <div class="panel-heading">
-                                        <h4 class="panel-title">
-                                            <a data-toggle="collapse" data-parent="#accordion" href="#collapse2">
-                                                Collapsible Group 2</a>
-                                        </h4>
-                                    </div>
-                                    <div id="collapse2" class="panel-collapse collapse">
-                                        <div class="panel-body">Lorem ipsum dolor sit amet, consectetur adipisicing elit,
-                                            sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad
-                                            minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea
-                                            commodo consequat.</div>
-                                    </div>
-                                </div>
-                                <div class="panel panel-default">
-                                    <div class="panel-heading">
-                                        <h4 class="panel-title">
-                                            <a data-toggle="collapse" data-parent="#accordion" href="#collapse3">
-                                                Collapsible Group 3</a>
-                                        </h4>
-                                    </div>
-                                    <div id="collapse3" class="panel-collapse collapse">
-                                        <div class="panel-body">Lorem ipsum dolor sit amet, consectetur adipisicing elit,
-                                            sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad
-                                            minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea
-                                            commodo consequat.</div>
-                                    </div>
-                                </div>
+                              <%   }%>
+                                
                             </div>
                         </div>
 

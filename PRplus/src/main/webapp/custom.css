@@ -13,14 +13,10 @@
 #fixed{
     position: fixed;
     top: 90px;
-    max-width: 45%;
-    min-width: 45%;
     z-index: 2;
 }
 #absolute{
    
-	max-width: 100%;
-    min-width: 100%;
 }
 .panel-heading{
     position: relative;
