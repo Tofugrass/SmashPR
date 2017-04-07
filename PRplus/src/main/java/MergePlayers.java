@@ -32,7 +32,7 @@ public class MergePlayers extends HttpServlet {
 	protected void service(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		Methods method = new Methods();
 		if(request.getParameter("playerA") == null || request.getParameter("playerA").equals("") || request.getParameter("playerB") == null || request.getParameter("playerB").equals("") ) {
-			method.alertAndRedirect("Please enter two valid player tags", request, response);
+			method.alertAndRedirectError("Please enter two valid player tags", request, response);
 			return;	
 		}
 
@@ -45,7 +45,7 @@ public class MergePlayers extends HttpServlet {
 				playerA = method.getPlayerFromName(method.trimSponsor(request.getParameter("playerA").trim()), players);
 				playerB = method.getPlayerFromName(method.trimSponsor(request.getParameter("playerB").trim()), players);
 			}catch(Exception e){
-				method.alertAndRedirect("Tags not recognized", request, response);
+				method.alertAndRedirectError("Tags not recognized", request, response);
 				return;	
 			}
 			for(int i = 0; i < playerA.getPlacings().size(); i++){
@@ -155,7 +155,7 @@ public class MergePlayers extends HttpServlet {
 			method.alertAndRedirect("Everything imported successfully", request, response);
 			return;
 		}catch(Exception y){
-			method.alertAndRedirect("There was an error", request, response);
+			method.alertAndRedirectError("There was an error", request, response);
 			return;
 		}
 	}

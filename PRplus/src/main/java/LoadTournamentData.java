@@ -41,7 +41,7 @@ public class LoadTournamentData extends HttpServlet {
 		//0 we redirect the user if the form isn't filled out
 
 		if(request.getParameter("tournamentName") == null || request.getParameter("tournamentName").equals("") ) {
-			method.alertAndRedirect("Please enter a tournament you would like to look up", request, response);
+			method.alertAndRedirectError("Please enter a tournament you would like to look up", request, response);
 			return;	
 		}
 		else {
@@ -109,7 +109,7 @@ public class LoadTournamentData extends HttpServlet {
 			}
 			request.setAttribute("displayData", true);
 			request.setAttribute("playerData", "Tournament not found\n");
-			method.alertAndRedirect("Tournament not found", request, response);
+			method.alertAndRedirectError("Tournament not found", request, response);
 			return;
 		}
 		/**

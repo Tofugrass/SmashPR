@@ -41,7 +41,7 @@ public class LoadPlayerData extends HttpServlet {
 		//0 we redirect the user if the form isn't filled out
 
 		if(request.getParameter("playerA") == null || request.getParameter("playerA").equals("") ) {
-			method.alertAndRedirect("Please enter a player you would like to look up", request, response);
+			method.alertAndRedirectError("Please enter a player you would like to look up", request, response);
 			return;	
 		}
 		else {
@@ -55,7 +55,7 @@ public class LoadPlayerData extends HttpServlet {
 				try{
 					player = method.getPlayerFromName(method.trimSponsor(request.getParameter("playerA").trim()), players);
 				}catch(Exception e){
-					method.alertAndRedirect("Tag not recognized", request, response);
+					method.alertAndRedirectError("Tag not recognized", request, response);
 					return;	
 				}
 				if(player!=null) {
@@ -109,7 +109,7 @@ public class LoadPlayerData extends HttpServlet {
 						try{
 							player2 = method.getPlayerFromName(method.trimSponsor(request.getParameter("playerB").trim()), players);
 						}catch(Exception e){
-							method.alertAndRedirect("Player 2 tag not recognized", request, response);
+							method.alertAndRedirectError("Player 2 tag not recognized", request, response);
 							return;	
 						}
 						boolean played = false;
@@ -178,7 +178,7 @@ public class LoadPlayerData extends HttpServlet {
 					}
 				}
 				else {
-					method.alertAndRedirect("Tag not recognized", request, response);
+					method.alertAndRedirectError("Tag not recognized", request, response);
 					return;	
 				}
 				request.setAttribute("displayData", true);
@@ -187,7 +187,7 @@ public class LoadPlayerData extends HttpServlet {
 				method.alertAndRedirect("Everything went well", request, response);
 				return;	
 			}catch(Exception e) {
-				method.alertAndRedirect("Tag not recognized", request, response);
+				method.alertAndRedirectError("Tag not recognized", request, response);
 				return;	
 			}
 			

@@ -53,11 +53,11 @@ public class ImportFromUrl extends HttpServlet {
 		//0 we redirect the user if the form isn't filled out
 
 		if(request.getParameter("importUrl") == null || request.getParameter("importUrl").equals("")) {
-			method.alertAndRedirect("Please enter the url you would like to import from", request, response);
+			method.alertAndRedirectError("Please enter the url you would like to import from", request, response);
 			return;	
 		}
 		else {
-
+			
 			//1 initialize all objects we need, these are the players, matches, tournaments and standings
 			HttpSession session = request.getSession();
 			ArrayList<Player> players = method.getSessionPlayers(session);
@@ -85,23 +85,26 @@ public class ImportFromUrl extends HttpServlet {
 				}
 				for(int i = 0; i < tournaments.size(); i++){
 					if(tournaments.get(i).getName().equals(tourneyName)){
-						method.alertAndRedirect("Tournament already entered", request, response);
+						method.alertAndRedirectError("Tournament already entered", request, response);
 						return;
 					}
 				}
+				
 				Tournament newTourney = new Tournament(tourneyName);
 				JSONObject json = null;
 				try {
 					json = method.processChallonge(tourneyName);
 				}catch(Exception e) {
-					method.alertAndRedirect("Problem entering tournament, please report this error!", request, response);
+					System.out.println(tourneyName);
+					method.alertAndRedirectError("Problem entering tournament, please report this error!", request, response);
 					return;
 				}	
 				json = (JSONObject) json.get("tournament");
 				if(json==null) {
-					method.alertAndRedirect("Hmmm Challonge couldn't find this tournament, please report this error!", request, response);
+					method.alertAndRedirectError("Hmmm Challonge couldn't find this tournament, please report this error!", request, response);
 					return;
 				}
+				
 				JSONArray participants = (JSONArray) json.get("participants");
 				ArrayList<smashGGPlayer> ggPlayers = new  ArrayList<smashGGPlayer>();
 				Player standings[] = new Player[participants.size()];
@@ -125,7 +128,7 @@ public class ImportFromUrl extends HttpServlet {
 							try {
 								standings[index] = method.getSmashGGPlayerFromId((Long) player.get("id"), ggPlayers).getPlayer();
 							}catch(Exception e) {
-								method.alertAndRedirect("There must have been a weird character", request, response);
+								method.alertAndRedirectError("There must have been a weird character", request, response);
 								return;
 							}
 
@@ -148,7 +151,7 @@ public class ImportFromUrl extends HttpServlet {
 						try {
 							standings[index] = method.getSmashGGPlayerFromId((Long) player.get("id"), ggPlayers).getPlayer();
 						}catch(Exception e) {
-							method.alertAndRedirect("There must have been a weird character", request, response);
+							method.alertAndRedirectError("There must have been a weird character", request, response);
 							return;
 						}
 					}
@@ -163,7 +166,7 @@ public class ImportFromUrl extends HttpServlet {
 						try {
 							standings[index] = method.getPlayerFromName(method.trimSponsor(standArr[j]), players);
 						}catch(Exception e) {
-							method.alertAndRedirect("There must have been a weird character", request, response);
+							method.alertAndRedirectError("There must have been a weird character", request, response);
 							return;
 						}
 					}
@@ -240,7 +243,7 @@ public class ImportFromUrl extends HttpServlet {
 					try {
 						wrapper = (JSONObject) parser.parse(pageText);
 					} catch (ParseException e) {
-						method.alertAndRedirect("Hm there was an error", request, response);
+						method.alertAndRedirectError("Hm there was an error", request, response);
 						e.printStackTrace();
 						return;
 					}
@@ -272,7 +275,7 @@ public class ImportFromUrl extends HttpServlet {
 				try {
 					wrapper = (JSONObject) parser.parse(pageText);
 				} catch (ParseException e) {
-					method.alertAndRedirect("There must have been a weird character", request, response);
+					method.alertAndRedirectError("There must have been a weird character", request, response);
 					e.printStackTrace();
 					return;
 				}
@@ -289,7 +292,7 @@ public class ImportFromUrl extends HttpServlet {
 					try {
 						group_wrapper = (JSONObject) parser.parse(pageText);
 					} catch (ParseException e1) {
-						method.alertAndRedirect("There was an error", request, response);
+						method.alertAndRedirectError("There was an error", request, response);
 						e1.printStackTrace();
 						return;
 					}
@@ -356,14 +359,14 @@ public class ImportFromUrl extends HttpServlet {
 									match = new Match(method.getSmashGGPlayerFromId(wID, smashGGPlayers).getPlayer(), bScore, aScore, method.getSmashGGPlayerFromId(lID, smashGGPlayers).getPlayer(), tournament);
 								method.enterMatch(match, includedMatches);
 							}catch(Exception e){
-								method.alertAndRedirect("There was an error", request, response);
+								method.alertAndRedirectError("There was an error", request, response);
 								return;
 							}
 						}
 					}
 				}
 			}else {
-				method.alertAndRedirect("Please provide a valid url", request, response);
+				method.alertAndRedirectError("Please provide a valid url", request, response);
 				return;
 			}
 			//4 update the session objects

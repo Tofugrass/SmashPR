@@ -28,7 +28,7 @@ public class RenamePlayer extends HttpServlet {
 	protected void service(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		Methods method = new Methods();
 		if(request.getParameter("playerA") == null || request.getParameter("playerA").equals("") || request.getParameter("playerB") == null || request.getParameter("playerB").equals("") ) {
-			method.alertAndRedirect("Please enter two valid player tags", request, response);
+			method.alertAndRedirectError("Please enter two valid player tags", request, response);
 			return;	
 		}
 
