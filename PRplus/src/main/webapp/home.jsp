@@ -115,7 +115,7 @@
                             </div>
                             <div class="panel panel-default">
                                 <div class="panel-heading accordion-toggle collapsed" data-toggle="collapse" data-parent="#fixed" data-target="#merge">
-                                    <h4 class="panel-title" style:>
+                                    <h4 class="panel-title" style="color:white;" >
                                         Modify Data
                                     </h4>
                                 </div>
