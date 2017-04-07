@@ -135,11 +135,24 @@ SortablePlayerList pr = new SortablePlayerList(players, 2);
                                 </div>
                             </div>
                             <div class="panel" id="downloadSelect">
-                                <div class="panel-heading accordion-toggle collapsed" data-toggle="collapse" data-parent="#fixed" data-target="#download">
+                                <div class="panel-heading accordion-toggle collapsed" data-toggle="collapse" data-parent="#fixed">
                                     <h4 class="panel-title">
                                         <form method="POST" action="SaveFile">
                                             <input type="text" name="FileName" placeholder="brackets.pr">
                                             <button type="submit" class="btn btn-sm">Save</button>
+                                        </form>                                    
+                                    </h4>
+                                </div>
+                                <div id="download" class="panel-collapse collapse">
+                                    <div class="panel-body">asj</div>
+                                </div>
+                            </div>
+                            <div class="panel" id="tournamentSelect">
+                                <div class="panel-heading accordion-toggle collapsed" data-toggle="collapse" data-parent="#fixed">
+                                    <h4 class="panel-title">
+                                        <form method="POST" action="LoadTournamentData">
+                                            <input type="text" name="TournamentName" placeholder="genesis-3">
+                                            <button type="submit" class="btn btn-sm">Search</button>
                                         </form>                                    
                                     </h4>
                                 </div>
