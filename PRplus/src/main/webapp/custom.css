@@ -1,7 +1,17 @@
 .panel-danger > .panel-heading{
     background-image: none;
-    background-color: #97B4C5;
-    
+    background-color: #909090;
+    color: white;
+}
+.panel-danger > .panel-collapse{
+    background-image: none;
+    background-color: #c4c4c4;
+    color: white;
+}
+body{
+	background-image: url("https://i.gyazo.com/f8fc8e7e52ace56f5efbcf9344d1c944.png");
+	background-size: 100%;
+	background-attachment: fixed;
 }
 /*#importSelect{
     background-color: red;
@@ -25,7 +35,6 @@
     z-index: 2;
     min-width: 35%;
     max-width: 35%;
-    background-color: #d0d4db;
 }
 #absolute{
    
@@ -43,11 +52,11 @@
     /* adjust as needed, taken from bootstrap.css */
     float: right;
     position: absolute;
-    bottom: 15px;
+    bottom: 5px;
     right: 5px;
     font-size: 15pt;
     /* adjust as needed */
-    color: grey;
+    color: white;
     /* adjust as needed */
 }
 .panel-heading.accordion-toggle.collapsed:after {
