@@ -67,10 +67,6 @@
                     <!--/.nav-collapse -->
                 </div>
             </nav>
-
-
-
-
             <!--input-->
             <div class="container">
                 <div class="row">
