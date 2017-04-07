@@ -32,18 +32,18 @@
 <![endif]-->
         </head>
         <%
-Methods method = new Methods();
-ArrayList<Player> manualTournamentResults = new ArrayList<Player>();
-ArrayList<Player> players = method.getSessionPlayers(session);
-ArrayList<Match> includedMatches = method.getSessionIncludedMatches(session);
-ArrayList<Match> excludedMatches = method.getSessionExcludedMatches(session);
-ArrayList<Tournament> tournaments = method.getSessionTournaments(session);
-ArrayList<TournamentPlacings> includedPlacings = method.getSessionIncludedPlacings(session);
-ArrayList<TournamentPlacings> excludedPlacings = method.getSessionExcludedPlacings(session);
+           Methods method = new Methods();
+           ArrayList<Player> manualTournamentResults = new ArrayList<Player>();
+        ArrayList<Player> players = method.getSessionPlayers(session);
+        ArrayList<Match> includedMatches = method.getSessionIncludedMatches(session);
+        ArrayList<Match> excludedMatches = method.getSessionExcludedMatches(session);
+        ArrayList<Tournament> tournaments = method.getSessionTournaments(session);
+        ArrayList<TournamentPlacings> includedPlacings = method.getSessionIncludedPlacings(session);
+        ArrayList<TournamentPlacings> excludedPlacings = method.getSessionExcludedPlacings(session);
 
-SortablePlayerList pr = new SortablePlayerList(players, 2);
+        SortablePlayerList pr = new SortablePlayerList(players, 2);
 
-%>
+        %>
         <body>
 
             <nav class="navbar navbar-inverse navbar-fixed-top">
@@ -77,14 +77,14 @@ SortablePlayerList pr = new SortablePlayerList(players, 2);
                     <div class="col-lg-6 col-md-6 col-sm-3 col-xs-3">
                         <div class="panel-group animated fadeInUp" id="fixed">
                             <div class="panel panel-danger" id="importSelect">
-                               <div class="panel-heading accordion-toggle collapsed" data-toggle="collapse" data-parent="#fixed" data-target="#load">
+                                <div class="panel-heading accordion-toggle collapsed" data-toggle="collapse" data-parent="#fixed" data-target="#load">
                                     <h4 class="panel-title">
                                         Load Data (Click to expand)
                                     </h4>
                                 </div>
-                                 <div id="load" class="panel-collapse collapse">
+                                <div id="load" class="panel-collapse collapse">
                                     <div class="panel-body">
-                                    <form method="POST" action="ImportFromUrl">
+                                        <form method="POST" action="ImportFromUrl">
                                             <input type="text" name="importUrl" placeholder="http://oxy.challonge.com/SmashSaturdaysSingles1">
                                             <button type="submit" class="btn btn-sm">Load From URL</button>
                                         </form>
@@ -103,10 +103,10 @@ SortablePlayerList pr = new SortablePlayerList(players, 2);
                                         Player Search (Click to expand)
                                     </h4>
                                 </div>
-                                 <div id="player" class="panel-collapse collapse">
+                                <div id="player" class="panel-collapse collapse">
                                     <div class="panel-body">
                                         <form method="POST" action="LoadPlayerData">
-                                        <input type="text" name="playerA" placeholder="Mang0">
+                                            <input type="text" name="playerA" placeholder="Mang0">
                                             <input type="text" name="playerB" placeholder="Armada (Optional)">
                                             <button type="submit" class="btn btn-sm">Search</button>
                                         </form>
@@ -116,18 +116,18 @@ SortablePlayerList pr = new SortablePlayerList(players, 2);
                             <div class="panel panel-default">
                                 <div class="panel-heading accordion-toggle collapsed" data-toggle="collapse" data-parent="#fixed" data-target="#merge">
                                     <h4 class="panel-title">
-                                       	Modify Data
+                                        Modify Data
                                     </h4>
                                 </div>
                                 <div id="merge" class="panel-collapse collapse">
                                     <div class="panel-body">
                                         <form method="POST" action="MergePlayers">
-                                        <input type="text" name="playerA" placeholder="PlayerA">
+                                            <input type="text" name="playerA" placeholder="PlayerA">
                                             <input type="text" name="playerB" placeholder="PlayerB">
                                             <button type="submit" class="btn btn-sm">Merge PlayerA into PlayerB</button>
                                         </form>
                                         <form method="POST" action="RenamePlayer">
-                                        <input type="text" name="playerA" placeholder="Old Name">
+                                            <input type="text" name="playerA" placeholder="Old Name">
                                             <input type="text" name="playerB" placeholder="New Name">
                                             <button type="submit" class="btn btn-sm">Rename Player</button>
                                         </form>
@@ -167,71 +167,80 @@ SortablePlayerList pr = new SortablePlayerList(players, 2);
 
                     <div class="col-lg-6 col-md-6 col-sm-3 col-xs-3 pull-right">
 
-<% if(request.getAttribute("displayData") != null){ 
-	String[] playerData = ((String) request.getAttribute("playerData")).split("\n");%>
-	<div class="well">
-	<h3><%= playerData[0]%></h3>
-	<%for(int i = 1; i < playerData.length; i++){%>
-		<h5> <%= playerData[i]%></h5>
-	<%}%>
+                        <% if(request.getAttribute("displayData") != null){ 
+                           String[] playerData = ((String) request.getAttribute("playerData")).split("\n");%>
+                                <div class="panel animated fadeInUp">
+                                    <div class="panel-heading">
+                                <h3 class="panel-title">
+                                    <a data-toggle="collapse" data-target="#searchedPlayer">
+                                        <%= playerData[0]%></a>
+                                        </h3>
+                                        </div>
+                                    <div id="seachedPlayer" class="panel-collapse collapse"
+                                         <div class="panel-body">
+                                    <%for(int i = 1; i < playerData.length; i++){%>
+                                    <h5> <%= playerData[i]%></h5>
+                                        <%}%>
+                                            </div>
+                                        </div>
+                                            </div>
+                                            </div>
+                                        <% }%>
+                                            <div class="panel-group animated fadeInUp" id="absolute">
 
-	</div>
-	<% }%>
-                        <div class="panel-group animated fadeInUp" id="absolute">
-                            
-<% for(int i = 0; i < players.size(); i++){%>
-
-
-                            <div class="panel panel-default hoverable">
-                                <div class="panel-heading">
-                                    <h4 class="panel-title">
-                                        <a data-toggle="collapse" data-parent="#fixed" data-target="#collapse<%=i%>">
-                                             <% Player player = players.get(i);%>
-<%= player.getName() %>
-                                        </a>
-                                    </h4>
-                                </div>
-                                <div id="collapse<%=i%>" class="panel-collapse collapse">
-                                    <div class="panel-body">
-                                         <%  for(int j = 0; j < player.getPlacings().size(); j++){
-TournamentPlacings placing = player.getPlacings().get(j);%>
-<p>Placed <%= placing.getPlacing()%> at <%= placing.getTournament()%></p>
-<% }%>
-                                    </div>
-                                </div>
-                            </div>
-                            
-<%   }%>
+                                                <% for(int i = 0; i < players.size(); i++){%>
 
 
-                        </div>
-                    </div>
+                                                <div class="panel panel-default hoverable">
+                                                    <div class="panel-heading">
+                                                        <h4 class="panel-title">
+                                                            <a data-toggle="collapse" data-parent="#fixed" data-target="#collapse<%=i%>">
+                                                                <% Player player = players.get(i);%>
+                                                                    <%= player.getName() %>
+                                                                        </a>
+                                                                    </h4>
+                                                                </div>
+                                                            <div id="collapse<%=i%>" class="panel-collapse collapse">
+                                                                <div class="panel-body">
+                                                                    <%  for(int j = 0; j < player.getPlacings().size(); j++){
+                                                                    TournamentPlacings placing = player.getPlacings().get(j);%>
+                                                                    <p>Placed <%= placing.getPlacing()%> at <%= placing.getTournament()%></p>
+                                                                        <% }%>
+                                                                            </div>
+                                                                        </div>
+                                                                </div>
+
+                                                                <%   }%>
+
+
+                                                                    </div>
+                                                            </div>
 
 
 
-                    <style>
-                        body{
-                            margin: 50px;
-                            background-color: aqua;
-                            font-family: sans-serif;
-                            text-align: left;
-                        }
-                    </style>
-                    <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
-                    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js" integrity="sha384-Tc5IQib027qvyjSMfHjOMaLkfuWVxZxUPnCJA7l2mCWNIpG9mGCD8wGNIcPD7Txa" crossorigin="anonymous"></script>
-                    <script>
-                        $(function(){
-                            $('a.button').on('click',function(){
-                                $('input[name=stuff]').addClass('animated slideInUp').one('webkitAnimationEnd mozAnimationEnd MSAnimationEnd oanimationend animationend', function() {
-                                    $(this).removeClass('animated slideInUp');
-                                });
+                                                            <style>
+                                                                body{
+                                                                    margin: 50px;
+                                                                    background-color: aqua;
+                                                                    font-family: sans-serif;
+                                                                    text-align: left;
+                                                                }
+                                                            </style>
+                                                            <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
+                                                            <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js" integrity="sha384-Tc5IQib027qvyjSMfHjOMaLkfuWVxZxUPnCJA7l2mCWNIpG9mGCD8wGNIcPD7Txa" crossorigin="anonymous"></script>
+                                                            <script>
+                                                                $(function(){
+                                                                    $('a.button').on('click',function(){
+                                                                        $('input[name=stuff]').addClass('animated slideInUp').one('webkitAnimationEnd mozAnimationEnd MSAnimationEnd oanimationend animationend', function() {
+                                                                            $(this).removeClass('animated slideInUp');
+                                                                        });
 
-                            });
-                        });
-                    </script>
-                </div>
-            </div>
+                                                                    });
+                                                                });
+                                                            </script>
+                                                            </div>
+                                                    </div>
 
-        </body>
+                                                    </body>
 
-    </html>
+                                                </html>
