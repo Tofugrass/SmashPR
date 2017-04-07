@@ -280,6 +280,7 @@ public class ImportFromFile extends HttpServlet {
 			
 		}
 		scan.close();
+		session.setAttribute("importFromFile", false);
 		session.setAttribute("players", players);
 		session.setAttribute("includedMatches", includedMatches);
 		session.setAttribute("excludedMatches", excludedMatches);
