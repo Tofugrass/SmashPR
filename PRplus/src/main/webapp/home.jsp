@@ -151,7 +151,7 @@ SortablePlayerList pr = new SortablePlayerList(players, 2);
                                 <div class="panel-heading accordion-toggle collapsed" data-toggle="collapse" data-parent="#fixed">
                                     <h4 class="panel-title">
                                         <form method="POST" action="LoadTournamentData">
-                                            <input type="text" name="TournamentName" placeholder="genesis-3">
+                                            <input type="text" name="tournamentName" placeholder="genesis-3">
                                             <button type="submit" class="btn btn-sm">Search</button>
                                         </form>                                    
                                     </h4>
