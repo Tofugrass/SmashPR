@@ -147,11 +147,12 @@
                             <div class="panel" id="tournamentSelect">
                                 <div class="panel-heading">
                                     <h4 class="panel-title">
+
                                         <form method="POST" action="LoadTournamentData">
                                             <input type="text" name="tournamentName" placeholder="genesis-3">
                                             <button type="submit" class="btn btn-sm">Search for Tournament</button>
                                         </form>                                    
-                                    
+                                    </h4>
                                 </div>
                             </div>
                         </div>
@@ -169,7 +170,7 @@
                                     <a data-toggle="collapse" data-target="#searchedPlayer"><%= playerData[0]%></a>
                                         </h4>
                                         </div>
-                                    <div id="seachedPlayer" class="panel-collapse collapse">
+                                    <div id="searchedPlayer" class="panel-collapse collapse">
                                          <div class="panel-body">
                                     <%for(int i = 1; i < playerData.length; i++){%>
                                     <h5> <%= playerData[i]%></h5>

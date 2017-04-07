@@ -49,7 +49,7 @@ public class LoadPlayerData extends HttpServlet {
 			HttpSession session = request.getSession();
 			ArrayList<Player> players = method.getSessionPlayers(session);
 			SortablePlayerList pr = new SortablePlayerList(players, 2);
-			String returnString = "";
+			String returnString = "Player to Display: ";
 			try{
 				Player player = null; 
 				try{
