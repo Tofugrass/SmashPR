@@ -87,14 +87,16 @@
                                         </form>
                                             <%
                                             
-                                            if(session.getAttribute("importFromFile") == null || (Boolean) session.getAttribute("importFromFile")){%>
+                                            if(session.getAttribute("importFromFile") == null || (Boolean) session.getAttribute("importFromFile") || session.getAttribute("importFromFile").equals(null) ){%>
                                             	<p> Load from file: </p>
                                             	<form method="POST" enctype="multipart/form-data" action="ImportFromFile">
                                             	<input type="file" name="importFile">
                                                 <br/>
                                                 <input type="submit" value="Press to upload the file!">
                                                 </form>
-                                           <% }
+                                           <% }else{
+                                        	   System.out.println(session.getAttribute("importFromFile").toString());
+                                           }
                                             %>
                                     </div>
                                 </div>

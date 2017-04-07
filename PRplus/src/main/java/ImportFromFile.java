@@ -88,7 +88,7 @@ public class ImportFromFile extends HttpServlet {
 		try {
 			items =  upload.parseRequest(request);
 		}catch(Exception e) {
-			method.alertAndRedirect("oof", request, response);
+			method.alertAndRedirectError("oof", request, response);
 			return;
 		}
 
@@ -230,7 +230,7 @@ public class ImportFromFile extends HttpServlet {
 						}
 					}catch(Exception e) {
 						e.printStackTrace();
-						method.alertAndRedirect("Oof", request, response);
+						method.alertAndRedirectError("Oof", request, response);
 						scan.close();
 						return;
 					}
@@ -280,7 +280,6 @@ public class ImportFromFile extends HttpServlet {
 				}
 			}
 			//System.out.println("done");
-			
 		}
 		scan.close();
 		session.setAttribute("importFromFile", false);
@@ -290,15 +289,12 @@ public class ImportFromFile extends HttpServlet {
 		session.setAttribute("tournaments", tournaments);
 		session.setAttribute("includedPlacings", includedPlacings);
 		session.setAttribute("pr", new SortablePlayerList(players, 2));
-		method.alertAndRedirect("Everything imported successfully", request, response);
+		method.alertAndRedirectError("Everything imported successfully", request, response);
 		return;
 	}
-		method.alertAndRedirect("Everything imported successfully", request, response);
+		method.alertAndRedirectError("Already imported from file", request, response);
 		return;
 	}
-
-
-	//}
 
 
 	/**
