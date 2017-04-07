@@ -1,5 +1,8 @@
 .panel-danger > .panel-heading{
     background-image: none;
+<<<<<<< HEAD
+    
+=======
     background-color: #909090;
     color: white;
 }
@@ -15,6 +18,7 @@ body{
 	background-image: url("home_background.jpg");
 	background-size: 100%;
 	background-attachment: fixed;
+>>>>>>> 49290328cbd4506199e4bdb1ded3ccbcb7c3aec4
 }
 /*#importSelect{
     background-color: red;

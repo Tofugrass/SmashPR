@@ -44,6 +44,7 @@
         SortablePlayerList pr = new SortablePlayerList(players, 2);
 
         %>
+        <link rel="shortcut icon" type="image/x-icon" href="favIcon.ico" />
         <body>
 
             <nav class="navbar navbar-inverse navbar-fixed-top">
