@@ -88,9 +88,6 @@
                                             <input type="text" name="importUrl" placeholder="http://oxy.challonge.com/SmashSaturdaysSingles1">
                                             <button type="submit" class="btn btn-sm">Load From URL</button>
                                         </form>
-                                       
-                                            
-                                             
                                             <%
                                             if(session.getAttribute("importFromFile") == null || (Boolean) session.getAttribute("importFromFile")){%>
                                             	<p> Load from file: </p>
@@ -101,9 +98,6 @@
                                                 </form>
                                            <% }
                                             %>
-                                            
-                                            
-                                       
                                     </div>
                                 </div>
                             </div>
@@ -148,7 +142,7 @@
                                 <div class="panel-heading">
                                     <h4 class="panel-title">
                                         <form method="POST" action="SaveFile">
-                                            <input type="text" name="FileName" placeholder="brackets.pr">
+                                            <input type="text" name="FileName" placeholder="FileName">
                                             <button type="submit" class="btn btn-sm">Save Bracket Data</button>
                                         </form>                                    
                                     </h4>
