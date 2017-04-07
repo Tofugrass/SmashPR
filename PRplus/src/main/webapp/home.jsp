@@ -140,23 +140,21 @@
                             </div>
                             <div class="panel" id="downloadSelect">
                                 <div class="panel-heading">
-                                    <h4 class="panel-title">
                                         <form method="POST" action="SaveFile">
                                             <input type="text" name="FileName" placeholder="FileName">
                                             <button type="submit" class="btn btn-sm">Save Bracket Data</button>
                                         </form>                                    
-                                    </h4>
+                                   
                                 </div>
                             </div>
                             <div class="panel" id="tournamentSelect">
                                 <div class="panel-heading">
-                                    <h4 class="panel-title">
 
                                         <form method="POST" action="LoadTournamentData">
                                             <input type="text" name="tournamentName" placeholder="genesis-3">
                                             <button type="submit" class="btn btn-sm">Search for Tournament</button>
                                         </form>                                    
-                                    </h4>
+                                    
                                 </div>
                             </div>
                         </div>
