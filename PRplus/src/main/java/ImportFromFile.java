@@ -42,7 +42,8 @@ public class ImportFromFile extends HttpServlet {
 	 * @see HttpServlet#service(HttpServletRequest request, HttpServletResponse response)
 	 */
 	protected void service(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		Methods method = new Methods();
+		
+		
 		//PROGRAM FLOW:
 		//0 we redirect the user if the form isn't filled out
 		//1 initialize all objects
@@ -55,10 +56,12 @@ public class ImportFromFile extends HttpServlet {
 		//0 we redirect the user if the form isn't filled out	
 
 
-
+		Methods method = new Methods();
 		// */	
 		//1 initialize all objects we need, these are the players, matches, tournaments and standings
 		HttpSession session = request.getSession();
+		if(session.getAttribute("importFromFile") == null || (Boolean) session.getAttribute("importFromFile")){
+		
 		ArrayList<Player> players = method.getSessionPlayers(session);
 		ArrayList<Match> includedMatches = method.getSessionIncludedMatches(session);
 		ArrayList<Match> excludedMatches = method.getSessionExcludedMatches(session);
@@ -80,7 +83,7 @@ public class ImportFromFile extends HttpServlet {
 		ServletFileUpload upload = new ServletFileUpload(factory);
 
 		// Parse the request
-
+		
 		List<FileItem> items = null;
 		try {
 			items =  upload.parseRequest(request);
@@ -287,6 +290,9 @@ public class ImportFromFile extends HttpServlet {
 		session.setAttribute("tournaments", tournaments);
 		session.setAttribute("includedPlacings", includedPlacings);
 		session.setAttribute("pr", new SortablePlayerList(players, 2));
+		method.alertAndRedirect("Everything imported successfully", request, response);
+		return;
+	}
 		method.alertAndRedirect("Everything imported successfully", request, response);
 		return;
 	}

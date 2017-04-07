@@ -8,8 +8,11 @@
     background-color: #c4c4c4;
     color: white;
 }
+#dataPanel{
+margin-top: 20px;	
+}
 body{
-	background-image: url("https://i.gyazo.com/f8fc8e7e52ace56f5efbcf9344d1c944.png");
+	background-image: url("home_background.jpg");
 	background-size: 100%;
 	background-attachment: fixed;
 }
@@ -37,7 +40,7 @@ body{
     max-width: 35%;
 }
 #absolute{
-   
+   margin-top: 20px;
 }
 .panel-heading{
     position: relative;

@@ -85,6 +85,7 @@
                                             <button type="submit" class="btn btn-sm">Load From URL</button>
                                         </form>
                                             <%
+                                            
                                             if(session.getAttribute("importFromFile") == null || (Boolean) session.getAttribute("importFromFile")){%>
                                             	<p> Load from file: </p>
                                             	<form method="POST" enctype="multipart/form-data" action="ImportFromFile">
@@ -162,7 +163,8 @@
 
                         <% if(request.getAttribute("displayData") != null){ 
                            String[] playerData = ((String) request.getAttribute("playerData")).split("\n");%>
-                            <div class="panel panel-default animated fadeInUp">
+
+                            <div id="dataPanel" class="panel panel-default animated fadeInUp">
                                 <div class="panel-heading">
                                     <h4 class="panel-title">
                                         <a data-toggle="collapse" data-target="#searchedPlayer"><%= playerData[0]%></a>
