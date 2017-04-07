@@ -62,7 +62,10 @@ public class LoadTournamentData extends HttpServlet {
 					return;
 				}
 			}
-
+			request.setAttribute("displayData", true);
+			request.setAttribute("playerData", "Tournament not found\n");
+			method.alertAndRedirect("Tournament not found", request, response);
+			return;
 		}
 	}
 	/**
