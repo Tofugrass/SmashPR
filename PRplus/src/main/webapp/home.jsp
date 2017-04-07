@@ -149,12 +149,12 @@
                             </div>
                             <div class="panel" id="tournamentSelect">
                                 <div class="panel-heading accordion-toggle collapsed" data-toggle="collapse" data-parent="#fixed">
-                                    <h4 class="panel-title">
+                                    
                                         <form method="POST" action="LoadTournamentData">
                                             <input type="text" name="tournamentName" placeholder="genesis-3">
                                             <button type="submit" class="btn btn-sm">Search</button>
                                         </form>                                    
-                                    </h4>
+                                    
                                 </div>
                                 <div id="download" class="panel-collapse collapse">
                                     <div class="panel-body">asj</div>
