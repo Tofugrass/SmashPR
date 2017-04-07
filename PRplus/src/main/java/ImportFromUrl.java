@@ -95,7 +95,6 @@ public class ImportFromUrl extends HttpServlet {
 				try {
 					json = method.processChallonge(tourneyName);
 				}catch(Exception e) {
-					System.out.println(tourneyName);
 					method.alertAndRedirectError("Problem entering tournament, please report this error!", request, response);
 					return;
 				}	
@@ -270,6 +269,7 @@ public class ImportFromUrl extends HttpServlet {
 				method.updatePlacingRankings(mainBracket);
 				apiURL = "https://api.smash.gg/tournament/"+tournament+"/event/"+game+"?expand[]=groups";
 				pageText = method.getPageTextFromURLString(apiURL);
+				
 				JSONParser	parser = new JSONParser();
 				JSONObject wrapper = null;
 				try {
@@ -288,6 +288,7 @@ public class ImportFromUrl extends HttpServlet {
 					//System.out.println("_____________");
 					//System.out.println(new_request);
 					pageText = method.getPageTextFromURLString(new_request);
+					
 					JSONObject group_wrapper = null;
 					try {
 						group_wrapper = (JSONObject) parser.parse(pageText);
@@ -327,6 +328,8 @@ public class ImportFromUrl extends HttpServlet {
 								}
 							}
 							int index = curr_placement.intValue()-1;
+							if(index >= tempPlayers.length) {System.out.println(newTourney.getName());
+							System.out.println(pageText);}
 							while(tempPlayers[index] != null){
 								index++;
 							}
