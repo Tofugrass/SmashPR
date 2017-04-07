@@ -379,6 +379,7 @@ public class ImportFromUrl extends HttpServlet {
 			session.setAttribute("includedPlacings", includedPlacings);
 			session.setAttribute("pr", new SortablePlayerList(players, 2));
 			method.alertAndRedirect("Everything imported successfully", request, response);
+			session.setAttribute("importFromFile", false);
 			return;
 		}
 	}

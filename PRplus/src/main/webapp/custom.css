@@ -1,14 +1,23 @@
 .panel-danger > .panel-heading{
+	background: url("panel_background.jpg") no-repeat !important;
     border: none;
-    background-image: none;
-    background-color: #909090;
     color: white;
 }
-.panel-danger > .panel-collapse{
-    background-image: none;
-    background-color: #c4c4c4;
-    color: black;
-
+.panel-danger > .panel-collapse{        
+	border: none;
+	background: url("player_body_background.jpg");
+    color: white;
+	background-size: 100%;
+}
+.panel-default > .panel-heading{    
+	background: url("player_head_background.jpg") no-repeat !important;
+    color: white;
+}
+.panel-default > .panel-collapse{    
+	border: none;
+	background: url("player_body_background.jpg");
+    color: white;
+background-size: 100%;
 }
 #dataPanel{
 margin-top: 20px;	
@@ -43,6 +52,7 @@ body{
 }
 #absolute{
    margin-top: 20px;
+   
 }
 .panel-heading{
     position: relative;

@@ -71,49 +71,40 @@
             <!--input-->
             <div class="container">
                 <div class="row">
-                    <div class="col-lg-6 col-md-6 col-sm-3 col-xs-3">
+                    <div class="col-lg-6 col-md-6 col-sm-3 col-xs-3 pull-left">
                         <div class="panel-group animated fadeInUp" id="fixed">
                             <div class="panel panel-danger" id="importSelect">
                                 <div class="panel-heading accordion-toggle collapsed" data-toggle="collapse" data-parent="#fixed" data-target="#load">
                                     <h4 class="panel-title">
-                                        Load Data (Click to expand)
+                                        Load Data
                                     </h4>
                                 </div>
                                 <div id="load" class="panel-collapse collapse">
                                     <div class="panel-body">
                                         <form method="POST" action="ImportFromUrl">
-                                            <input type="text" name="importUrl" placeholder="http://oxy.challonge.com/SmashSaturdaysSingles1">
-                                            <button type="submit" class="btn btn-sm">Load From URL</button>
+                                            <input type="text" name="importUrl" placeholder="http://challonge.com/u7vaxfqp">
+                                            <button type="submit" class="btn btn-sm"  style="color:black;">Load From URL</button>
                                         </form>
                                             <%
                                             
                                             if(session.getAttribute("importFromFile") == null || (Boolean) session.getAttribute("importFromFile") || session.getAttribute("importFromFile").equals(null) ){%>
-                                            	<p> Load from file:
+                                            	<h4>Load from file: </h4>
                                             	<form method="POST" enctype="multipart/form-data" action="ImportFromFile">
-                                            	<input type="file" name="importFile"> 
-                                            	<label class="btn btn-default btn-file"> Browse  <input
-										type="file" style="display: none;" name="importFile" >
-									</label>
-                                                <button type="submit" class="btn btn-sm">Press to upload the file!</button>
+                                            	<p> <input type="file" name="importFile">  </p>
+                     <!-- <label class="btn btn-default btn-file"> Browse  <input
+				type="file" style="display: none;" name="importFile" >
+				</label> -->
+                                                <p> <button type="submit" class="btn btn-sm"  style="color:black;">Press to upload the file!</button>
+                                                 </p>
                                                 </form>
-                                                </p>
-                                                <script>$(document).on('change', ':file', function() {
-                                                    var input = $(this),
-                                                    numFiles = input.get(0).files ? input.get(0).files.length : 1,
-                                                    label = input.val().replace(/\\/g, '/').replace(/.*\//, '');
-                                                input.trigger('fileselect', [numFiles, label]);
-                                            });</script>
-                                           <% }else{
-                                        	   System.out.println(session.getAttribute("importFromFile").toString());
-                                           }
-                                            %>
+                                                <%} %>
                                     </div>
                                 </div>
                             </div>
                             <div class="panel panel-danger" id="playerSelect">
                                 <div class="panel-heading accordion-toggle collapsed" data-toggle="collapse" data-parent="#fixed" data-target="#player">
                                     <h4 class="panel-title">
-                                        Player Search (Click to expand)
+                                        Player Search
                                     </h4>
                                 </div>
                                 <div id="player" class="panel-collapse collapse">
@@ -121,7 +112,7 @@
                                         <form method="POST" action="LoadPlayerData">
                                             <input type="text" name="playerA" placeholder="Mang0">
                                             <input type="text" name="playerB" placeholder="Armada (Optional)">
-                                            <button type="submit" class="btn btn-sm">Search</button>
+                                            <button type="submit" class="btn btn-sm"  style="color:black;">Search</button>
                                         </form>
                                     </div>
                                 </div>
@@ -135,33 +126,35 @@
                                 <div id="merge" class="panel-collapse collapse">
                                     <div class="panel-body">
                                         <form method="POST" action="MergePlayers">
+                                        <h4>Merge PlayerA into PlayerB</h4>
                                             <input type="text" name="playerA" placeholder="PlayerA">
                                             <input type="text" name="playerB" placeholder="PlayerB">
-                                            <button type="submit" class="btn btn-sm">Merge PlayerA into PlayerB</button>
+                                            <p><button type="submit" class="btn btn-sm" style="color:black;">Merge</button></p>
                                         </form>
                                         <form method="POST" action="RenamePlayer">
+                                        <h4>Rename Player</h4>
                                             <input type="text" name="playerA" placeholder="Old Name">
                                             <input type="text" name="playerB" placeholder="New Name">
-                                            <button type="submit" class="btn btn-sm">Rename Player</button>
+                                           <p> <button type="submit" class="btn btn-sm"  style="color:black;">Rename</button></p>
                                         </form>
                                     </div>
                                 </div>
                             </div>
                             <div class="panel panel-danger" id="downloadSelect">
-                                <div class="panel-heading">
+                                <div class="panel-heading" style="color: black;">
                                         <form method="POST" action="ExportToFile">
-                                            <input type="text" name="FileName" placeholder="FileName">
-                                            <button type="submit" class="btn btn-sm">Save Bracket Data</button>
+                                            <input type="text" name="fileName" placeholder="FileName">
+                                            <button type="submit" class="btn btn-sm black-background white">Save Bracket Data</button>
                                         </form>                                    
                                    
                                 </div>
                             </div>
                             <div class="panel panel-danger" id="tournamentSelect">
-                                <div class="panel-heading">
+                                <div class="panel-heading"  style="color: black;">
 
                                         <form method="POST" action="LoadTournamentData">
                                             <input type="text" name="tournamentName" placeholder="genesis-3">
-                                            <button type="submit" class="btn btn-sm">Search for Tournament</button>
+                                            <button type="submit" class="btn btn-sm black-background white">Search for Tournament</button>
                                         </form>                                    
                                     
                                 </div>
@@ -171,7 +164,7 @@
 
                     <!-- players -->
 
-                    <div class="col-lg-6 col-md-6 col-sm-3 col-xs-3 pull-right">
+                    <div class="col-lg-6 col-md-6 col-sm-3 col-xs-3 pull right">
 
                         <% if(request.getAttribute("displayData") != null){ 
                            String[] playerData = ((String) request.getAttribute("playerData")).split("\n");%>
@@ -221,6 +214,8 @@
 
                                                                     </div>
                                                             </div>
+                                                           
+<img alt="Logo" src="logo.png" style="position:fixed; left: 0px; bottom: 0px; margin-bottom: 50px; margin-left: 50px;">
 
                                                             <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
                                                             <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js" integrity="sha384-Tc5IQib027qvyjSMfHjOMaLkfuWVxZxUPnCJA7l2mCWNIpG9mGCD8wGNIcPD7Txa" crossorigin="anonymous"></script>
