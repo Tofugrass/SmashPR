@@ -1,6 +1,24 @@
 .panel-danger > .panel-heading{
     background-image: none;
+<<<<<<< HEAD
     
+=======
+    background-color: #909090;
+    color: white;
+}
+.panel-danger > .panel-collapse{
+    background-image: none;
+    background-color: #c4c4c4;
+    color: white;
+}
+#dataPanel{
+margin-top: 20px;	
+}
+body{
+	background-image: url("home_background.jpg");
+	background-size: 100%;
+	background-attachment: fixed;
+>>>>>>> 49290328cbd4506199e4bdb1ded3ccbcb7c3aec4
 }
 /*#importSelect{
     background-color: red;
@@ -24,10 +42,9 @@
     z-index: 2;
     min-width: 35%;
     max-width: 35%;
-    background-color: #d0d4db;
 }
 #absolute{
-   
+   margin-top: 20px;
 }
 .panel-heading{
     position: relative;
@@ -42,11 +59,11 @@
     /* adjust as needed, taken from bootstrap.css */
     float: right;
     position: absolute;
-    bottom: 15px;
+    bottom: 5px;
     right: 5px;
     font-size: 15pt;
     /* adjust as needed */
-    color: grey;
+    color: white;
     /* adjust as needed */
 }
 .panel-heading.accordion-toggle.collapsed:after {
