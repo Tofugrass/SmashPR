@@ -55,7 +55,7 @@
                             <span class="icon-bar"></span>
                             <span class="icon-bar"></span>
                         </button>
-                        <a class="navbar-brand" href="#">Project name</a>
+                        <a class="navbar-brand" href="#">PR+</a>
                     </div>
                     <div id="navbar" class="collapse navbar-collapse">
                         <ul class="nav navbar-nav">
@@ -168,21 +168,21 @@
 
                         <% if(request.getAttribute("displayData") != null){ 
                            String[] playerData = ((String) request.getAttribute("playerData")).split("\n");%>
-                                <div class="panel panel-default animated fadeInUp">
-                                    <div class="panel-heading">
-                                		<h4 class="panel-title">
-                                    <a data-toggle="collapse" data-target="#searchedPlayer"><%= playerData[0]%></a>
-                                        </h4>
+                            <div class="panel panel-default animated fadeInUp">
+                                <div class="panel-heading">
+                                    <h4 class="panel-title">
+                                        <a data-toggle="collapse" data-target="#searchedPlayer"><%= playerData[0]%></a>
+                                            </h4>
                                         </div>
                                     <div id="searchedPlayer" class="panel-collapse collapse">
-                                         <div class="panel-body">
-                                    <%for(int i = 1; i < playerData.length; i++){%>
-                                    <h5> <%= playerData[i]%></h5>
-                                        <%}%>
-                                            </div>
-                                       
-                                            </div>
-                                            </div>
+                                        <div class="panel-body">
+                                            <%for(int i = 1; i < playerData.length; i++){%>
+                                            <h5> <%= playerData[i]%></h5>
+                                                <%}%>
+                                                    </div>
+
+                                                </div>
+                                        </div>
                                         <% }%>
                                             <div class="panel-group animated fadeInUp" id="absolute">
 
