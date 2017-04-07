@@ -169,11 +169,11 @@
 
                         <% if(request.getAttribute("displayData") != null){ 
                            String[] playerData = ((String) request.getAttribute("playerData")).split("\n");%>
-                                <div class="panel animated fadeInUp">
+                                <div class="panel panel-default animated fadeInUp">
                                     <div class="panel-heading">
-                                		<h3 class="panel-title">
+                                		<h4 class="panel-title">
                                     <a data-toggle="collapse" data-target="#searchedPlayer"><%= playerData[0]%></a>
-                                        </h3>
+                                        </h4>
                                         </div>
                                     <div id="seachedPlayer" class="panel-collapse collapse">
                                          <div class="panel-body">
