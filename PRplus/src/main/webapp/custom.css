@@ -1,11 +1,14 @@
 .panel-danger > .panel-heading{
+    border: none;
     background-image: none;
     background-color: #909090;
     color: white;
 }
 .panel-danger > .panel-collapse{
     background-image: none;
-    color: white;
+    background-color: #c4c4c4;
+    color: black;
+
 }
 #dataPanel{
 margin-top: 20px;	
