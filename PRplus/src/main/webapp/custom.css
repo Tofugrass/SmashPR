@@ -1,6 +1,7 @@
 .panel-danger > .panel-heading{
     background-image: none;
-    background-color: lightslategrey;
+    background-color: #97B4C5;
+    
 }
 /*#importSelect{
     background-color: red;
@@ -24,7 +25,7 @@
     z-index: 2;
     min-width: 35%;
     max-width: 35%;
-    background-color: aqua;
+    background-color: #d0d4db;
 }
 #absolute{
    
