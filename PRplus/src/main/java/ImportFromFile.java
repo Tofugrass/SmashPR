@@ -228,6 +228,7 @@ public class ImportFromFile extends HttpServlet {
 					}catch(Exception e) {
 						e.printStackTrace();
 						method.alertAndRedirect("Oof", request, response);
+						scan.close();
 						return;
 					}
 				}

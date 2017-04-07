@@ -34,6 +34,12 @@
   	<description>Renames Player A as Player B</description>
   	<servlet-class>RenamePlayer</servlet-class>
   </servlet>
+  <servlet>
+  	<servlet-name>LoadTournamentData</servlet-name>
+  	<display-name>LoadTournamentData</display-name>
+  	<description>Displays tournament placings</description>
+  	<servlet-class>LoadTournamentData</servlet-class>
+  </servlet>
   <servlet-mapping>
   	<servlet-name>ImportFromUrl</servlet-name>
   	<url-pattern>/ImportFromUrl</url-pattern>
@@ -53,5 +59,9 @@
   <servlet-mapping>
   	<servlet-name>RenamePlayer</servlet-name>
   	<url-pattern>/RenamePlayer</url-pattern>
+  </servlet-mapping>
+  <servlet-mapping>
+  	<servlet-name>LoadTournamentData</servlet-name>
+  	<url-pattern>/LoadTournamentData</url-pattern>
   </servlet-mapping>
 </web-app>
