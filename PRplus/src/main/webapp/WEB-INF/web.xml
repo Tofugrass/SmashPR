@@ -16,6 +16,24 @@
   	<description></description>
   	<servlet-class>ImportFromFile</servlet-class>
   </servlet>
+  <servlet>
+  	<servlet-name>LoadPlayerData</servlet-name>
+  	<display-name>LoadPlayerData</display-name>
+  	<description>Loads player data, including player B</description>
+  	<servlet-class>LoadPlayerData</servlet-class>
+  </servlet>
+  <servlet>
+  	<servlet-name>MergePlayers</servlet-name>
+  	<display-name>MergePlayers</display-name>
+  	<description>Merge player A into player B</description>
+  	<servlet-class>MergePlayers</servlet-class>
+  </servlet>
+  <servlet>
+  	<servlet-name>RenamePlayer</servlet-name>
+  	<display-name>RenamePlayer</display-name>
+  	<description>Renames Player A as Player B</description>
+  	<servlet-class>RenamePlayer</servlet-class>
+  </servlet>
   <servlet-mapping>
   	<servlet-name>ImportFromUrl</servlet-name>
   	<url-pattern>/ImportFromUrl</url-pattern>
@@ -23,5 +41,17 @@
   <servlet-mapping>
   	<servlet-name>ImportFromFile</servlet-name>
   	<url-pattern>/ImportFromFile</url-pattern>
+  </servlet-mapping>
+  <servlet-mapping>
+  	<servlet-name>LoadPlayerData</servlet-name>
+  	<url-pattern>/LoadPlayerData</url-pattern>
+  </servlet-mapping>
+  <servlet-mapping>
+  	<servlet-name>MergePlayers</servlet-name>
+  	<url-pattern>/MergePlayers</url-pattern>
+  </servlet-mapping>
+  <servlet-mapping>
+  	<servlet-name>RenamePlayer</servlet-name>
+  	<url-pattern>/RenamePlayer</url-pattern>
   </servlet-mapping>
 </web-app>

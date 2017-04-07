@@ -1,3 +1,11 @@
+.panel-danger > .panel-heading{
+    background-image: none;
+    background-color: blueviolet;
+}
+/*#importSelect{
+    background-color: red;
+    color: gainsboro;
+}*/
 .row{
     margin-top:40px;
     padding: 0 10px;
@@ -14,12 +22,16 @@
     position: fixed;
     top: 90px;
     z-index: 2;
+    min-width: 35%;
+    max-width: 35%;
+    background-color: aqua;
 }
 #absolute{
    
 }
 .panel-heading{
     position: relative;
+    color: black;
 }
 
 .panel-heading.accordion-toggle:after {

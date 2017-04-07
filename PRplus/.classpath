@@ -6,11 +6,7 @@
 			<attribute name="maven.pomderived" value="true"/>
 		</attributes>
 	</classpathentry>
-	<classpathentry excluding="**" kind="src" output="target/classes" path="src/main/resources">
-		<attributes>
-			<attribute name="maven.pomderived" value="true"/>
-		</attributes>
-	</classpathentry>
+	<classpathentry including="*" kind="src" path="java"/>
 	<classpathentry kind="src" output="target/test-classes" path="src/test/java">
 		<attributes>
 			<attribute name="optional" value="true"/>
@@ -30,5 +26,11 @@
 	</classpathentry>
 	<classpathentry kind="lib" path="C:/Users/MicahD/workspace/PRplusPrivate"/>
 	<classpathentry kind="lib" path="C:/Users/MicahD/EE Workspace/commons-fileupload-1.3.2-bin/commons-fileupload-1.3.2-bin/lib/commons-fileupload-1.3.2.jar"/>
+	<classpathentry kind="lib" path="C:/Users/MicahD/workspace/prplus.jar"/>
+	<classpathentry excluding="**" kind="src" output="target/classes" path="src/main/resources">
+		<attributes>
+			<attribute name="maven.pomderived" value="true"/>
+		</attributes>
+	</classpathentry>
 	<classpathentry kind="output" path="target/classes"/>
 </classpath>

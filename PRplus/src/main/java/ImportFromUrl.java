@@ -13,6 +13,17 @@ import org.json.simple.JSONArray;
 import org.json.simple.JSONObject;
 import org.json.simple.parser.JSONParser;
 import org.json.simple.parser.ParseException;
+
+import pr.smash.Dependencies.Methods;
+import pr.smash.Dependencies.Player;
+import pr.smash.Dependencies.Match;
+import pr.smash.Dependencies.Tournament;
+import pr.smash.Dependencies.TournamentPlacings;
+import pr.smash.Dependencies.PlayerRanking;
+import pr.smash.Dependencies.smashGGPlayer;
+import pr.smash.Dependencies.SortablePlayerList;
+
+
 /**
  * Servlet implementation class ImportFromUrl
  */
@@ -41,8 +52,12 @@ public class ImportFromUrl extends HttpServlet {
 
 		//0 we redirect the user if the form isn't filled out
 
-		if(request.getParameter("importUrl") == null || request.getParameter("importUrl").equals("")) {method.alertAndRedirect("Please enter the url you would like to import from", request, response);}
+		if(request.getParameter("importUrl") == null || request.getParameter("importUrl").equals("")) {
+			method.alertAndRedirect("Please enter the url you would like to import from", request, response);
+			return;	
+		}
 		else {
+
 			//1 initialize all objects we need, these are the players, matches, tournaments and standings
 			HttpSession session = request.getSession();
 			ArrayList<Player> players = method.getSessionPlayers(session);
@@ -52,6 +67,7 @@ public class ImportFromUrl extends HttpServlet {
 
 			//3 import the standings and matches
 			String url = request.getParameter("importUrl");
+
 			if(url.contains("challonge")){
 				url = url.replace("https", "http");
 				if(url.contains("/standings")){
@@ -70,6 +86,7 @@ public class ImportFromUrl extends HttpServlet {
 				for(int i = 0; i < tournaments.size(); i++){
 					if(tournaments.get(i).getName().equals(tourneyName)){
 						method.alertAndRedirect("Tournament already entered", request, response);
+						return;
 					}
 				}
 				Tournament newTourney = new Tournament(tourneyName);
@@ -78,9 +95,13 @@ public class ImportFromUrl extends HttpServlet {
 					json = method.processChallonge(tourneyName);
 				}catch(Exception e) {
 					method.alertAndRedirect("Problem entering tournament, please report this error!", request, response);
+					return;
 				}	
 				json = (JSONObject) json.get("tournament");
-				if(json==null) method.alertAndRedirect("Hmmm Challonge couldn't find this tournament, please report this error!", request, response);
+				if(json==null) {
+					method.alertAndRedirect("Hmmm Challonge couldn't find this tournament, please report this error!", request, response);
+					return;
+				}
 				JSONArray participants = (JSONArray) json.get("participants");
 				ArrayList<smashGGPlayer> ggPlayers = new  ArrayList<smashGGPlayer>();
 				Player standings[] = new Player[participants.size()];
@@ -105,6 +126,7 @@ public class ImportFromUrl extends HttpServlet {
 								standings[index] = method.getSmashGGPlayerFromId((Long) player.get("id"), ggPlayers).getPlayer();
 							}catch(Exception e) {
 								method.alertAndRedirect("There must have been a weird character", request, response);
+								return;
 							}
 
 						}
@@ -127,6 +149,7 @@ public class ImportFromUrl extends HttpServlet {
 							standings[index] = method.getSmashGGPlayerFromId((Long) player.get("id"), ggPlayers).getPlayer();
 						}catch(Exception e) {
 							method.alertAndRedirect("There must have been a weird character", request, response);
+							return;
 						}
 					}
 				}
@@ -141,6 +164,7 @@ public class ImportFromUrl extends HttpServlet {
 							standings[index] = method.getPlayerFromName(method.trimSponsor(standArr[j]), players);
 						}catch(Exception e) {
 							method.alertAndRedirect("There must have been a weird character", request, response);
+							return;
 						}
 					}
 				}
@@ -188,7 +212,10 @@ public class ImportFromUrl extends HttpServlet {
 				method.updatePlacingRankings(newTourney);
 			}
 			else if(url.contains("smash.gg")){
+				System.out.println(url);
 				String game = request.getParameter("game");
+				//TODO: GET GAME
+				game = "melee-singles";
 				ArrayList<smashGGPlayer> smashGGPlayers = new ArrayList<smashGGPlayer>();
 				String tournament = url.substring(url.indexOf("tournament")+"tournament".length()+1);
 				if(tournament.contains("/"))
@@ -215,6 +242,7 @@ public class ImportFromUrl extends HttpServlet {
 					} catch (ParseException e) {
 						method.alertAndRedirect("Hm there was an error", request, response);
 						e.printStackTrace();
+						return;
 					}
 					JSONObject items = (JSONObject) wrapper.get("items");
 					JSONObject entities = (JSONObject) items.get("entities");
@@ -246,6 +274,7 @@ public class ImportFromUrl extends HttpServlet {
 				} catch (ParseException e) {
 					method.alertAndRedirect("There must have been a weird character", request, response);
 					e.printStackTrace();
+					return;
 				}
 				JSONObject entities = (JSONObject) wrapper.get("entities");
 				JSONArray groups = (JSONArray) entities.get("groups");
@@ -262,6 +291,7 @@ public class ImportFromUrl extends HttpServlet {
 					} catch (ParseException e1) {
 						method.alertAndRedirect("There was an error", request, response);
 						e1.printStackTrace();
+						return;
 					}
 					JSONObject group_entities = (JSONObject) group_wrapper.get("entities");
 
@@ -327,13 +357,14 @@ public class ImportFromUrl extends HttpServlet {
 								method.enterMatch(match, includedMatches);
 							}catch(Exception e){
 								method.alertAndRedirect("There was an error", request, response);
+								return;
 							}
 						}
 					}
-					
 				}
 			}else {
 				method.alertAndRedirect("Please provide a valid url", request, response);
+				return;
 			}
 			//4 update the session objects
 			session.setAttribute("players", players);
@@ -342,6 +373,7 @@ public class ImportFromUrl extends HttpServlet {
 			session.setAttribute("includedPlacings", includedPlacings);
 			session.setAttribute("pr", new SortablePlayerList(players, 2));
 			method.alertAndRedirect("Everything imported successfully", request, response);
+			return;
 		}
 	}
 }
