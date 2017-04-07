@@ -88,12 +88,22 @@
                                             <input type="text" name="importUrl" placeholder="http://oxy.challonge.com/SmashSaturdaysSingles1">
                                             <button type="submit" class="btn btn-sm">Load From URL</button>
                                         </form>
-                                        <form method="POST" enctype="multipart/form-data" action="ImportFromFile">
-                                            <p> Load from file: </p>
-                                            <input type="file" name="importFile">
-                                            <br/>
-                                            <input type="submit" value="Press to upload the file!">
-                                        </form>
+                                       
+                                            
+                                             
+                                            <%
+                                            if(session.getAttribute("importFromFile") == null || (Boolean) session.getAttribute("importFromFile")){%>
+                                            	<p> Load from file: </p>
+                                            	<form method="POST" enctype="multipart/form-data" action="ImportFromFile">
+                                            	<input type="file" name="importFile">
+                                                <br/>
+                                                <input type="submit" value="Press to upload the file!">
+                                                </form>
+                                           <% }
+                                            %>
+                                            
+                                            
+                                       
                                     </div>
                                 </div>
                             </div>
