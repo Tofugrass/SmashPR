@@ -136,7 +136,7 @@
                             </div>
                             <div class="panel" id="downloadSelect">
                                 <div class="panel-heading">
-                                        <form method="POST" action="SaveFile">
+                                        <form method="POST" action="ExportToFile">
                                             <input type="text" name="FileName" placeholder="FileName">
                                             <button type="submit" class="btn btn-sm">Save Bracket Data</button>
                                         </form>                                    
@@ -208,16 +208,6 @@
                                                                     </div>
                                                             </div>
 
-
-
-                                                            <style>
-                                                                body{
-                                                                    margin: 50px;
-                                                                    background-color: aqua;
-                                                                    font-family: sans-serif;
-                                                                    text-align: left;
-                                                                }
-                                                            </style>
                                                             <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
                                                             <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js" integrity="sha384-Tc5IQib027qvyjSMfHjOMaLkfuWVxZxUPnCJA7l2mCWNIpG9mGCD8wGNIcPD7Txa" crossorigin="anonymous"></script>
                                                             <script>

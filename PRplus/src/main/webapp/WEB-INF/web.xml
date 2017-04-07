@@ -40,6 +40,12 @@
   	<description>Displays tournament placings</description>
   	<servlet-class>LoadTournamentData</servlet-class>
   </servlet>
+  <servlet>
+  	<servlet-name>ExportToFile</servlet-name>
+  	<display-name>ExportToFile</display-name>
+  	<description>Saves file to local disk</description>
+  	<servlet-class>ExportToFile</servlet-class>
+  </servlet>
   <servlet-mapping>
   	<servlet-name>ImportFromUrl</servlet-name>
   	<url-pattern>/ImportFromUrl</url-pattern>
@@ -63,5 +69,9 @@
   <servlet-mapping>
   	<servlet-name>LoadTournamentData</servlet-name>
   	<url-pattern>/LoadTournamentData</url-pattern>
+  </servlet-mapping>
+  <servlet-mapping>
+  	<servlet-name>ExportToFile</servlet-name>
+  	<url-pattern>/ExportToFile</url-pattern>
   </servlet-mapping>
 </web-app>
