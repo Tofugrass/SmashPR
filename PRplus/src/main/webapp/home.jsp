@@ -88,12 +88,21 @@
                                             <%
                                             
                                             if(session.getAttribute("importFromFile") == null || (Boolean) session.getAttribute("importFromFile") || session.getAttribute("importFromFile").equals(null) ){%>
-                                            	<p> Load from file: </p>
+                                            	<p> Load from file:
                                             	<form method="POST" enctype="multipart/form-data" action="ImportFromFile">
-                                            	<input type="file" name="importFile">
-                                                <br/>
-                                                <input type="submit" value="Press to upload the file!">
+                                            	<input type="file" name="importFile"> 
+                                            	<label class="btn btn-default btn-file"> Browse  <input
+										type="file" style="display: none;" name="importFile" >
+									</label>
+                                                <button type="submit" class="btn btn-sm">Press to upload the file!</button>
                                                 </form>
+                                                </p>
+                                                <script>$(document).on('change', ':file', function() {
+                                                    var input = $(this),
+                                                    numFiles = input.get(0).files ? input.get(0).files.length : 1,
+                                                    label = input.val().replace(/\\/g, '/').replace(/.*\//, '');
+                                                input.trigger('fileselect', [numFiles, label]);
+                                            });</script>
                                            <% }else{
                                         	   System.out.println(session.getAttribute("importFromFile").toString());
                                            }
