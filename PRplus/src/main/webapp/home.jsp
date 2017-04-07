@@ -115,7 +115,7 @@
                                     </div>
                                 </div>
                             </div>
-                            <div class="panel panel-default">
+                            <div class="panel panel-danger">
                                 <div class="panel-heading accordion-toggle collapsed" data-toggle="collapse" data-parent="#fixed" data-target="#merge">
                                     <h4 class="panel-title" style="color:white;" >
                                         Modify Data
@@ -136,7 +136,7 @@
                                     </div>
                                 </div>
                             </div>
-                            <div class="panel" id="downloadSelect">
+                            <div class="panel panel-danger" id="downloadSelect">
                                 <div class="panel-heading">
                                         <form method="POST" action="ExportToFile">
                                             <input type="text" name="FileName" placeholder="FileName">
@@ -145,7 +145,7 @@
                                    
                                 </div>
                             </div>
-                            <div class="panel" id="tournamentSelect">
+                            <div class="panel panel-danger" id="tournamentSelect">
                                 <div class="panel-heading">
 
                                         <form method="POST" action="LoadTournamentData">
