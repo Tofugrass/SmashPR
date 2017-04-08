@@ -55,14 +55,15 @@ public class ImportFromFile extends HttpServlet {
 
 		//0 we redirect the user if the form isn't filled out	
 
-
+		
 		Methods method = new Methods();
 		// */	
 		//1 initialize all objects we need, these are the players, matches, tournaments and standings
 		HttpSession session = request.getSession();
-		if(session.getAttribute("importFromFile") == null || (Boolean) session.getAttribute("importFromFile")){
-		
 		ArrayList<Player> players = method.getSessionPlayers(session);
+		if(players.size() == 0){
+		
+		
 		ArrayList<Match> includedMatches = method.getSessionIncludedMatches(session);
 		ArrayList<Match> excludedMatches = method.getSessionExcludedMatches(session);
 		ArrayList<Tournament> tournaments = method.getSessionTournaments(session);
@@ -91,7 +92,7 @@ public class ImportFromFile extends HttpServlet {
 			method.alertAndRedirectError("oof", request, response);
 			return;
 		}
-
+	
 		String total = items.get(0).getString();
 		// Process the uploaded items
 		Scanner scan = new Scanner(total);
@@ -282,7 +283,6 @@ public class ImportFromFile extends HttpServlet {
 			//System.out.println("done");
 		}
 		scan.close();
-		session.setAttribute("importFromFile", false);
 		session.setAttribute("players", players);
 		session.setAttribute("includedMatches", includedMatches);
 		session.setAttribute("excludedMatches", excludedMatches);
@@ -296,19 +296,5 @@ public class ImportFromFile extends HttpServlet {
 		return;
 	}
 
-
-	/**
-	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
-	 */
-	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		// TODO Auto-generated method stub
-	}
-
-	/**
-	 * @see HttpServlet#doPost(HttpServletRequest request, HttpServletResponse response)
-	 */
-	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		// TODO Auto-generated method stub
-	}
 
 }

@@ -46,6 +46,12 @@
   	<description>Saves file to local disk</description>
   	<servlet-class>ExportToFile</servlet-class>
   </servlet>
+  <servlet>
+  	<servlet-name>ExcludeMatch</servlet-name>
+  	<display-name>ExcludeMatch</display-name>
+  	<description>Includes or excludes a match with the given specifications</description>
+  	<servlet-class>ExcludeMatch</servlet-class>
+  </servlet>
   <servlet-mapping>
   	<servlet-name>ImportFromUrl</servlet-name>
   	<url-pattern>/ImportFromUrl</url-pattern>
@@ -73,5 +79,9 @@
   <servlet-mapping>
   	<servlet-name>ExportToFile</servlet-name>
   	<url-pattern>/ExportToFile</url-pattern>
+  </servlet-mapping>
+  <servlet-mapping>
+  	<servlet-name>ExcludeMatch</servlet-name>
+  	<url-pattern>/ExcludeMatch</url-pattern>
   </servlet-mapping>
 </web-app>

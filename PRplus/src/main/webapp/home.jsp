@@ -40,9 +40,7 @@
         ArrayList<Tournament> tournaments = method.getSessionTournaments(session);
         ArrayList<TournamentPlacings> includedPlacings = method.getSessionIncludedPlacings(session);
         ArrayList<TournamentPlacings> excludedPlacings = method.getSessionExcludedPlacings(session);
-
         SortablePlayerList pr = new SortablePlayerList(players, 2);
-
         %>
         <link rel="shortcut icon" type="image/x-icon" href="favIcon.ico" />
         <body>
@@ -60,9 +58,9 @@
                     </div>
                     <div id="navbar" class="collapse navbar-collapse">
                         <ul class="nav navbar-nav">
-                            <li class="active"><a href="#">Home</a></li>
+                            <li class="active"><a href="home.jsp">Home</a></li>
                             <li><a href="#about">About</a></li>
-                            <li><a href="#contact">Contact</a></li>
+                            <li><a href="contact.jsp">Contact</a></li>
                         </ul>
                     </div>
                     <!--/.nav-collapse -->
@@ -80,40 +78,67 @@
                                     </h4>
                                 </div>
                                 <div id="load" class="panel-collapse collapse">
-                                    <div class="panel-body">
+                                    <div class="panel-body"style="color:black;">
+                                    <h4>Load from URL</h4>
                                         <form method="POST" action="ImportFromUrl">
-                                            <input type="text" name="importUrl" placeholder="http://challonge.com/u7vaxfqp">
+                                            <input type="text" name="importUrl" placeholder="http://challonge.com/u7vaxfqp" style="width:55%;">
                                             <button type="submit" class="btn btn-sm"  style="color:black;">Load From URL</button>
                                         </form>
                                             <%
-                                            
-                                            if(session.getAttribute("importFromFile") == null || (Boolean) session.getAttribute("importFromFile") || session.getAttribute("importFromFile").equals(null) ){%>
-                                            	<h4>Load from file: </h4>
+                                            if(players.size() == 0){%>
+                                            	<h4>Load from file</h4>
                                             	<form method="POST" enctype="multipart/form-data" action="ImportFromFile">
                                             	<p> <input type="file" name="importFile">  </p>
-                     <!-- <label class="btn btn-default btn-file"> Browse  <input
-				type="file" style="display: none;" name="importFile" >
-				</label> -->
                                                 <p> <button type="submit" class="btn btn-sm"  style="color:black;">Press to upload the file!</button>
                                                  </p>
                                                 </form>
                                                 <%} %>
+                                                <form method="POST" action="ManualMatch">
+                                        	<h4>Manually Enter new Match</h4>
+                                            <input type="text" name="winner" placeholder="Winner">
+                                            <input type="text" name="loser" placeholder="Loser">
+                                            <input type="text" name="wScore" placeholder="Winner's Score">
+                                            <input type="text" name="lScore" placeholder="Loser's Score"> 
+                                            <input type="text" name="event" placeholder="Event">
+									<p>
+									<button type="submit" class="btn btn-sm"  style="color:black;">Enter</button>
+									</p>
+
+								</form>
+								<form method="POST" action="ManualTournament">
+                                        	<h4>Manually Enter new Tournament</h4>
+                                            <input type="text" name="event" placeholder="Event">
+									<p>
+									<button type="submit" class="btn btn-sm"  style="color:black;">Enter</button>
+									</p>
+
+								</form>
                                     </div>
                                 </div>
                             </div>
+                              <%   if(players.size() != 0){%>
                             <div class="panel panel-danger" id="playerSelect">
-                                <div class="panel-heading accordion-toggle collapsed" data-toggle="collapse" data-parent="#fixed" data-target="#player">
+                                <div class="panel-heading accordion-toggle collapsed" data-toggle="collapse" data-parent="#fixed" data-target="#search">
                                     <h4 class="panel-title">
-                                        Player Search
+                                       Search
                                     </h4>
                                 </div>
-                                <div id="player" class="panel-collapse collapse">
-                                    <div class="panel-body">
+                                <div id="search" class="panel-collapse collapse">
+                                    <div class="panel-body" style="color:black;">
+                                    <h4>Search for Player</h4>
                                         <form method="POST" action="LoadPlayerData">
-                                            <input type="text" name="playerA" placeholder="Mang0">
-                                            <input type="text" name="playerB" placeholder="Armada (Optional)">
+                                            <input type="text" name="playerA" placeholder="Mang0" style="color:black;">
+                                            <input type="text" name="playerB" placeholder="Armada (Optional)"style="color:black;">
                                             <button type="submit" class="btn btn-sm"  style="color:black;">Search</button>
                                         </form>
+                                        
+                                        <div class="row">
+                                        <h4>Search for Tournament</h4>
+                                        <form method="POST" action="LoadTournamentData">
+                                            <input type="text" name="tournamentName" placeholder="genesis-3">
+                                            <button type="submit" class="btn btn-sm black-background white">Search</button>
+                                        </form>     
+                                        </div>
                                     </div>
                                 </div>
                             </div>
@@ -124,10 +149,10 @@
                                     </h4>
                                 </div>
                                 <div id="merge" class="panel-collapse collapse">
-                                    <div class="panel-body">
+                                    <div class="panel-body" style="color:black;">
                                         <form method="POST" action="MergePlayers">
                                         <h4>Merge PlayerA into PlayerB</h4>
-                                            <input type="text" name="playerA" placeholder="PlayerA">
+                                            <input type="text" name="playerA" placeholder="PlayerA" >
                                             <input type="text" name="playerB" placeholder="PlayerB">
                                             <p><button type="submit" class="btn btn-sm" style="color:black;">Merge</button></p>
                                         </form>
@@ -137,6 +162,53 @@
                                             <input type="text" name="playerB" placeholder="New Name">
                                            <p> <button type="submit" class="btn btn-sm"  style="color:black;">Rename</button></p>
                                         </form>
+                                         <form method="POST" action="ExcludeMatch">
+                                        	<h4>Exclude/Include Match</h4>
+                                            <input type="text" name="winner" placeholder="Winner">
+                                            <input type="text" name="loser" placeholder="Loser">
+                                            <input type="text" name="wScore" placeholder="Winner's Score">
+                                            <input type="text" name="lScore" placeholder="Loser's Score"> 
+                                            <input type="text" name="event" placeholder="Event">
+
+									
+											<div class="btn-group" data-toggle="buttons">
+												<label class="btn btn-default active">
+												 <input type="radio" name='radio' checked value="exclude">
+												 <span> Exclude</span>
+												</label>
+												 <label class="btn btn-default"> 
+												 <input type="radio" name='radio' value="include">
+												 <span> Include</span>
+												</label>
+											</div>
+
+
+									
+									<p>
+									<button type="submit" class="btn btn-sm"  style="color:black;">Enter</button>
+									</p>
+
+								</form>
+								 <form method="POST" action="ExcludePlacing">
+                                        	<h4>Exclude/Include Placing</h4>
+                                            <input type="text" name="player" placeholder="Mango">
+                                            <input type="text" name="event" placeholder="HTC Throwdown">
+<p>
+
+									<div class="btn-group" data-toggle="buttons">
+												<label class="btn btn-default active">
+												 <input type="radio" name='radio' checked value="exclude">
+												 <span> Exclude</span>
+												</label>
+												 <label class="btn btn-default"> 
+												 <input type="radio" name='radio' value="include">
+												 <span> Include</span>
+												</label>
+											</div>
+									
+									<button type="submit" class="btn btn-sm"  style="color:black;">Enter</button>
+									
+								</form>
                                     </div>
                                 </div>
                             </div>
@@ -149,16 +221,8 @@
                                    
                                 </div>
                             </div>
-                            <div class="panel panel-danger" id="tournamentSelect">
-                                <div class="panel-heading"  style="color: black;">
-
-                                        <form method="POST" action="LoadTournamentData">
-                                            <input type="text" name="tournamentName" placeholder="genesis-3">
-                                            <button type="submit" class="btn btn-sm black-background white">Search for Tournament</button>
-                                        </form>                                    
-                                    
-                                </div>
-                            </div>
+                           
+                            <%}%>
                         </div>
                     </div>
 
