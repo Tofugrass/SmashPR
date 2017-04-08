@@ -49,7 +49,7 @@ public class LoadPlayerData extends HttpServlet {
 			HttpSession session = request.getSession();
 			ArrayList<Player> players = method.getSessionPlayers(session);
 			SortablePlayerList pr = new SortablePlayerList(players, 2);
-			String returnString = "Player to Display: ";
+			String returnString = "";
 			try{
 				Player player = null; 
 				try{
@@ -61,7 +61,7 @@ public class LoadPlayerData extends HttpServlet {
 				if(player!=null) {
 					if(request.getParameter("playerB") == null || request.getParameter("playerB").equals("") ) {
 						//matches
-						returnString += (player.getName()+"\n");
+						returnString += "Player to Display: " +player.getName()+"\n";
 						returnString += ("__Matches__\n");
 
 						returnString += ("___WINS___\n");
@@ -115,7 +115,7 @@ public class LoadPlayerData extends HttpServlet {
 						boolean played = false;
 						//matches
 
-						returnString += (player.getName()+" vs. "+player2.getName()+"\n");
+						returnString += "Players to Display: " +player.getName()+" vs. "+player2.getName()+"\n";
 						returnString += ("__Matches__\n");
 						int match = pr.matchAnalysis(player, player2).getInt();
 						if(match < 0){
