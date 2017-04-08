@@ -79,20 +79,21 @@
                                 </div>
                                 <div id="load" class="panel-collapse collapse">
                                     <div class="panel-body"style="color:black;">
-                                    <h4>Load from URL</h4>
-                                        <form method="POST" action="ImportFromUrl">
-                                            <input type="text" name="importUrl" placeholder="http://challonge.com/u7vaxfqp" style="width:55%;">
-                                            <button type="submit" class="btn btn-sm"  style="color:black;">Load From URL</button>
-                                        </form>
-                                            <%
-                                            if(players.size() == 0){%>
+                                           <% if(players.size() == 0){%>
                                             	<h4>Load from file</h4>
                                             	<form method="POST" enctype="multipart/form-data" action="ImportFromFile">
                                             	<p> <input type="file" name="importFile">  </p>
                                                 <p> <button type="submit" class="btn btn-sm"  style="color:black;">Press to upload the file!</button>
                                                  </p>
                                                 </form>
+                                                <hr>
                                                 <%} %>
+                                        <form method="POST" action="ImportFromUrl">
+                                         <h4>Load from URL</h4>
+                                            <input type="text" name="importUrl" placeholder="http://challonge.com/u7vaxfqp" style="width:55%;">
+                                            <button type="submit" class="btn btn-sm"  style="color:black;">Load From URL</button>
+                                        </form>
+                                           
                                                 <form method="POST" action="ManualMatch">
                                         	<h4>Manually Enter new Match</h4>
                                             <input type="text" name="winner" placeholder="Winner">
