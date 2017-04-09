@@ -1,8 +1,14 @@
 
 
+import java.io.File;
+import java.io.FileWriter;
 import java.io.IOException;
+import java.io.InputStream;
+import java.io.OutputStream;
+import java.io.PrintWriter;
 import java.util.ArrayList;
 
+import javax.servlet.ServletContext;
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
@@ -49,19 +55,34 @@ public class ExportToFile extends HttpServlet {
 		HttpSession session = request.getSession();
 		
 		
-		ArrayList<Player> players = method.getSessionPlayers(session);
-		if(players == null || request.getParameter("fileName") == null || request.getParameter("fileName").equals("")){
-			method.alertAndRedirectError("Please enter data before saving", request, response);
-			return;
+		
+		String fileName;
+		if(request.getParameter("fileName") == null || request.getParameter("fileName").equals("")){;
+		
+			fileName = "data";
 		}
-		method.alertAndRedirectError("Data saved to default download location as: "+ request.getParameter("fileName")+".pr", request, response);
-		return;
-		/**
-		 * 
+		else {
+			fileName = request.getParameter("fileName");
+		}
+		if(fileName.contains(".")) {
+			fileName = fileName.substring(0, fileName.indexOf("."));
+		}
+		
+		
+		
+		//**
+		  
 				FileWriter write = null;
 				try {
-					write = new FileWriter( txtname_1.getText()+".txt" , false);
-
+					//getServletContext().getRealPath("/") + 
+					File outputFile = new File("data.txt");
+					write = new FileWriter(outputFile , false);
+					
+					ArrayList<Player> players = method.getSessionPlayers(session);
+					ArrayList<Tournament> tournaments = method.getSessionTournaments(session);
+					ArrayList<Match> excludedMatches = method.getSessionExcludedMatches(session);
+					ArrayList<TournamentPlacings> excludedPlacings = method.getSessionExcludedPlacings(session);
+					
 					PrintWriter print_line = new PrintWriter( write );
 					print_line.println("__PlayerList__");
 					for(int i = 0;i < players.size(); i++){
@@ -116,12 +137,16 @@ public class ExportToFile extends HttpServlet {
 						print_line.print(placing.getPlayer().getName()+" "+placing.getTournament());
 					}
 					print_line.close();
-					JOptionPane.showMessageDialog(null, "Data exported successfully");
+					//System.out.println("<a href=\""+/**outputFile.getAbsolutePath()*/"data.txt"+"\" download=\""+fileName+"\">Download link</a>");
+					method.alertAndRedirectError("<a href=\""+/**outputFile.getAbsolutePath()*/"data.txt"+"\" download=\""+"data.pr"+"\">Download link</a>", request, response);
+					return;
+					
 				} catch (IOException e) {
-					JOptionPane.showMessageDialog(null, "Error occured while exporting data");
+					method.alertAndRedirectError("Error occured while exporting data", request, response);
+					return;
 				}
 			
-		 */
+		// */
 		
 	}
 	/**
