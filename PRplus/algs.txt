@@ -34,7 +34,7 @@ game to pick from challonge will be request.getParameter("game");
 		//1 initialize all objects we need, these are the players, matches, tournaments and standings
 		HttpSession session = request.getSession();
 		ArrayList<Player> players = method.getSessionPlayers(session);
-		if(players.size() == 0){
+		
 		
 		
 		ArrayList<Match> includedMatches = method.getSessionIncludedMatches(session);

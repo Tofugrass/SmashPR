@@ -12,15 +12,15 @@ import javax.servlet.http.HttpSession;
 import pr.smash.Dependencies.Methods;
 
 /**
- * Servlet implementation class ManualMatch
+ * Servlet implementation class ManualTournament
  */
-public class ManualMatch extends HttpServlet {
+public class ManualTournament extends HttpServlet {
 	private static final long serialVersionUID = 1L;
        
     /**
      * @see HttpServlet#HttpServlet()
      */
-    public ManualMatch() {
+    public ManualTournament() {
         super();
         // TODO Auto-generated constructor stub
     }

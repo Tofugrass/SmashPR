@@ -152,7 +152,7 @@ public class MergePlayers extends HttpServlet {
 			players.remove(playerA);
 			session.setAttribute("players", players);
 			session.setAttribute("pr", new SortablePlayerList(players, 2));
-			method.alertAndRedirect("Everything imported successfully", request, response);
+			method.alertAndRedirectError("Everything imported successfully", request, response);
 			return;
 		}catch(Exception y){
 			method.alertAndRedirectError("There was an error", request, response);

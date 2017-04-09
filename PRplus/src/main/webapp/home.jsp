@@ -233,7 +233,11 @@
 
                         <% if(request.getAttribute("displayData") != null){ 
                            String[] playerData = ((String) request.getAttribute("playerData")).split("\n");%>
-
+<br>
+<form method="post" action="Sort">
+<input type="text" name="sorts" placeholder="5 (Number of Sorts)">
+<button type="submit" class="btn btn-default" style="color:black;">Sort PR</button>
+</form>
                             <div id="dataPanel" class="panel panel-default animated fadeInUp">
                                 <div class="panel-heading">
                                     <h4 class="panel-title">

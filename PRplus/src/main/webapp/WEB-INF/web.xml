@@ -58,6 +58,24 @@
   	<description></description>
   	<servlet-class>ManualMatch</servlet-class>
   </servlet>
+  <servlet>
+  	<servlet-name>Sort</servlet-name>
+  	<display-name>Sort</display-name>
+  	<description>This servlet sorts the PR</description>
+  	<servlet-class>Sort</servlet-class>
+  </servlet>
+  <servlet>
+  	<servlet-name>ExcludePlacing</servlet-name>
+  	<display-name>ExcludePlacing</display-name>
+  	<description>This handles excluding and including  placings</description>
+  	<servlet-class>ExcludePlacing</servlet-class>
+  </servlet>
+  <servlet>
+  	<servlet-name>ManualTournament</servlet-name>
+  	<display-name>ManualTournament</display-name>
+  	<description>Manually enter a new tournament</description>
+  	<servlet-class>ManualTournament</servlet-class>
+  </servlet>
   <servlet-mapping>
   	<servlet-name>ImportFromUrl</servlet-name>
   	<url-pattern>/ImportFromUrl</url-pattern>
@@ -93,5 +111,17 @@
   <servlet-mapping>
   	<servlet-name>ManualMatch</servlet-name>
   	<url-pattern>/ManualMatch</url-pattern>
+  </servlet-mapping>
+  <servlet-mapping>
+  	<servlet-name>Sort</servlet-name>
+  	<url-pattern>/Sort</url-pattern>
+  </servlet-mapping>
+  <servlet-mapping>
+  	<servlet-name>ExcludePlacing</servlet-name>
+  	<url-pattern>/ExcludePlacing</url-pattern>
+  </servlet-mapping>
+  <servlet-mapping>
+  	<servlet-name>ManualTournament</servlet-name>
+  	<url-pattern>/ManualTournament</url-pattern>
   </servlet-mapping>
 </web-app>
