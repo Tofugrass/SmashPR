@@ -52,6 +52,12 @@
   	<description>Includes or excludes a match with the given specifications</description>
   	<servlet-class>ExcludeMatch</servlet-class>
   </servlet>
+  <servlet>
+  	<servlet-name>ManualMatch</servlet-name>
+  	<display-name>ManualMatch</display-name>
+  	<description></description>
+  	<servlet-class>ManualMatch</servlet-class>
+  </servlet>
   <servlet-mapping>
   	<servlet-name>ImportFromUrl</servlet-name>
   	<url-pattern>/ImportFromUrl</url-pattern>
@@ -83,5 +89,9 @@
   <servlet-mapping>
   	<servlet-name>ExcludeMatch</servlet-name>
   	<url-pattern>/ExcludeMatch</url-pattern>
+  </servlet-mapping>
+  <servlet-mapping>
+  	<servlet-name>ManualMatch</servlet-name>
+  	<url-pattern>/ManualMatch</url-pattern>
   </servlet-mapping>
 </web-app>
