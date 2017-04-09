@@ -67,7 +67,7 @@ public class ImportFromUrl extends HttpServlet {
 
 			//3 import the standings and matches
 			String url = request.getParameter("importUrl");
-
+System.out.println(url);
 			if(url.contains("challonge")){
 				url = url.replace("https", "http");
 				if(url.contains("/standings")){

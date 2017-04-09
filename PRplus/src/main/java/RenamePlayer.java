@@ -34,6 +34,27 @@ public class RenamePlayer extends HttpServlet {
 
 		HttpSession session = request.getSession();
 		ArrayList<Player> players = method.getSessionPlayers(session);
+		
+		String oldName = method.trimSponsor(request.getParameter("playerA").trim());
+		String newName =  method.trimSponsor(request.getParameter("playerB").trim());
+		Player player = null;
+		Player newPlayer = null;
+		try{
+			player = method.getPlayerFromName(oldName, players);
+			try{
+				newPlayer = method.getPlayerFromName(newName, players);
+				method.alertAndRedirectError("That tag is already being used!", request, response);
+				return;
+			}catch(Exception e){
+				player.setName(newName);
+				method.alertAndRedirect("Name changed successfully", request, response);
+				return;
+			}
+		}
+		catch(Exception e){
+			method.alertAndRedirectError("Player not found, check spelling", request, response);
+			return;
+		}
 	}
 
 	/**

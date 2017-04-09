@@ -37,7 +37,7 @@
 <![endif]-->
 </head>
 <%
-           Methods method = new Methods();
+	Methods method = new Methods();
            ArrayList<Player> manualTournamentResults = new ArrayList<Player>();
         ArrayList<Player> players = method.getSessionPlayers(session);
         ArrayList<Match> includedMatches = method.getSessionIncludedMatches(session);
@@ -46,7 +46,7 @@
         ArrayList<TournamentPlacings> includedPlacings = method.getSessionIncludedPlacings(session);
         ArrayList<TournamentPlacings> excludedPlacings = method.getSessionExcludedPlacings(session);
         SortablePlayerList pr = new SortablePlayerList(players, 2);
-        %>
+%>
 <link rel="shortcut icon" type="image/x-icon" href="favIcon.ico" />
 <body>
 
@@ -74,10 +74,17 @@
 	</nav>
 	<!--input-->
 	<div class="container">
-	
-	<br><br><br><br><br>
-	<h4>Contact us</h4>
-	<p>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.</p>
+
+		<br>
+		<br>
+		<br>
+		<br>
+		<br>
+		<h4>Contact us</h4>
+
+		<p>You may contact us via email @ mderusha@wisc.edu</p>
+		<p>Or on the github repository: tofugrass/prplus</p>
+		<p>Or on reddit: usernames -Tofugrasss -n0bodyknows</p>
 	</div>
 
 
@@ -91,15 +98,24 @@
 		integrity="sha384-Tc5IQib027qvyjSMfHjOMaLkfuWVxZxUPnCJA7l2mCWNIpG9mGCD8wGNIcPD7Txa"
 		crossorigin="anonymous"></script>
 	<script>
-                                                                $(function(){
-                                                                    $('a.button').on('click',function(){
-                                                                        $('input[name=stuff]').addClass('animated slideInUp').one('webkitAnimationEnd mozAnimationEnd MSAnimationEnd oanimationend animationend', function() {
-                                                                            $(this).removeClass('animated slideInUp');
-                                                                        });
+		$(function() {
+			$('a.button')
+					.on(
+							'click',
+							function() {
+								$('input[name=stuff]')
+										.addClass('animated slideInUp')
+										.one(
+												'webkitAnimationEnd mozAnimationEnd MSAnimationEnd oanimationend animationend',
+												function() {
+													$(this)
+															.removeClass(
+																	'animated slideInUp');
+												});
 
-                                                                    });
-                                                                });
-                                                            </script>
+							});
+		});
+	</script>
 	</div>
 	</div>
 
