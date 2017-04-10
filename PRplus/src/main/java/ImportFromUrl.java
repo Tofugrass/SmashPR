@@ -1,4 +1,5 @@
 import java.io.IOException;
+import java.io.PrintWriter;
 import java.net.URL;
 import java.util.ArrayList;
 import java.util.Scanner;
@@ -57,7 +58,7 @@ public class ImportFromUrl extends HttpServlet {
 			return;	
 		}
 		else {
-			
+
 			//1 initialize all objects we need, these are the players, matches, tournaments and standings
 			HttpSession session = request.getSession();
 			ArrayList<Player> players = method.getSessionPlayers(session);
@@ -67,9 +68,9 @@ public class ImportFromUrl extends HttpServlet {
 
 			//3 import the standings and matches
 			String url = request.getParameter("importUrl");
-System.out.println(url);
 			if(url.contains("challonge")){
 				url = url.replace("https", "http");
+				url = url.replace(".svg", "");
 				if(url.contains("/standings")){
 					url = url.substring(0, url.indexOf("/standings"));
 				}
@@ -89,7 +90,7 @@ System.out.println(url);
 						return;
 					}
 				}
-				
+
 				Tournament newTourney = new Tournament(tourneyName);
 				JSONObject json = null;
 				try {
@@ -103,7 +104,7 @@ System.out.println(url);
 					method.alertAndRedirectError("Hmmm Challonge couldn't find this tournament, please report this error!", request, response);
 					return;
 				}
-				
+
 				JSONArray participants = (JSONArray) json.get("participants");
 				ArrayList<smashGGPlayer> ggPlayers = new  ArrayList<smashGGPlayer>();
 				Player standings[] = new Player[participants.size()];
@@ -214,7 +215,6 @@ System.out.println(url);
 				method.updatePlacingRankings(newTourney);
 			}
 			else if(url.contains("smash.gg")){
-				System.out.println(url);
 				String game = request.getParameter("game");
 				//TODO: GET GAME
 				game = "melee-singles";
@@ -238,12 +238,12 @@ System.out.println(url);
 					pageText = method.getPageTextFromURLString(apiURL);
 
 					JSONParser parser = new JSONParser();
-					JSONObject wrapper = null;;
+					JSONObject wrapper = null;
 					try {
 						wrapper = (JSONObject) parser.parse(pageText);
 					} catch (ParseException e) {
 						method.alertAndRedirectError("Hm there was an error", request, response);
-						e.printStackTrace();
+						//e.printStackTrace();
 						return;
 					}
 					JSONObject items = (JSONObject) wrapper.get("items");
@@ -253,10 +253,24 @@ System.out.println(url);
 						JSONObject curr_entrant = (JSONObject) entrants.get(j);
 						finalPlacement = (Long) curr_entrant.get("finalPlacement");
 						int index = finalPlacement.intValue()-1;
-						while(mainBracketPlayers[index] != null){
-							index++;
+						try {
+						if(index > 0){
+							if(mainBracketPlayers[index-1]==null){
+								//so if smash gg is doing the weird glitch where they dont actually fill the entire bracket. 
+								while(mainBracketPlayers[index-1] == null){
+									index--;
+								}//at the end of this loop, we know the previous player is there, so we can simply place the player at the current index
+							}
+							else{
+								while(mainBracketPlayers[index] != null){
+									index++;
+								}
+							}
 						}
 						mainBracketPlayers[index] = method.addSmashGGPlayer( players, smashGGPlayers, (Long) curr_entrant.get("id"),  method.trimSponsor((String) curr_entrant.get("name")) ).getPlayer();
+					}catch(Exception e) {
+						System.out.println(pageText);
+					}
 					}
 				}
 				for(int j = 0; j < mainBracketPlayers.length; j++){
@@ -269,7 +283,7 @@ System.out.println(url);
 				method.updatePlacingRankings(mainBracket);
 				apiURL = "https://api.smash.gg/tournament/"+tournament+"/event/"+game+"?expand[]=groups";
 				pageText = method.getPageTextFromURLString(apiURL);
-				
+
 				JSONParser	parser = new JSONParser();
 				JSONObject wrapper = null;
 				try {
@@ -285,10 +299,9 @@ System.out.println(url);
 					JSONObject curr = (JSONObject) groups.get(i);
 					Long phase_group = (Long) curr.get("id");
 					String new_request = "https://api.smash.gg/phase_group/"+phase_group+"?expand[]=sets&expand[]=entrants&expand[]=standings&expand[]=seeds";
-					//System.out.println("_____________");
-					//System.out.println(new_request);
-					pageText = method.getPageTextFromURLString(new_request);
 					
+					pageText = method.getPageTextFromURLString(new_request);
+
 					JSONObject group_wrapper = null;
 					try {
 						group_wrapper = (JSONObject) parser.parse(pageText);
@@ -308,8 +321,8 @@ System.out.println(url);
 						Long curr_placement = (Long) entrant.get("finalPlacement");
 						if(curr_placement == null || curr_placement > finalPlacement){
 							mustUsePlacings = true;
-							break;
 						}
+						method.addSmashGGPlayer(players, smashGGPlayers, (Long) entrant.get("id"), method.trimSponsor((String)entrant.get("name")));
 					}
 					if(mustUsePlacings){
 						Tournament newTourney = new Tournament(tournament+"/"+i);
@@ -328,15 +341,21 @@ System.out.println(url);
 								}
 							}
 							int index = curr_placement.intValue()-1;
-							if(index >= tempPlayers.length) {System.out.println(newTourney.getName());
-							System.out.println(pageText);}
-							while(tempPlayers[index] != null){
-								index++;
+							
+							if(index >= tempPlayers.length) {
+								index = tempPlayers.length-1;
+								while(tempPlayers[index] != null){
+									index--;
+								}
+							}
+							else {
+								while(tempPlayers[index] != null){
+									index++;
+								}
 							}
 							tempPlayers[index] = method.addSmashGGPlayer(players, smashGGPlayers, entrantID,  entrantName).getPlayer();
 						}
 						for(int j = 0; j < curr_entrants.size(); j++){
-							//System.out.println(tempPlayers[j].getName());
 							newTourney.addResults(tempPlayers[j]);
 						}
 						for(int j = 0; j < newTourney.getResults().size(); j++){
@@ -347,7 +366,6 @@ System.out.println(url);
 					}
 					JSONArray group_sets = (JSONArray) group_entities.get("sets");
 					for(int j = 0; j < group_sets.size(); j++){
-						//	System.out.println(j);
 						JSONObject set = (JSONObject) group_sets.get(j);
 						Long wID = (Long) set.get("winnerId");
 						Long lID = (Long) set.get("loserId");
@@ -378,7 +396,7 @@ System.out.println(url);
 			session.setAttribute("tournaments", tournaments);
 			session.setAttribute("includedPlacings", includedPlacings);
 			session.setAttribute("pr", new SortablePlayerList(players, 2));
-			method.alertAndRedirect("Everything imported successfully", request, response);
+			method.alertAndRedirectError("Everything imported successfully", request, response);
 			return;
 		}
 	}

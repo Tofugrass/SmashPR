@@ -125,7 +125,6 @@ public class ExportToFile extends HttpServlet {
 						}
 						print_line.println("__");
 					}
-
 					print_line.println("__Excluded Matches__");
 					for(int i = 0;i < excludedMatches.size(); i++){
 						Match match = excludedMatches.get(i);

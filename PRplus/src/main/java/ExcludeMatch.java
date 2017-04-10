@@ -141,9 +141,13 @@ public class ExcludeMatch extends HttpServlet {
 					}
 				}
 
+				if(!found) {
+					method.alertAndRedirectError("Match not found", request, response);
+					return;
+				}
 
-
-			}else {
+			}
+			else {
 				try{
 					boolean found = false;
 					for(int i = 0; i < excludedMatches.size();i++){

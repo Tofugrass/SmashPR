@@ -47,7 +47,7 @@ public class RenamePlayer extends HttpServlet {
 				return;
 			}catch(Exception e){
 				player.setName(newName);
-				method.alertAndRedirect("Name changed successfully", request, response);
+				method.alertAndRedirectError("Name changed successfully", request, response);
 				return;
 			}
 		}
