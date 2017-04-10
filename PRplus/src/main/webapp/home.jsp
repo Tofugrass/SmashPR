@@ -256,7 +256,7 @@ class="icon-bar"></span>
 
                 <!-- players -->
 
-                <div class="col-lg-6 col-md-6 col-sm-3 col-xs-3 pull right">
+                <div class="col-lg-6 col-md-6 col-sm-6 col-xs-6 pull right">
                     <%if(players.size() > 0){%>
                         <br>
                         <form method="post" action="Sort">
