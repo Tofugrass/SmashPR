@@ -198,7 +198,6 @@ public class ImportFromFile extends HttpServlet {
 									// TODO Auto-generated catch block
 									e.printStackTrace();
 								}
-
 								line = scan.nextLine();
 							}
 						}

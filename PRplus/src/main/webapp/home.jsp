@@ -85,7 +85,7 @@ class="icon-bar"></span>
 <!--input-->
 <div class="container">
 <div class="row">
-<div class="col-lg-6 col-md-6 col-sm-3 col-xs-3 pull-left">
+<div class="col-lg-6 col-md-6 col-sm-12 col-xs-12 pull-left">
     <div class="panel-group animated fadeInUp" id="fixed">
         <div class="panel panel-danger" id="importSelect">
             <div class="panel-heading accordion-toggle collapsed"
@@ -110,9 +110,8 @@ class="icon-bar"></span>
                         <%} %>
                             <form method="POST" action="ImportFromUrl">
                                 <h4>Load from URL</h4>
-                                <input type="text" name="importUrl"
-                                       placeholder="http://challonge.com/u7vaxfqp"
-                                       style="width: 55%;">
+                                <input type="text" name="importUrl" id="url"
+                                       placeholder="http://challonge.com/u7vaxfqp" >
                                 <button type="submit" class="btn btn-sm" style="color: black;">Load
                                     From URL</button>
                             </form>
@@ -202,11 +201,10 @@ class="icon-bar"></span>
 
 
                                     <div class="btn-group" data-toggle="buttons">
-                                        <label class="btn btn-default active"> <input
-                                                                                      type="radio" name='radio' checked value="exclude"> <span>
-                                            Exclude</span>
-                                        </label> <label class="btn btn-default"> <input type="radio"
-                                                                                        name='radio' value="include"> <span> Include</span>
+                                        <label class="btn btn-default active"> <input type="radio" name='radio' checked value="exclude"> 
+                                        <span>Exclude</span>
+                                        </label> <label class="btn btn-default"> 
+                                        <input type="radio"  name='radio' value="include"> <span> Include</span>
                                         </label>
                                     </div>
 
@@ -256,7 +254,7 @@ class="icon-bar"></span>
 
                 <!-- players -->
 
-                <div class="col-lg-6 col-md-6 col-sm-6 col-xs-6 pull right">
+                <div class="col-lg-6 col-md-6 col-sm-12 col-xs-12 pull right">
                     <%if(players.size() > 0){%>
                         <br>
                         <form method="post" action="Sort">
@@ -320,8 +318,7 @@ class="icon-bar"></span>
                                                                         </div>
                                                                 </div>
 
-                                                                <img alt="Logo" src="logo.png"
-                                                                     style="position: fixed; left: 0px; bottom: 0px; margin-bottom: 50px; margin-left: 50px;">
+                                                                <img alt="Logo" src="logo.png" id="logo">
 
                                                                 <script
                                                                         src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
