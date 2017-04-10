@@ -239,12 +239,12 @@ class="icon-bar"></span>
                     </div>
                     <div class="panel panel-danger" id="downloadSelect">
                         <div class="panel-heading" style="color: black;">
-                            <form method="POST" action="ExportToFile">
+                            <!-- <form method="POST" action="ExportToFile">
                                 <input type="text" name="fileName" placeholder="FileName">
                                 <button type="submit" class="btn btn-sm black-background white">Save
                                     Bracket Data</button>
-                            </form>
-
+                            </form> -->
+							<a href="ExportToFile" target="_blank" style="color:white;">Save Data</a>
                         </div>
                     </div>
 

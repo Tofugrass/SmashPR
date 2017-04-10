@@ -57,7 +57,7 @@ public class ExportToFile extends HttpServlet {
 		
 		
 		String fileName;
-		if(request.getParameter("fileName") == null || request.getParameter("fileName").equals("")){;
+		/*if(request.getParameter("fileName") == null || request.getParameter("fileName").equals("")){
 		
 			fileName = "data";
 		}
@@ -66,24 +66,24 @@ public class ExportToFile extends HttpServlet {
 		}
 		if(fileName.contains(".")) {
 			fileName = fileName.substring(0, fileName.indexOf("."));
-		}
+		}*/
 		
 		
 		
 		//**
 		  
-				FileWriter write = null;
+				//FileWriter write = null;
 				try {
 					//getServletContext().getRealPath("/") + 
-					File outputFile = new File("data.txt");
-					write = new FileWriter(outputFile , false);
+					//File outputFile = new File("data.txt");
+					//write = new FileWriter(outputFile , false);
 					
 					ArrayList<Player> players = method.getSessionPlayers(session);
 					ArrayList<Tournament> tournaments = method.getSessionTournaments(session);
 					ArrayList<Match> excludedMatches = method.getSessionExcludedMatches(session);
 					ArrayList<TournamentPlacings> excludedPlacings = method.getSessionExcludedPlacings(session);
 					
-					PrintWriter print_line = new PrintWriter( write );
+					PrintWriter print_line = response.getWriter();
 					print_line.println("__PlayerList__");
 					for(int i = 0;i < players.size(); i++){
 						Player player = players.get(i);
@@ -137,7 +137,7 @@ public class ExportToFile extends HttpServlet {
 					}
 					print_line.close();
 					//System.out.println("<a href=\""+/**outputFile.getAbsolutePath()*/"data.txt"+"\" download=\""+fileName+"\">Download link</a>");
-					method.alertAndRedirectError("<a href=\""+/**outputFile.getAbsolutePath()*/"data.txt"+"\" download=\""+"data.pr"+"\">Download link</a>", request, response);
+					//method.alertAndRedirectError("<a href=\""+/**outputFile.getAbsolutePath()*/"data.txt"+"\" download=\""+"data.pr"+"\">Download link</a>", request, response);
 					return;
 					
 				} catch (IOException e) {

@@ -1,28 +1,33 @@
-.panel-danger > .panel-heading{
+
+.panel-danger>.panel-heading {
 	background: url("panel_background.jpg") no-repeat !important;
-    border: none;
-    color: white;
+	border: none;
+	color: white;
 }
-.panel-danger > .panel-collapse{        
+
+.panel-danger>.panel-collapse {
 	border: none;
 	background: url("player_body_background.jpg");
-    color: white;
+	color: white;
 	background-size: 100%;
 }
-.panel-default > .panel-heading{    
+
+.panel-default>.panel-heading {
 	background: url("player_head_background.jpg") no-repeat !important;
-    color: white;
+	color: white;
 }
-.panel-default > .panel-collapse{    
+
+.panel-default>.panel-collapse {
 	border: none;
 	background: url("player_body_background.jpg");
-    color: white;
-background-size: 100%;
+	color: white;
+	background-size: 100%;
 }
-#dataPanel{
-margin-top: 20px;	
+#dataPanel {
+	margin-top: 20px;
 }
-body{
+
+body {
 	background-image: url("home_background.jpg");
 	background-size: 100%;
 	background-attachment: fixed;
@@ -31,59 +36,68 @@ body{
     background-color: red;
     color: gainsboro;
 }*/
-.row{
-    margin-top:40px;
-    padding: 0 10px;
+.row {
+	margin-top: 40px;
+	padding: 0 10px;
 }
 
-.clickable{
-    cursor: pointer;   
+.clickable {
+	cursor: pointer;
 }
+
 .panel-heading span {
 	margin-top: -20px;
 	font-size: 15px;
 }
-#fixed{
-    position: fixed;
-    top: 90px;
-    z-index: 2;
-    min-width: 35%;
-    max-width: 35%;
+
+#fixed {
+	position: fixed;
+	top: 90px;
+	z-index: 2;
+	min-width: 35%;
+	max-width: 35%;
 }
-#absolute{
-   margin-top: 20px;
-   
+@media screen and (max-width: 700px) {
+/* applies only if the screen is narrower than 500px */
+  #fixed {
+    position: static
+  }
 }
-.panel-heading{
-    position: relative;
-    color: black;
+#absolute {
+	margin-top: 20px;
+}
+
+.panel-heading {
+	position: relative;
+	color: black;
 }
 
 .panel-heading.accordion-toggle:after {
-    /* symbol for "opening" panels */
-    font-family:'Glyphicons Halflings';
-    /* essential for enabling glyphicon */
-    content:"\e235";
-    /* adjust as needed, taken from bootstrap.css */
-    float: right;
-    position: absolute;
-    bottom: 5px;
-    right: 5px;
-    font-size: 15pt;
-    /* adjust as needed */
-    color: white;
-    /* adjust as needed */
+	/* symbol for "opening" panels */
+	font-family: 'Glyphicons Halflings';
+	/* essential for enabling glyphicon */
+	content: "\e235";
+	/* adjust as needed, taken from bootstrap.css */
+	float: right;
+	position: absolute;
+	bottom: 5px;
+	right: 5px;
+	font-size: 15pt;
+	/* adjust as needed */
+	color: white;
+	/* adjust as needed */
 }
+
 .panel-heading.accordion-toggle.collapsed:after {
-    /* symbol for "collapsed" panels */
-    content:"\e234";
-    /* adjust as needed, taken from bootstrap.css */
+	/* symbol for "collapsed" panels */
+	content: "\e234";
+	/* adjust as needed, taken from bootstrap.css */
 }
 
 .panel-heading:hover {
-    cursor: pointer;
+	cursor: pointer;
 }
 
 .panel-heading:hover h4 {
-    text-decoration: underline;
+	text-decoration: underline;
 }
