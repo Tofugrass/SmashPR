@@ -1,0 +1,44 @@
+data objects that need to be stored in each session
+
+ArrayList<Tournament> tournaments = new ArrayList<Tournament>();
+ArrayList<Player> players = new ArrayList<Player>();
+ArrayList<Player> manualTournamentResults = new ArrayList<Player>();
+ArrayList<Match> includedMatches = new ArrayList<Match>();
+ArrayList<Match> excludedMatches = new ArrayList<Match>();
+ArrayList<TournamentPlacings> includedPlacings = new ArrayList<TournamentPlacings>();
+ArrayList<TournamentPlacings> excludedPlacings = new ArrayList<TournamentPlacings>();
+SortablePlayerList pr = new SortablePlayerList(players, 2);
+
+file to import from will be request.getParameter("importFile");
+url to import from will be request.getParameter("importUrl");
+game to pick from challonge will be request.getParameter("game");
+
+
+	protected void service(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+		
+		
+		//PROGRAM FLOW:
+		//0 we redirect the user if the form isn't filled out
+		//1 initialize all objects
+		//2 if any of them are null, we will create a new one
+		//3 import the standings and matches
+		//4 update the session objects
+		//return the user back to the original page
+
+
+		//0 we redirect the user if the form isn't filled out	
+
+		
+		Methods method = new Methods();
+		// */	
+		//1 initialize all objects we need, these are the players, matches, tournaments and standings
+		HttpSession session = request.getSession();
+		ArrayList<Player> players = method.getSessionPlayers(session);
+		
+		
+		
+		ArrayList<Match> includedMatches = method.getSessionIncludedMatches(session);
+		ArrayList<Match> excludedMatches = method.getSessionExcludedMatches(session);
+		ArrayList<Tournament> tournaments = method.getSessionTournaments(session);
+		ArrayList<TournamentPlacings> includedPlacings = method.getSessionIncludedPlacings(session);
+		ArrayList<TournamentPlacings> excludedPlacings = method.getSessionExcludedPlacings(session);

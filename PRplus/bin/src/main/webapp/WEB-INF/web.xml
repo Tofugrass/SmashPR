@@ -1,0 +1,127 @@
+<!DOCTYPE web-app PUBLIC
+ "-//Sun Microsystems, Inc.//DTD Web Application 2.3//EN"
+ "http://java.sun.com/dtd/web-app_2_3.dtd" >
+
+<web-app>
+  <display-name>Archetype Created Web Application</display-name>
+  <servlet>
+  	<servlet-name>ImportFromUrl</servlet-name>
+  	<display-name>ImportFromUrl</display-name>
+  	<description>This class adds all the new players to the session's player list. It does not sort. </description>
+  	<servlet-class>ImportFromUrl</servlet-class>
+  </servlet>
+  <servlet>
+  	<servlet-name>ImportFromFile</servlet-name>
+  	<display-name>ImportFromFile</display-name>
+  	<description></description>
+  	<servlet-class>ImportFromFile</servlet-class>
+  </servlet>
+  <servlet>
+  	<servlet-name>LoadPlayerData</servlet-name>
+  	<display-name>LoadPlayerData</display-name>
+  	<description>Loads player data, including player B</description>
+  	<servlet-class>LoadPlayerData</servlet-class>
+  </servlet>
+  <servlet>
+  	<servlet-name>MergePlayers</servlet-name>
+  	<display-name>MergePlayers</display-name>
+  	<description>Merge player A into player B</description>
+  	<servlet-class>MergePlayers</servlet-class>
+  </servlet>
+  <servlet>
+  	<servlet-name>RenamePlayer</servlet-name>
+  	<display-name>RenamePlayer</display-name>
+  	<description>Renames Player A as Player B</description>
+  	<servlet-class>RenamePlayer</servlet-class>
+  </servlet>
+  <servlet>
+  	<servlet-name>LoadTournamentData</servlet-name>
+  	<display-name>LoadTournamentData</display-name>
+  	<description>Displays tournament placings</description>
+  	<servlet-class>LoadTournamentData</servlet-class>
+  </servlet>
+  <servlet>
+  	<servlet-name>ExportToFile</servlet-name>
+  	<display-name>ExportToFile</display-name>
+  	<description>Saves file to local disk</description>
+  	<servlet-class>ExportToFile</servlet-class>
+  </servlet>
+  <servlet>
+  	<servlet-name>ExcludeMatch</servlet-name>
+  	<display-name>ExcludeMatch</display-name>
+  	<description>Includes or excludes a match with the given specifications</description>
+  	<servlet-class>ExcludeMatch</servlet-class>
+  </servlet>
+  <servlet>
+  	<servlet-name>ManualMatch</servlet-name>
+  	<display-name>ManualMatch</display-name>
+  	<description></description>
+  	<servlet-class>ManualMatch</servlet-class>
+  </servlet>
+  <servlet>
+  	<servlet-name>Sort</servlet-name>
+  	<display-name>Sort</display-name>
+  	<description>This servlet sorts the PR</description>
+  	<servlet-class>Sort</servlet-class>
+  </servlet>
+  <servlet>
+  	<servlet-name>ExcludePlacing</servlet-name>
+  	<display-name>ExcludePlacing</display-name>
+  	<description>This handles excluding and including  placings</description>
+  	<servlet-class>ExcludePlacing</servlet-class>
+  </servlet>
+  <servlet>
+  	<servlet-name>ManualTournament</servlet-name>
+  	<display-name>ManualTournament</display-name>
+  	<description>Manually enter a new tournament</description>
+  	<servlet-class>ManualTournament</servlet-class>
+  </servlet>
+  <servlet-mapping>
+  	<servlet-name>ImportFromUrl</servlet-name>
+  	<url-pattern>/ImportFromUrl</url-pattern>
+  </servlet-mapping>
+  <servlet-mapping>
+  	<servlet-name>ImportFromFile</servlet-name>
+  	<url-pattern>/ImportFromFile</url-pattern>
+  </servlet-mapping>
+  <servlet-mapping>
+  	<servlet-name>LoadPlayerData</servlet-name>
+  	<url-pattern>/LoadPlayerData</url-pattern>
+  </servlet-mapping>
+  <servlet-mapping>
+  	<servlet-name>MergePlayers</servlet-name>
+  	<url-pattern>/MergePlayers</url-pattern>
+  </servlet-mapping>
+  <servlet-mapping>
+  	<servlet-name>RenamePlayer</servlet-name>
+  	<url-pattern>/RenamePlayer</url-pattern>
+  </servlet-mapping>
+  <servlet-mapping>
+  	<servlet-name>LoadTournamentData</servlet-name>
+  	<url-pattern>/LoadTournamentData</url-pattern>
+  </servlet-mapping>
+  <servlet-mapping>
+  	<servlet-name>ExportToFile</servlet-name>
+  	<url-pattern>/ExportToFile</url-pattern>
+  </servlet-mapping>
+  <servlet-mapping>
+  	<servlet-name>ExcludeMatch</servlet-name>
+  	<url-pattern>/ExcludeMatch</url-pattern>
+  </servlet-mapping>
+  <servlet-mapping>
+  	<servlet-name>ManualMatch</servlet-name>
+  	<url-pattern>/ManualMatch</url-pattern>
+  </servlet-mapping>
+  <servlet-mapping>
+  	<servlet-name>Sort</servlet-name>
+  	<url-pattern>/Sort</url-pattern>
+  </servlet-mapping>
+  <servlet-mapping>
+  	<servlet-name>ExcludePlacing</servlet-name>
+  	<url-pattern>/ExcludePlacing</url-pattern>
+  </servlet-mapping>
+  <servlet-mapping>
+  	<servlet-name>ManualTournament</servlet-name>
+  	<url-pattern>/ManualTournament</url-pattern>
+  </servlet-mapping>
+</web-app>
