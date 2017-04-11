@@ -269,9 +269,9 @@ class="icon-bar"></span>
                                String[] playerData = ((String) request.getAttribute("playerData")).split("\n");%>
 
                                 <div id="dataPanel" class="panel panel-default animated fadeInUp">
-                                    <div class="panel-heading" data-toggle="collapse" data-target="#searchedPlayer">
+                                    <div class="panel-heading">
                                         <h4 class="panel-title">
-                                            <a class="accordion-toggle" ><%= playerData[0]%></a>
+                                            <a data-toggle="collapse" data-target="#searchedPlayer"><%= playerData[0]%></a>
                                                 </h4>
                                             </div>
                                         <div id="searchedPlayer" class="panel-collapse collapse">

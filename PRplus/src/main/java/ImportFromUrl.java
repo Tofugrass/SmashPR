@@ -252,25 +252,27 @@ public class ImportFromUrl extends HttpServlet {
 					for(int j = 0; j < entrants.size(); j++){
 						JSONObject curr_entrant = (JSONObject) entrants.get(j);
 						finalPlacement = (Long) curr_entrant.get("finalPlacement");
-						int index = finalPlacement.intValue()-1;
+						
 						try {
-						if(index > 0){
-							if(mainBracketPlayers[index-1]==null){
-								//so if smash gg is doing the weird glitch where they dont actually fill the entire bracket. 
-								while(mainBracketPlayers[index-1] == null){
-									index--;
-								}//at the end of this loop, we know the previous player is there, so we can simply place the player at the current index
+							int index = finalPlacement.intValue()-1;
+							if(index > 0){
+									while(mainBracketPlayers[index] != null){
+										index++;
+										if(index >= mainBracketPlayers.length){
+											index--;
+												//so if smash gg is doing the weird glitch where they dont actually fill the entire bracket. 
+												while(mainBracketPlayers[index] != null){
+													index--;
+												}//at the end of this loop, we know the previous player is there, so we can simply place the player at the current index
+											break;
+										}
+									}
+								//}
 							}
-							else{
-								while(mainBracketPlayers[index] != null){
-									index++;
-								}
-							}
+							mainBracketPlayers[index] = method.addSmashGGPlayer( players, smashGGPlayers, (Long) curr_entrant.get("id"),  method.trimSponsor((String) curr_entrant.get("name")) ).getPlayer();
+						}catch(Exception e) {
+							System.out.println(pageText);
 						}
-						mainBracketPlayers[index] = method.addSmashGGPlayer( players, smashGGPlayers, (Long) curr_entrant.get("id"),  method.trimSponsor((String) curr_entrant.get("name")) ).getPlayer();
-					}catch(Exception e) {
-						System.out.println(pageText);
-					}
 					}
 				}
 				for(int j = 0; j < mainBracketPlayers.length; j++){
@@ -299,7 +301,7 @@ public class ImportFromUrl extends HttpServlet {
 					JSONObject curr = (JSONObject) groups.get(i);
 					Long phase_group = (Long) curr.get("id");
 					String new_request = "https://api.smash.gg/phase_group/"+phase_group+"?expand[]=sets&expand[]=entrants&expand[]=standings&expand[]=seeds";
-					
+
 					pageText = method.getPageTextFromURLString(new_request);
 
 					JSONObject group_wrapper = null;
@@ -341,7 +343,7 @@ public class ImportFromUrl extends HttpServlet {
 								}
 							}
 							int index = curr_placement.intValue()-1;
-							
+
 							if(index >= tempPlayers.length) {
 								index = tempPlayers.length-1;
 								while(tempPlayers[index] != null){

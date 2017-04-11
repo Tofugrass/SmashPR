@@ -29,7 +29,7 @@ import pr.smash.Dependencies.PlayerRanking;
  */
 
 public class ImportFromFile extends HttpServlet {
-	private static final long serialVersionUID = 1L;
+	private static final long serialVersionUID = 42432L;
 
 	/**
 	 * @see HttpServlet#HttpServlet()
@@ -198,7 +198,6 @@ public class ImportFromFile extends HttpServlet {
 									// TODO Auto-generated catch block
 									e.printStackTrace();
 								}
-
 								line = scan.nextLine();
 							}
 						}
