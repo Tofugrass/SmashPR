@@ -119,8 +119,10 @@ class="icon-bar"></span>
 											<option>Select a Game</option>
 											<option>melee-singles</option>
 											<option>wii-u-singles</option>
+											<option>project-m-singles</option>
 											<option>smash-64-singles</option>
 											<option>street-fighter-v-singles</option>
+											
 										</select>
 										<p>Would you like to include all pools?</p>
 										<div class="btn-group" data-toggle="buttons">

@@ -1,5 +1,5 @@
+import java.io.FileNotFoundException;
 import java.io.IOException;
-import java.io.PrintWriter;
 import java.net.URL;
 import java.util.ArrayList;
 import java.util.Scanner;
@@ -233,13 +233,6 @@ public class ImportFromUrl extends HttpServlet {
 						return;
 					}
 				}
-				String apiURL = "https://api.smash.gg/tournament/"+tournament+"/event/"+game+"/standings?entityType=event&expand[]=entrants&page=1&per_page=25";
-				URL webpage = new URL(apiURL);
-				Scanner scan = new Scanner(webpage.openStream());
-				String pageText = scan.next();
-				scan.close();
-				Long total_count = Long.parseLong(pageText.substring(pageText.indexOf("total_count")+13, pageText.indexOf(",")));
-				Long pages = total_count / 64; 
 				/**
 				if(total_count % 64 != 0) pages++;
 				Long finalPlacement = (long) 0;
@@ -295,9 +288,8 @@ public class ImportFromUrl extends HttpServlet {
 				}
 				method.updatePlacingRankings(mainBracket);
 				//*/
-				apiURL = "https://api.smash.gg/tournament/"+tournament+"/event/"+game+"?expand[]=groups";
-				pageText = method.getPageTextFromURLString(apiURL);
-
+				String apiURL = "https://api.smash.gg/tournament/"+tournament+"/event/"+game+"?expand[]=groups";
+				String pageText = method.getPageTextFromURLString(apiURL);
 				JSONParser	parser = new JSONParser();
 				JSONObject wrapper = null;
 				try {
@@ -309,6 +301,10 @@ public class ImportFromUrl extends HttpServlet {
 				}
 				boolean started = false;
 				JSONObject entities = (JSONObject) wrapper.get("entities");
+				if(entities == null) {
+					method.alertAndRedirectError("This game was not at this event", request, response);
+					return;
+				}
 				JSONArray groups = (JSONArray) entities.get("groups");
 				for(int i = groups.size() - 1; i >= 0 ; i--){
 					
