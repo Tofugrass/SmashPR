@@ -42,3 +42,8 @@ game to pick from challonge will be request.getParameter("game");
 		ArrayList<Tournament> tournaments = method.getSessionTournaments(session);
 		ArrayList<TournamentPlacings> includedPlacings = method.getSessionIncludedPlacings(session);
 		ArrayList<TournamentPlacings> excludedPlacings = method.getSessionExcludedPlacings(session);
+		
+		get the total count? why
+		
+		get every group, get every set and every placement
+		

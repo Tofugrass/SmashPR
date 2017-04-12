@@ -112,11 +112,70 @@ class="icon-bar"></span>
                                 <h4>Load from URL</h4>
                                 <input type="text" name="importUrl" id="url"
                                        placeholder="http://challonge.com/u7vaxfqp" >
-                                <button type="submit" class="btn btn-sm" style="color: black;">Load
+                                <button type="submit" id="submitURL" class="btn btn-sm" style="color: black;">Load
                                     From URL</button>
-                            </form>
+									<div class="form-group" style="display:none;" id="game-wrapper" onChange=CheckGame>
+										<select class="form-control" name="game"  id="game">
+											<option>Select a Game</option>
+											<option>melee-singles</option>
+											<option>wii-u-singles</option>
+											<option>smash-64-singles</option>
+											<option>street-fighter-v-singles</option>
+										</select>
+										<p>Would you like to include all pools?</p>
+										<div class="btn-group" data-toggle="buttons">
+                                        <label class="btn btn-default active"> 
+                                        <input type="radio" name='radio' checked value="exclude"> 
+                                         <span>Exclude Pools</span>
+                                        </label> 
+                                        <label class="btn btn-default"> 
+                                        <input type="radio"  name='radio' value="include"> 
+                                        <span>Include Pools</span>
+                                        </label>
+                                    </div>
+									</div>
+								</form>
+<script>
+    onload = function () {
+       var url = document.getElementById('url');
+       url.oninput = CreateSmashGGParams;
+       url.onpropertychange = url.oninput; // for IE8
+       // e.onchange = e.oninput; // FF needs this in <select><option>...
+       // other things for onload()
+    };
+</script>
+								<script>
+function CreateSmashGGParams()
+{
+	 var url = document.getElementById('url');
+	 var val = url.value;
+	 var game_wrapper = document.getElementById('game-wrapper');
+	 if(val.indexOf("smash.gg") !== -1)
+		 game_wrapper.setAttribute("style", "display:block");
+	 else
+		 game_wrapper.setAttribute("style", "display:none");
+};
+</script>
+								<script>
+function CheckGame()
+{
+	 var game_wrapper = document.getElementById('game-wrapper');
+	 var style = window.getComputedStyle(game_wrapper).display;
+	 if(style !== 'none'){
+		var game = document.getElementById('game');
+		var val = game.value;
+		var submit = document.getElementById('submitURL');
+		if(val.indexOf("Select") !== -1){	
+			document.getElementById('my-input-id').disabled = true;
+		 }
+		 else{
+		 	document.getElementById('my-input-id').disabled = false;
+		 }
+	 }
+};
+</script>
 
-                            <form method="POST" action="ManualMatch">
+								<form method="POST" action="ManualMatch">
                                 <h4>Manually Enter new Match</h4>
                                 <input type="text" name="winner" placeholder="Winner">
                                 <input type="text" name="loser" placeholder="Loser"> <input

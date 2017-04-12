@@ -216,12 +216,23 @@ public class ImportFromUrl extends HttpServlet {
 			}
 			else if(url.contains("smash.gg")){
 				String game = request.getParameter("game");
-				//TODO: GET GAME
-				game = "melee-singles";
+				game = request.getParameter("game");
+				if(game.equals("Select a Game")) {
+					method.alertAndRedirectError("Please select a game when using SmashGG", request, response);
+					//session.setAttribute("saveURL", url);
+					return;
+				}
+				boolean includePools = request.getParameter("radio").equals("include");
 				ArrayList<smashGGPlayer> smashGGPlayers = new ArrayList<smashGGPlayer>();
 				String tournament = url.substring(url.indexOf("tournament")+"tournament".length()+1);
 				if(tournament.contains("/"))
 					tournament= tournament.substring(0, tournament.indexOf("/"));
+				for(int i = 0; i < tournaments.size(); i++){
+					if(tournaments.get(i).getName().equals(tournament)){
+						method.alertAndRedirectError("Tournament already entered", request, response);
+						return;
+					}
+				}
 				String apiURL = "https://api.smash.gg/tournament/"+tournament+"/event/"+game+"/standings?entityType=event&expand[]=entrants&page=1&per_page=25";
 				URL webpage = new URL(apiURL);
 				Scanner scan = new Scanner(webpage.openStream());
@@ -229,6 +240,7 @@ public class ImportFromUrl extends HttpServlet {
 				scan.close();
 				Long total_count = Long.parseLong(pageText.substring(pageText.indexOf("total_count")+13, pageText.indexOf(",")));
 				Long pages = total_count / 64; 
+				/**
 				if(total_count % 64 != 0) pages++;
 				Long finalPlacement = (long) 0;
 				Tournament mainBracket = new Tournament(tournament);
@@ -252,7 +264,6 @@ public class ImportFromUrl extends HttpServlet {
 					for(int j = 0; j < entrants.size(); j++){
 						JSONObject curr_entrant = (JSONObject) entrants.get(j);
 						finalPlacement = (Long) curr_entrant.get("finalPlacement");
-						
 						try {
 							int index = finalPlacement.intValue()-1;
 							if(index > 0){
@@ -283,6 +294,7 @@ public class ImportFromUrl extends HttpServlet {
 					method.enterPlacing(mainBracket.getResults().get(i), mainBracket.getName(), i,  mainBracket.getResults(), includedPlacings);
 				}
 				method.updatePlacingRankings(mainBracket);
+				//*/
 				apiURL = "https://api.smash.gg/tournament/"+tournament+"/event/"+game+"?expand[]=groups";
 				pageText = method.getPageTextFromURLString(apiURL);
 
@@ -309,84 +321,100 @@ public class ImportFromUrl extends HttpServlet {
 						group_wrapper = (JSONObject) parser.parse(pageText);
 					} catch (ParseException e1) {
 						method.alertAndRedirectError("There was an error", request, response);
-						e1.printStackTrace();
+						//e1.printStackTrace();
 						return;
 					}
+					
 					JSONObject group_entities = (JSONObject) group_wrapper.get("entities");
+					JSONObject curr_group = (JSONObject) group_entities.get("groups");
 
-					//	JSONObject curr_group = (JSONObject) group_entities.get("groups");
-					JSONArray curr_entrants = (JSONArray) group_entities.get("entrants");
-					boolean mustUsePlacings = false;
-					//this loop initializes player list
-					for(int j = 0; j < curr_entrants.size(); j++){
-						JSONObject entrant = (JSONObject) curr_entrants.get(j);
-						Long curr_placement = (Long) entrant.get("finalPlacement");
-						if(curr_placement == null || curr_placement > finalPlacement){
-							mustUsePlacings = true;
-						}
-						method.addSmashGGPlayer(players, smashGGPlayers, (Long) entrant.get("id"), method.trimSponsor((String)entrant.get("name")));
-					}
-					if(mustUsePlacings){
-						Tournament newTourney = new Tournament(tournament+"/"+i);
-						Player[] tempPlayers = new Player[curr_entrants.size()];
+					String stringIdentifier = (String) curr_group.get("displayIdentifier");
+					
+					//if(i == 144) System.out.println(pageText);
+					if(includePools || stringIdentifier.equals("1")) {
+						//if(stringIdentifier.equals("1")) System.out.println(123);
+						JSONArray curr_entrants = (JSONArray) group_entities.get("entrants");
+					//	boolean mustUsePlacings = false;
+						//this loop initializes player list
 						for(int j = 0; j < curr_entrants.size(); j++){
 							JSONObject entrant = (JSONObject) curr_entrants.get(j);
-							String entrantName = method.trimSponsor((String) entrant.get("name"));
-							Long entrantID = (Long) entrant.get("id");
-							Long curr_placement =  (long) 0;
-							JSONArray standings = (JSONArray) group_entities.get("standings");
-							for(int k = 0; k < standings.size(); k++){
-								JSONObject standing = (JSONObject) standings.get(k);
-								if((Long) standing.get("entrantId") - entrantID == 0){
-									curr_placement = (Long) standing.get("placement");
-									break;
-								}
+							/**
+							Long curr_placement = (Long) entrant.get("finalPlacement");
+							if(curr_placement == null || curr_placement > finalPlacement){
+								mustUsePlacings = true;
 							}
-							int index = curr_placement.intValue()-1;
-
-							if(index >= tempPlayers.length) {
-								index = tempPlayers.length-1;
-								while(tempPlayers[index] != null){
-									index--;
+							//*/
+							method.addSmashGGPlayer(players, smashGGPlayers, (Long) entrant.get("id"), method.trimSponsor((String)entrant.get("name")));
+						}
+				//		if(mustUsePlacings){
+							Tournament newTourney = new Tournament(tournament+"/"+i);
+							
+							Player[] tempPlayers = new Player[curr_entrants.size()];
+							for(int j = 0; j < curr_entrants.size(); j++){
+								JSONObject entrant = (JSONObject) curr_entrants.get(j);
+								String entrantName = method.trimSponsor((String) entrant.get("name"));
+								Long entrantID = (Long) entrant.get("id");
+								Long curr_placement =  (long) 0;
+								//**
+								JSONArray standings = (JSONArray) group_entities.get("standings");
+								for(int k = 0; k < standings.size(); k++){
+									JSONObject standing = (JSONObject) standings.get(k);
+									if((Long) standing.get("entrantId") - entrantID == 0){
+										curr_placement = (Long) standing.get("pendingPlacement");
+										break;
+									}
 								}
-							}
-							else {
+								//*/
+								int index = curr_placement.intValue()-1;
+								/**
 								while(tempPlayers[index] != null){
 									index++;
+									if(index >= tempPlayers.length){
+										index--;
+										//so if smash gg is doing the weird glitch where they dont actually fill the entire bracket. 
+										while(tempPlayers[index] != null){
+											index--;
+										}//at the end of this loop, we know the previous player is there, so we can simply place the player at the current index
+										break;
+									}
+
+									//}
+								}			
+								//*/			
+								tempPlayers[index] = method.addSmashGGPlayer(players, smashGGPlayers, entrantID,  entrantName).getPlayer();
+							}
+							for(int j = 0; j < curr_entrants.size(); j++){
+								newTourney.addResults(tempPlayers[j]);
+							}
+							for(int j = 0; j < newTourney.getResults().size(); j++){
+								method.enterPlacing(newTourney.getResults().get(j), newTourney.getName(), j,  newTourney.getResults(), includedPlacings);
+							}
+							tournaments.add(newTourney);
+							method.updatePlacingRankings(newTourney);
+					//	}
+						JSONArray group_sets = (JSONArray) group_entities.get("sets");
+						for(int j = 0; j < group_sets.size(); j++){
+							JSONObject set = (JSONObject) group_sets.get(j);
+							Long wID = (Long) set.get("winnerId");
+							Long lID = (Long) set.get("loserId");
+							if((Long) set.get("entrant1Score") != null && wID != null && lID != null && (Long) set.get("entrant2Score") != null){
+								int aScore = ((Long) set.get("entrant1Score")).intValue();
+								int bScore = ((Long) set.get("entrant2Score")).intValue();
+								Match match;
+								try{
+									if(aScore > bScore)
+										match = new Match(method.getSmashGGPlayerFromId(wID, smashGGPlayers).getPlayer(), aScore, bScore, method.getSmashGGPlayerFromId(lID, smashGGPlayers).getPlayer(), tournament);
+									else
+										match = new Match(method.getSmashGGPlayerFromId(wID, smashGGPlayers).getPlayer(), bScore, aScore, method.getSmashGGPlayerFromId(lID, smashGGPlayers).getPlayer(), tournament);
+									method.enterMatch(match, includedMatches);
+								}catch(Exception e){
+									method.alertAndRedirectError("There was an error", request, response);
+									return;
 								}
 							}
-							tempPlayers[index] = method.addSmashGGPlayer(players, smashGGPlayers, entrantID,  entrantName).getPlayer();
-						}
-						for(int j = 0; j < curr_entrants.size(); j++){
-							newTourney.addResults(tempPlayers[j]);
-						}
-						for(int j = 0; j < newTourney.getResults().size(); j++){
-							method.enterPlacing(newTourney.getResults().get(j), newTourney.getName(), j,  newTourney.getResults(), includedPlacings);
-						}
-						tournaments.add(newTourney);
-						method.updatePlacingRankings(newTourney);
-					}
-					JSONArray group_sets = (JSONArray) group_entities.get("sets");
-					for(int j = 0; j < group_sets.size(); j++){
-						JSONObject set = (JSONObject) group_sets.get(j);
-						Long wID = (Long) set.get("winnerId");
-						Long lID = (Long) set.get("loserId");
-						if((Long) set.get("entrant1Score") != null && wID != null && lID != null && (Long) set.get("entrant2Score") != null){
-							int aScore = ((Long) set.get("entrant1Score")).intValue();
-							int bScore = ((Long) set.get("entrant2Score")).intValue();
-							Match match;
-							try{
-								if(aScore > bScore)
-									match = new Match(method.getSmashGGPlayerFromId(wID, smashGGPlayers).getPlayer(), aScore, bScore, method.getSmashGGPlayerFromId(lID, smashGGPlayers).getPlayer(), tournament);
-								else
-									match = new Match(method.getSmashGGPlayerFromId(wID, smashGGPlayers).getPlayer(), bScore, aScore, method.getSmashGGPlayerFromId(lID, smashGGPlayers).getPlayer(), tournament);
-								method.enterMatch(match, includedMatches);
-							}catch(Exception e){
-								method.alertAndRedirectError("There was an error", request, response);
-								return;
-							}
 						}
 					}
+					
 				}
 			}else {
 				method.alertAndRedirectError("Please provide a valid url", request, response);
