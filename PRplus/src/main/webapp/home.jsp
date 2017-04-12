@@ -74,9 +74,9 @@ class="icon-bar"></span>
 </div>
 <div id="navbar" class="collapse navbar-collapse">
     <ul class="nav navbar-nav">
-        <li class="active"><a href="home.jsp">Home</a></li>
-        <li><a href="#about">About</a></li>
-        <li><a href="contact.jsp">Contact</a></li>
+    <li class="active"><a href="home.jsp">Home</a></li>
+					<li><a href="FAQ.jsp"  class="active">FAQ</a></li>
+					<li><a href="contact.jsp">Contact</a></li>
     </ul>
 </div>
 <!--/.nav-collapse -->
@@ -114,8 +114,8 @@ class="icon-bar"></span>
                                        placeholder="http://challonge.com/u7vaxfqp" >
                                 <button type="submit" id="submitURL" class="btn btn-sm" style="color: black;">Load
                                     From URL</button>
-									<div class="form-group" style="display:none;" id="game-wrapper" onChange=CheckGame>
-										<select class="form-control" name="game"  id="game">
+									<div class="form-group" style="display:none;" id="game-wrapper" >
+										<select class="form-control" name="game"  id="game" onchange="CheckGame(this.value)">
 											<option>Select a Game</option>
 											<option>melee-singles</option>
 											<option>wii-u-singles</option>
@@ -156,16 +156,13 @@ function CreateSmashGGParams()
 		 game_wrapper.setAttribute("style", "display:none");
 };
 </script>
-								<script>
-function CheckGame()
+								<script type="text/javascript">
+		function CheckGame(game)
 {
 	 var game_wrapper = document.getElementById('game-wrapper');
 	 var style = window.getComputedStyle(game_wrapper).display;
 	 if(style !== 'none'){
-		var game = document.getElementById('game');
-		var val = game.value;
-		var submit = document.getElementById('submitURL');
-		if(val.indexOf("Select") !== -1){	
+		if(game.indexOf("Select") !== -1){	
 			document.getElementById('my-input-id').disabled = true;
 		 }
 		 else{

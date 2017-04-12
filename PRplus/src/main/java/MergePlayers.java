@@ -38,6 +38,8 @@ public class MergePlayers extends HttpServlet {
 
 		HttpSession session = request.getSession();
 		ArrayList<Player> players = method.getSessionPlayers(session);
+		ArrayList<Match> excludedMatches = method.getSessionExcludedMatches(session);
+		ArrayList<TournamentPlacings> excludedPlacings = method.getSessionExcludedPlacings(session);
 		try{
 			Player playerA = null; 
 			Player playerB = null;
@@ -145,10 +147,27 @@ public class MergePlayers extends HttpServlet {
 
 			}
 			for(int i = 0; i < playerA.getLosses().size(); i++){
-				Match match =playerA.getLosses().get(i);
+				Match match = playerA.getLosses().get(i);
 				match.setLoser(playerB);
 				playerB.addLoss(match);
 			}
+			for(int i = 0; i < excludedMatches.size(); i++) {
+				Match curr = excludedMatches.get(i);
+				if(curr.getLoser().equals(playerA)) {
+					curr.setLoser(playerB);
+				}
+				if(curr.getWinner().equals(playerA)) {
+					curr.setWinner(playerB);
+				}
+			}
+			for(int i = 0; i < excludedPlacings.size(); i++) {
+				TournamentPlacings curr = excludedPlacings.get(i);
+				if(curr.getPlayer().equals(playerA)) {
+					curr.setPlayer(playerB);
+				}
+			}
+			
+			
 			players.remove(playerA);
 			session.setAttribute("players", players);
 			session.setAttribute("pr", new SortablePlayerList(players, 2));

@@ -228,7 +228,7 @@ public class ImportFromUrl extends HttpServlet {
 				if(tournament.contains("/"))
 					tournament= tournament.substring(0, tournament.indexOf("/"));
 				for(int i = 0; i < tournaments.size(); i++){
-					if(tournaments.get(i).getName().equals(tournament)){
+					if(tournaments.get(i).getName().equals(tournament+"/0")){
 						method.alertAndRedirectError("Tournament already entered", request, response);
 						return;
 					}
@@ -307,9 +307,11 @@ public class ImportFromUrl extends HttpServlet {
 					e.printStackTrace();
 					return;
 				}
+				boolean started = false;
 				JSONObject entities = (JSONObject) wrapper.get("entities");
 				JSONArray groups = (JSONArray) entities.get("groups");
-				for(int i = 0; i < groups.size(); i++){
+				for(int i = groups.size() - 1; i >= 0 ; i--){
+					
 					JSONObject curr = (JSONObject) groups.get(i);
 					Long phase_group = (Long) curr.get("id");
 					String new_request = "https://api.smash.gg/phase_group/"+phase_group+"?expand[]=sets&expand[]=entrants&expand[]=standings&expand[]=seeds";
@@ -332,6 +334,7 @@ public class ImportFromUrl extends HttpServlet {
 					
 					//if(i == 144) System.out.println(pageText);
 					if(includePools || stringIdentifier.equals("1")) {
+						if(!includePools) started = true;
 						//if(stringIdentifier.equals("1")) System.out.println(123);
 						JSONArray curr_entrants = (JSONArray) group_entities.get("entrants");
 					//	boolean mustUsePlacings = false;
@@ -402,11 +405,13 @@ public class ImportFromUrl extends HttpServlet {
 								int bScore = ((Long) set.get("entrant2Score")).intValue();
 								Match match;
 								try{
-									if(aScore > bScore)
-										match = new Match(method.getSmashGGPlayerFromId(wID, smashGGPlayers).getPlayer(), aScore, bScore, method.getSmashGGPlayerFromId(lID, smashGGPlayers).getPlayer(), tournament);
-									else
-										match = new Match(method.getSmashGGPlayerFromId(wID, smashGGPlayers).getPlayer(), bScore, aScore, method.getSmashGGPlayerFromId(lID, smashGGPlayers).getPlayer(), tournament);
-									method.enterMatch(match, includedMatches);
+									if(aScore >=0 &&  bScore >= 0) {
+										if(aScore > bScore)
+											match = new Match(method.getSmashGGPlayerFromId(wID, smashGGPlayers).getPlayer(), aScore, bScore, method.getSmashGGPlayerFromId(lID, smashGGPlayers).getPlayer(), tournament+"/"+i);
+										else
+											match = new Match(method.getSmashGGPlayerFromId(wID, smashGGPlayers).getPlayer(), bScore, aScore, method.getSmashGGPlayerFromId(lID, smashGGPlayers).getPlayer(), tournament+"/"+i);
+										method.enterMatch(match, includedMatches);
+									}
 								}catch(Exception e){
 									method.alertAndRedirectError("There was an error", request, response);
 									return;
@@ -414,7 +419,11 @@ public class ImportFromUrl extends HttpServlet {
 							}
 						}
 					}
-					
+					else {
+						if(started) {
+							break;
+						}
+					}
 				}
 			}else {
 				method.alertAndRedirectError("Please provide a valid url", request, response);
