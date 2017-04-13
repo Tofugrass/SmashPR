@@ -63,8 +63,8 @@ body {
 		top: 90px;
 		position: fixed;
 		margin-top: 20px;
-		min-width: 25%;
-		max-width: 25%;
+		min-width: 30%;
+		max-width: 30%;
 		float: left;
 	}
 }
