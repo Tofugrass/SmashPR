@@ -43,7 +43,46 @@ game to pick from challonge will be request.getParameter("game");
 		ArrayList<TournamentPlacings> includedPlacings = method.getSessionIncludedPlacings(session);
 		ArrayList<TournamentPlacings> excludedPlacings = method.getSessionExcludedPlacings(session);
 		
-		get the total count? why
+		method.alertAndRedirectError("Coming soon", request, response);
+		return;
 		
-		get every group, get every set and every placement
+		request.setAttribute("displayData", true);
+					request.setAttribute("playerData", returnString);
+					method.alertAndRedirect("Tournament added successfully", request, response);
+<script>
+    onload = function () {
+       var url = document.getElementById('url');
+       url.oninput = CreateSmashGGParams;
+       url.onpropertychange = url.oninput; // for IE8
+       // e.onchange = e.oninput; // FF needs this in <select><option>...
+       // other things for onload()
+    };
+</script>
+								<script>
+function CreateSmashGGParams()
+{
+	 var url = document.getElementById('url');
+	 var val = url.value;
+	 var game_wrapper = document.getElementById('game-wrapper');
+	 if(val.indexOf("smash.gg") !== -1)
+		 game_wrapper.setAttribute("style", "display:block");
+	 else
+		 game_wrapper.setAttribute("style", "display:none");
+};
+</script>
+								<script type="text/javascript">
+		function CheckGame(game)
+{
+	 var game_wrapper = document.getElementById('game-wrapper');
+	 var style = window.getComputedStyle(game_wrapper).display;
+	 if(style !== 'none'){
+		if(game.indexOf("Select") !== -1){	
+			document.getElementById('my-input-id').disabled = true;
+		 }
+		 else{
+		 	document.getElementById('my-input-id').disabled = false;
+		 }
+	 }
+};
+</script>
 		

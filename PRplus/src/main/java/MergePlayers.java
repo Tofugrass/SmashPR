@@ -50,6 +50,16 @@ public class MergePlayers extends HttpServlet {
 				method.alertAndRedirectError("Tags not recognized", request, response);
 				return;	
 			}
+			if(playerA.equals(playerB)) {
+				method.alertAndRedirectError("You can not merge the same player!", request, response);
+				return;	
+			}
+			for(int i = 0; i < playerA.getPlacings().size(); i++){
+				if(	playerA.getPlacings().get(i).getPlayer().equals(playerB)) {
+					method.alertAndRedirectError("You can not merge these players!", request, response);
+					return;	
+				}
+			}
 			for(int i = 0; i < playerA.getPlacings().size(); i++){
 				TournamentPlacings currPlayerAplacing = playerA.getPlacings().get(i);
 				int index = currPlayerAplacing.getPlayers().indexOf(playerA);
@@ -166,8 +176,8 @@ public class MergePlayers extends HttpServlet {
 					curr.setPlayer(playerB);
 				}
 			}
-			
-			
+
+
 			players.remove(playerA);
 			session.setAttribute("players", players);
 			session.setAttribute("pr", new SortablePlayerList(players, 2));

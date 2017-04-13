@@ -54,6 +54,7 @@ body {
 		position: static;
 		min-width: 85%;
 		max-width: 85%;
+		float: left;
 	}
 }
 
@@ -64,6 +65,7 @@ body {
 		margin-top: 20px;
 		min-width: 35%;
 		max-width: 35%;
+		float: left;
 	}
 }
 

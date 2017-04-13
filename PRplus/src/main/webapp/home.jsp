@@ -85,7 +85,7 @@ class="icon-bar"></span>
 <!--input-->
 <div class="container">
 <div class="row">
-<div class="col-lg-6 col-md-6 col-sm-12 col-xs-12 pull-left">
+<div class="col-lg-6 col-md-6 col-sm-12 col-xs-12 ">
     <div class="panel-group animated fadeInUp" id="fixed">
         <div class="panel panel-danger" id="importSelect">
             <div class="panel-heading accordion-toggle collapsed"
@@ -115,15 +115,6 @@ class="icon-bar"></span>
                                 <button type="submit" id="submitURL" class="btn btn-sm" style="color: black;">Load
                                     From URL</button>
 									<div class="form-group" style="display:none;" id="game-wrapper" >
-										<select class="form-control" name="game"  id="game" onchange="CheckGame(this.value)">
-											<option>Select a Game</option>
-											<option>melee-singles</option>
-											<option>wii-u-singles</option>
-											<option>project-m-singles</option>
-											<option>smash-64-singles</option>
-											<option>street-fighter-v-singles</option>
-											
-										</select>
 										<p>Would you like to include all pools?</p>
 										<div class="btn-group" data-toggle="buttons">
                                         <label class="btn btn-default active"> 
@@ -158,21 +149,7 @@ function CreateSmashGGParams()
 		 game_wrapper.setAttribute("style", "display:none");
 };
 </script>
-								<script type="text/javascript">
-		function CheckGame(game)
-{
-	 var game_wrapper = document.getElementById('game-wrapper');
-	 var style = window.getComputedStyle(game_wrapper).display;
-	 if(style !== 'none'){
-		if(game.indexOf("Select") !== -1){	
-			document.getElementById('my-input-id').disabled = true;
-		 }
-		 else{
-		 	document.getElementById('my-input-id').disabled = false;
-		 }
-	 }
-};
-</script>
+							
 
 								<form method="POST" action="ManualMatch">
                                 <h4>Manually Enter new Match</h4>
@@ -214,7 +191,7 @@ function CreateSmashGGParams()
                                     <button type="submit" class="btn btn-sm" style="color: black;">Search</button>
                                 </form>
 
-                                <div class="row">
+                               
                                     <h4>Search for Tournament</h4>
                                     <form method="POST" action="LoadTournamentData">
                                         <input type="text" name="tournamentName"
@@ -222,7 +199,20 @@ function CreateSmashGGParams()
                                         <button type="submit"
                                                 class="btn btn-sm black-background white">Search</button>
                                     </form>
-                                </div>
+                                    <h4>Show Excluded Matches</h4>
+                                    <form method="POST" action="LoadExcludedMatches">
+                                        <input type="text" name="player"
+                                               placeholder="Player to Search for (Optional)">
+                                        <button type="submit"
+                                                class="btn btn-sm black-background white">Search</button>
+                                    </form>
+                                     <h4>Show Excluded Placings</h4>
+                                    <form method="POST" action="LoadExcludedPlacings">
+                                        <input type="text" name="player"
+                                               placeholder="Player to Search for (Optional)">
+                                        <button type="submit"
+                                                class="btn btn-sm black-background white">Search</button>
+                                    </form>
                             </div>
                         </div>
                     </div>
@@ -294,16 +284,15 @@ function CreateSmashGGParams()
                         </div>
                     </div>
                     <div class="panel panel-danger" id="downloadSelect">
-                        <div class="panel-heading" style="color: black;">
-                            <!-- <form method="POST" action="ExportToFile">
-                                <input type="text" name="fileName" placeholder="FileName">
-                                <button type="submit" class="btn btn-sm black-background white">Save
-                                    Bracket Data</button>
-                            </form> -->
-							<a href="ExportToFile" target="_blank" style="color:white;">Save Data</a>
+			                        <div class="panel-heading" style="color: black;">
+			                            <!-- <form method="POST" action="ExportToFile">
+			                                <input type="text" name="fileName" placeholder="FileName">
+			                                <button type="submit" class="btn btn-sm black-background white">Save
+			                                    Bracket Data</button>
+			                            </form> -->
+							<a href="ExportToFile" target="_blank" style="color:white;">Save Data (Right click and Save As...)</a>
                         </div>
                     </div>
-
                     <%}%>
                         </div>
                     </div>

@@ -76,6 +76,18 @@
   	<description>Manually enter a new tournament</description>
   	<servlet-class>ManualTournament</servlet-class>
   </servlet>
+  <servlet>
+  	<servlet-name>LoadExcludedMatches</servlet-name>
+  	<display-name>LoadExcludedMatches</display-name>
+  	<description></description>
+  	<servlet-class>LoadExcludedMatches</servlet-class>
+  </servlet>
+  <servlet>
+  	<servlet-name>LoadExcludedPlacings</servlet-name>
+  	<display-name>LoadExcludedPlacings</display-name>
+  	<description></description>
+  	<servlet-class>LoadExcludedPlacings</servlet-class>
+  </servlet>
   <servlet-mapping>
   	<servlet-name>ImportFromUrl</servlet-name>
   	<url-pattern>/ImportFromUrl</url-pattern>
@@ -123,5 +135,13 @@
   <servlet-mapping>
   	<servlet-name>ManualTournament</servlet-name>
   	<url-pattern>/ManualTournament</url-pattern>
+  </servlet-mapping>
+  <servlet-mapping>
+  	<servlet-name>LoadExcludedMatches</servlet-name>
+  	<url-pattern>/LoadExcludedMatches</url-pattern>
+  </servlet-mapping>
+  <servlet-mapping>
+  	<servlet-name>LoadExcludedPlacings</servlet-name>
+  	<url-pattern>/LoadExcludedPlacings</url-pattern>
   </servlet-mapping>
 </web-app>

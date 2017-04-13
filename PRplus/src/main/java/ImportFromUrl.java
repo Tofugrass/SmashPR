@@ -131,7 +131,6 @@ public class ImportFromUrl extends HttpServlet {
 								method.alertAndRedirectError("There must have been a weird character", request, response);
 								return;
 							}
-
 						}
 						else{
 							//here we get the actual standings from the standings url. 
@@ -215,18 +214,19 @@ public class ImportFromUrl extends HttpServlet {
 				method.updatePlacingRankings(newTourney);
 			}
 			else if(url.contains("smash.gg")){
-				String game = request.getParameter("game");
-				game = request.getParameter("game");
-				if(game.equals("Select a Game")) {
-					method.alertAndRedirectError("Please select a game when using SmashGG", request, response);
-					//session.setAttribute("saveURL", url);
-					return;
-				}
+				
 				boolean includePools = request.getParameter("radio").equals("include");
 				ArrayList<smashGGPlayer> smashGGPlayers = new ArrayList<smashGGPlayer>();
 				String tournament = url.substring(url.indexOf("tournament")+"tournament".length()+1);
-				if(tournament.contains("/"))
-					tournament= tournament.substring(0, tournament.indexOf("/"));
+				String game = null;
+				try {
+					game = tournament.substring(tournament.indexOf("events/")+7);
+					game = game.substring(0, game.indexOf("/"));
+					tournament = tournament.substring(0, tournament.indexOf("/"));
+				}catch(Exception e){
+					method.alertAndRedirectError("Smash.gg events must contain /events/name-of-event/", request, response);
+					return;
+				}
 				for(int i = 0; i < tournaments.size(); i++){
 					if(tournaments.get(i).getName().equals(tournament+"/0")){
 						method.alertAndRedirectError("Tournament already entered", request, response);
@@ -322,12 +322,9 @@ public class ImportFromUrl extends HttpServlet {
 						//e1.printStackTrace();
 						return;
 					}
-					
 					JSONObject group_entities = (JSONObject) group_wrapper.get("entities");
 					JSONObject curr_group = (JSONObject) group_entities.get("groups");
-
 					String stringIdentifier = (String) curr_group.get("displayIdentifier");
-					
 					//if(i == 144) System.out.println(pageText);
 					if(includePools || stringIdentifier.equals("1")) {
 						if(!includePools) started = true;
