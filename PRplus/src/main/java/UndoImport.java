@@ -67,10 +67,9 @@ public class UndoImport extends HttpServlet {
 		for(int t = tournaments.size() - 1; t >= 0; t--) {
 			tournament = tournaments.get(t);
 			//exclude matches
-
 			for(int i = includedMatches.size() - 1; i >= 0 ;i--){
 				Match curr = includedMatches.get(i);
-				if(curr.getTourney().contains(matchString)){
+				if(curr.getTourney().getName().contains(matchString)){
 					//if we find the correct match we must exclude it and update player rankings				
 					Player w = curr.getWinner();
 					Player l = curr.getLoser();

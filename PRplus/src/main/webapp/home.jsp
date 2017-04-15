@@ -94,7 +94,7 @@ class="icon-bar"></span>
             </div>
             <div id="load" class="panel-collapse collapse">
                 <div class="panel-body" style="color: black;">
-                    <% if(players.size() == 0){%>
+                    
                         <h4>Load from file</h4>
                         <form method="POST" enctype="multipart/form-data"
                               action="ImportFromFile">
@@ -107,7 +107,7 @@ class="icon-bar"></span>
                             </p>
                         </form>
                         <hr>
-                        <%} %>
+                     
                             <form method="POST" action="ImportFromUrl">
                                 <h4>Load from URL</h4>
                                 <input type="text" name="importUrl" id="url"

@@ -57,7 +57,7 @@ public class LoadExcludedMatches extends HttpServlet {
 			String returnString = "Excluded Matches\n";
 			for(int i = 0; i < excludedMatches.size(); i++) {
 				Match match = excludedMatches.get(i);
-				returnString+= match.getWinner().getName()+" beat "+match.getLoser().getName()+" ("+match.getWinScore()+"-"+match.getLoseScore()+") at "+match.getTourney()+"\n";
+				returnString+= match.getWinner().getName()+" beat "+match.getLoser().getName()+" ("+match.getWinScore()+"-"+match.getLoseScore()+") at "+match.getTourney().getName()+"\n";
 			}
 			request.setAttribute("displayData", true);
 			request.setAttribute("playerData", returnString);

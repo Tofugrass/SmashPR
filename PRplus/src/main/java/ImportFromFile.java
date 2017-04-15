@@ -42,8 +42,8 @@ public class ImportFromFile extends HttpServlet {
 	 * @see HttpServlet#service(HttpServletRequest request, HttpServletResponse response)
 	 */
 	protected void service(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		
-		
+
+
 		//PROGRAM FLOW:
 		//0 we redirect the user if the form isn't filled out
 		//1 initialize all objects
@@ -55,20 +55,20 @@ public class ImportFromFile extends HttpServlet {
 
 		//0 we redirect the user if the form isn't filled out	
 
-		
+
 		Methods method = new Methods();
 		// */	
 		//1 initialize all objects we need, these are the players, matches, tournaments and standings
 		HttpSession session = request.getSession();
 		ArrayList<Player> players = method.getSessionPlayers(session);
-		if(players.size() == 0){
-		
-		
+
+
+
 		ArrayList<Match> includedMatches = method.getSessionIncludedMatches(session);
-		ArrayList<Match> excludedMatches = method.getSessionExcludedMatches(session);
+		//ArrayList<Match> excludedMatches = method.getSessionExcludedMatches(session);
 		ArrayList<Tournament> tournaments = method.getSessionTournaments(session);
 		ArrayList<TournamentPlacings> includedPlacings = method.getSessionIncludedPlacings(session);
-		ArrayList<TournamentPlacings> excludedPlacings = method.getSessionExcludedPlacings(session);
+		//ArrayList<TournamentPlacings> excludedPlacings = method.getSessionExcludedPlacings(session);
 
 		// Check that we have a file upload request
 
@@ -84,7 +84,7 @@ public class ImportFromFile extends HttpServlet {
 		ServletFileUpload upload = new ServletFileUpload(factory);
 
 		// Parse the request
-		
+
 		List<FileItem> items = null;
 		try {
 			items =  upload.parseRequest(request);
@@ -92,41 +92,78 @@ public class ImportFromFile extends HttpServlet {
 			method.alertAndRedirectError("oof", request, response);
 			return;
 		}
-	
+
 		String total = items.get(0).getString();
 		// Process the uploaded items
 		Scanner scan = new Scanner(total);
+		String line = scan.nextLine();
+		if(!line.equals("__Tournaments__")){
+			scan.close();
+			method.alertAndRedirectError("Please import a valid file", request, response);
+			return;
+
+		}
 		while(scan.hasNextLine()) {
-			String line = scan.nextLine();
+			/*
 			if(line.equals("__PlayerList__")){
 				line = scan.nextLine();
 				while(!line.equals("__Tournaments__")){
 					players.add(new Player(line));
 					line = scan.nextLine();
 				}
+			}*/
+			boolean alreadyEntered = false;
+			line = scan.nextLine();
+			Tournament newTourney = new Tournament(line);
+			for(int i = 0; i < tournaments.size(); i++){
+				if(tournaments.get(i).getName().equals(newTourney.getName())){
+					alreadyEntered = true;
+				}
 			}
-			if(line.equals("__Tournaments__")){
-				line = scan.nextLine();
-				while(!line.equals("__Players__")){
-					Tournament newTourney = new Tournament(line);
+			if(alreadyEntered) {
+				while(!line.equals("__")){
 					line = scan.nextLine();
-					while(!line.equals("__")){
+				}
+			}
+			else {
+				line = scan.nextLine();
+				while(!line.equals("__")){
+					line = scan.nextLine();
+					while(!line.equals("Matches-a57h5")){
 						try {
+							method.addPlayer(players, line);
 							newTourney.addResults(method.getPlayerFromName(line, players));
-						
 						} catch (Exception e) {
 							// TODO Auto-generated catch block
-							e.printStackTrace();
+							scan.close();
+							method.alertAndRedirectError("File corrupted", request, response);
+							return;
 						}
 						line = scan.nextLine();
 					}
-					tournaments.add(newTourney);
 					line = scan.nextLine();
 					for(int i = 0; i<newTourney.getResults().size(); i++){
 						method.enterPlacing(newTourney.getResults().get(i), newTourney.getName(), i,  newTourney.getResults(), includedPlacings);
 					}
+					tournaments.add(newTourney);
+					while(!line.equals("__")){
+						try {
+							String[] tokens = line.split(" ");
+							Match newMatch = new Match(method.getPlayerFromName(tokens[0], players), Integer.parseInt(tokens[1]), Integer.parseInt(tokens[2]),method.getPlayerFromName(tokens[3], players) , method.getTournamentFromName(tokens[4], tournaments));
+							method.enterMatch(newMatch, includedMatches);
+						} catch (Exception e) {
+							// TODO Auto-generated catch block
+							scan.close();
+							method.alertAndRedirectError("File corrupted", request, response);
+							return;
+						}
+						line = scan.nextLine();
+					}
 				}
-			}
+
+
+
+				/*
 			if(line.equals("__Players__")){
 				line = scan.nextLine();
 				while(!line.equals("__Excluded Matches__")){
@@ -160,7 +197,7 @@ public class ImportFromFile extends HttpServlet {
 							}
 						}
 						if(line.equals("Placement Rankings:")){
-							
+
 							line = scan.nextLine();
 							while(!line.equals("Wins:")){
 								try {
@@ -235,8 +272,9 @@ public class ImportFromFile extends HttpServlet {
 						return;
 					}
 				}
-			}
-			if(line.equals("__Excluded Matches__")){
+			}*/
+
+				/*if(line.equals("__Excluded Matches__")){
 				line = scan.nextLine();
 				while(!line.equals("__Excluded Placings__")){
 					String[] tokens = line.split(" ");
@@ -278,22 +316,21 @@ public class ImportFromFile extends HttpServlet {
 					}
 
 				}
+			}*/
+				//System.out.println("done");
 			}
-			//System.out.println("done");
 		}
 		scan.close();
 		session.setAttribute("players", players);
 		session.setAttribute("includedMatches", includedMatches);
-		session.setAttribute("excludedMatches", excludedMatches);
+		//session.setAttribute("excludedMatches", excludedMatches);
 		session.setAttribute("tournaments", tournaments);
 		session.setAttribute("includedPlacings", includedPlacings);
 		session.setAttribute("canUndo", "false");
 		method.alertAndRedirectError("Everything imported successfully", request, response);
 		return;
 	}
-		method.alertAndRedirectError("Already imported from file", request, response);
-		return;
-	}
+
 
 
 }

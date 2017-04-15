@@ -9,6 +9,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
+import pr.smash.Dependencies.Match;
 import pr.smash.Dependencies.Methods;
 import pr.smash.Dependencies.Player;
 import pr.smash.Dependencies.SortablePlayerList;
@@ -101,14 +102,18 @@ public class LoadTournamentData extends HttpServlet {
 							place = 1;
 						returnString += tournament.getResults().get(i).getName()+" placed "+place+"\n";
 					}
+					returnString += "Matches\n";
+					for(int i = 0; i< tournament.getMatches().size(); i++){
+						Match match = tournament.getMatches().get(i);
+						returnString+= match.getWinner().getName()+" won ("+match.getWinScore()+"-"+match.getLoseScore()+") over "+match.getLoser().getName()+"\n";
+					}
 					request.setAttribute("displayData", true);
 					request.setAttribute("playerData", returnString);
 					method.alertAndRedirect("Tournament added successfully", request, response);
 					return;
 				}
 			}
-			request.setAttribute("displayData", true);
-			request.setAttribute("playerData", "Tournament not found\n");
+			request.setAttribute("displayData", false);
 			method.alertAndRedirectError("Tournament not found", request, response);
 			return;
 		}

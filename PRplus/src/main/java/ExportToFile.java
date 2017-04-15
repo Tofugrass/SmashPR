@@ -56,7 +56,7 @@ public class ExportToFile extends HttpServlet {
 		
 		
 		
-		String fileName;
+		//String fileName;
 		/*if(request.getParameter("fileName") == null || request.getParameter("fileName").equals("")){
 		
 			fileName = "data";
@@ -78,28 +78,29 @@ public class ExportToFile extends HttpServlet {
 					//File outputFile = new File("data.txt");
 					//write = new FileWriter(outputFile , false);
 					
-					ArrayList<Player> players = method.getSessionPlayers(session);
 					ArrayList<Tournament> tournaments = method.getSessionTournaments(session);
-					ArrayList<Match> excludedMatches = method.getSessionExcludedMatches(session);
+					/*ArrayList<Match> excludedMatches = method.getSessionExcludedMatches(session);
 					ArrayList<TournamentPlacings> excludedPlacings = method.getSessionExcludedPlacings(session);
+					ArrayList<Player> excludedPlayers = method.getSessionExcludedPlayers(session);*/
 					
 					PrintWriter print_line = response.getWriter();
-					print_line.println("__PlayerList__");
-					for(int i = 0;i < players.size(); i++){
-						Player player = players.get(i);
-						print_line.println(player.getName());
-					}
 					print_line.println("__Tournaments__");
 					for(int i = 0;i < tournaments.size(); i++){
 						Tournament tournament = tournaments.get(i);
 						print_line.println(tournament.getName());
+						print_line.println("Placings-a57h5");
 						for(int j = 0;j<tournament.getResults().size();j++){
 							print_line.println(tournament.getResults().get(j).getName());
+						}
+						print_line.println("Matches-a57h5");
+						for(int j = 0;j<tournament.getMatches().size();j++){
+							Match match = tournament.getMatches().get(j);
+							print_line.println(match.getWinner().getName()+" "+match.getWinScore()+" "+match.getLoseScore()+" "+match.getLoser().getName()+" "+match.getTourney().getName());
 						}
 						print_line.println("__");
 					}
 
-					print_line.println("__Players__");
+					/*print_line.println("__Players__");
 					for(int i = 0;i < players.size(); i++){
 						Player player = players.get(i);
 						print_line.println(player.getName());
@@ -125,6 +126,12 @@ public class ExportToFile extends HttpServlet {
 						}
 						print_line.println("__");
 					}
+					
+					print_line.println("__Excluded Players__");
+					for(int i = 0;i < excludedPlayers.size(); i++){
+						TournamentPlacings placing = excludedPlacings.get(i);
+						print_line.print(placing.getPlayer().getName()+" "+placing.getTournament());
+					}
 					print_line.println("__Excluded Matches__");
 					for(int i = 0;i < excludedMatches.size(); i++){
 						Match match = excludedMatches.get(i);
@@ -135,6 +142,7 @@ public class ExportToFile extends HttpServlet {
 						TournamentPlacings placing= excludedPlacings.get(i);
 						print_line.print(placing.getPlayer().getName()+" "+placing.getTournament());
 					}
+					*/
 					print_line.close();
 					//System.out.println("<a href=\""+/**outputFile.getAbsolutePath()*/"data.txt"+"\" download=\""+fileName+"\">Download link</a>");
 					//method.alertAndRedirectError("<a href=\""+/**outputFile.getAbsolutePath()*/"data.txt"+"\" download=\""+"data.pr"+"\">Download link</a>", request, response);

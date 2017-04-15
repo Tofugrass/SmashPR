@@ -195,9 +195,9 @@ public class ImportFromUrl extends HttpServlet {
 								Player playerB = method.getSmashGGPlayerFromId((Long)currMatch.get("player2_id"), ggPlayers).getPlayer();
 								Match newMatch;
 								if(aScore > bScore)
-									newMatch = new Match(playerA, aScore, bScore, playerB, newTourney.getName());
+									newMatch = new Match(playerA, aScore, bScore, playerB, newTourney);
 								else
-									newMatch = new Match(playerB, bScore,  aScore,  playerA, newTourney.getName());
+									newMatch = new Match(playerB, bScore,  aScore,  playerA, newTourney);
 								method.enterMatch(newMatch, includedMatches);
 							}
 						}
@@ -398,9 +398,9 @@ public class ImportFromUrl extends HttpServlet {
 								try{
 									if(aScore >=0 &&  bScore >= 0) {
 										if(aScore > bScore)
-											match = new Match(method.getSmashGGPlayerFromId(wID, smashGGPlayers).getPlayer(), aScore, bScore, method.getSmashGGPlayerFromId(lID, smashGGPlayers).getPlayer(), tournament+"/"+i);
+											match = new Match(method.getSmashGGPlayerFromId(wID, smashGGPlayers).getPlayer(), aScore, bScore, method.getSmashGGPlayerFromId(lID, smashGGPlayers).getPlayer(), newTourney);
 										else
-											match = new Match(method.getSmashGGPlayerFromId(wID, smashGGPlayers).getPlayer(), bScore, aScore, method.getSmashGGPlayerFromId(lID, smashGGPlayers).getPlayer(), tournament+"/"+i);
+											match = new Match(method.getSmashGGPlayerFromId(wID, smashGGPlayers).getPlayer(), bScore, aScore, method.getSmashGGPlayerFromId(lID, smashGGPlayers).getPlayer(), newTourney);
 										method.enterMatch(match, includedMatches);
 									}
 								}catch(Exception e){

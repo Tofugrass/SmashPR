@@ -66,11 +66,11 @@ public class LoadPlayerData extends HttpServlet {
 
 						returnString += ("___WINS___\n");
 						for(int i =0; i<player.getWins().size(); i++){
-							returnString += (player.getName()+" won ("+player.getWins().get(i).getWinScore()+"-"+player.getWins().get(i).getLoseScore()+") over "+player.getWins().get(i).getLoser().getName()+" at "+player.getWins().get(i).getTourney()+"\n");
+							returnString += (player.getName()+" won ("+player.getWins().get(i).getWinScore()+"-"+player.getWins().get(i).getLoseScore()+") over "+player.getWins().get(i).getLoser().getName()+" at "+player.getWins().get(i).getTourney().getName()+"\n");
 						}
 						returnString += ("___LOSSES___\n");
 						for(int i =0; i<player.getLosses().size(); i++){
-							returnString += (player.getName()+" lost ("+player.getLosses().get(i).getWinScore()+"-"+player.getLosses().get(i).getLoseScore()+") to "+player.getLosses().get(i).getWinner().getName()+" at "+player.getLosses().get(i).getTourney()+"\n");
+							returnString += (player.getName()+" lost ("+player.getLosses().get(i).getWinScore()+"-"+player.getLosses().get(i).getLoseScore()+") to "+player.getLosses().get(i).getWinner().getName()+" at "+player.getLosses().get(i).getTourney().getName()+"\n");
 						}
 						Collections.sort(player.getMatchRankings());
 						for(int i = 0; i < player.getMatchRankings().size(); i++){
@@ -130,10 +130,10 @@ public class LoadPlayerData extends HttpServlet {
 								returnString += (player.getName()+" has "+player.getMatchRankings().get(i).getGameWins()+"(W)-"+player.getMatchRankings().get(i).getGameLosses()+"(L) game score against "+player2.getName()+"\n");
 								for(int j = 0; j < player.getMatchRankings().get(i).getMatches().size(); j++){
 									if(player.getMatchRankings().get(i).getMatches().get(j).getWinner().equals(player)){
-										returnString += (player.getName()+" beat "+player2.getName()+" "+player.getMatchRankings().get(i).getMatches().get(j).getWinScore()+"-"+player.getMatchRankings().get(i).getMatches().get(j).getLoseScore()+" at "+player.getMatchRankings().get(i).getMatches().get(j).getTourney()+"\n");
+										returnString += (player.getName()+" beat "+player2.getName()+" "+player.getMatchRankings().get(i).getMatches().get(j).getWinScore()+"-"+player.getMatchRankings().get(i).getMatches().get(j).getLoseScore()+" at "+player.getMatchRankings().get(i).getMatches().get(j).getTourney().getName()+"\n");
 									}
 									else{
-										returnString += (player.getName()+" lost to "+player2.getName()+" "+player.getMatchRankings().get(i).getMatches().get(j).getLoseScore()+"-"+player.getMatchRankings().get(i).getMatches().get(j).getWinScore()+" at "+player.getMatchRankings().get(i).getMatches().get(j).getTourney()+"\n");
+										returnString += (player.getName()+" lost to "+player2.getName()+" "+player.getMatchRankings().get(i).getMatches().get(j).getLoseScore()+"-"+player.getMatchRankings().get(i).getMatches().get(j).getWinScore()+" at "+player.getMatchRankings().get(i).getMatches().get(j).getTourney().getName()+"\n");
 
 									}
 

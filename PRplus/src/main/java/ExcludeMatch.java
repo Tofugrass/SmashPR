@@ -80,7 +80,7 @@ public class ExcludeMatch extends HttpServlet {
 				boolean found = false;
 				for(int i = 0; i < includedMatches.size();i++){
 					Match curr = includedMatches.get(i);
-					if(curr.getWinner().equals(w) && curr.getLoser().equals(l) && curr.getWinScore()==ws && curr.getLoseScore()==ls&&curr.getTourney().equalsIgnoreCase(request.getParameter("event").trim())){
+					if(curr.getWinner().equals(w) && curr.getLoser().equals(l) && curr.getWinScore()==ws && curr.getLoseScore()==ls&&curr.getTourney().getName().equalsIgnoreCase(request.getParameter("event").trim())){
 						//if we find the correct match we must exclude it and update player rankings				
 						for(int j = 0; j<w.getMatchRankings().size();j++){
 							PlayerRanking playerRanking = w.getMatchRankings().get(j);
@@ -118,13 +118,15 @@ public class ExcludeMatch extends HttpServlet {
 									playerRanking.addGameWin(-1*ls);
 									playerRanking.addGameLoss(-1*ws);
 									//loser and winner dont have the same match
-									for(int k = 0; k < playerRanking.getMatches().size(); k++){
+									
+									
+									/*for(int k = 0; k < playerRanking.getMatches().size(); k++){
 										Match newMatch = playerRanking.getMatches().get(k);
-										if(newMatch.getWinner().equals(w) && newMatch.getLoser().equals(l)&&newMatch.getWinScore() == ws && newMatch.getLoseScore() == ls && newMatch.getTourney().equalsIgnoreCase(request.getParameter("event").trim())){
+										if(newMatch.getWinner().equals(w) && newMatch.getLoser().equals(l)&&newMatch.getWinScore() == ws && newMatch.getLoseScore() == ls && newMatch.getTourney().getName().equalsIgnoreCase(request.getParameter("event").trim())){
 											playerRanking.getMatches().remove(k);
 											break;
 										}
-									}
+									}*/
 								}
 								break;
 							}
@@ -151,7 +153,7 @@ public class ExcludeMatch extends HttpServlet {
 					boolean found = false;
 					for(int i = 0; i < excludedMatches.size();i++){
 						Match curr = excludedMatches.get(i);
-						if(curr.getWinner().equals(w) && curr.getLoser().equals(l) && curr.getWinScore()==ws && curr.getLoseScore()==ls&&curr.getTourney().equalsIgnoreCase(request.getParameter("event").trim())){
+						if(curr.getWinner().equals(w) && curr.getLoser().equals(l) && curr.getWinScore()==ws && curr.getLoseScore()==ls&&curr.getTourney().getName().equalsIgnoreCase(request.getParameter("event").trim())){
 							//if we find the correct match we must exclude it and update player rankings
 							found = true;
 							excludedMatches.remove(i);
