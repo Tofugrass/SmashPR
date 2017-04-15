@@ -425,7 +425,7 @@ public class ImportFromUrl extends HttpServlet {
 			session.setAttribute("includedMatches", includedMatches);
 			session.setAttribute("tournaments", tournaments);
 			session.setAttribute("includedPlacings", includedPlacings);
-			session.setAttribute("pr", new SortablePlayerList(players, 2));
+			session.setAttribute("canUndo", "true");
 			method.alertAndRedirectError("Everything imported successfully", request, response);
 			return;
 		}

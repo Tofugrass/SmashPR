@@ -129,6 +129,7 @@ public class ExcludePlacing extends HttpServlet {
 				return;
 			}
 			else {
+				session.setAttribute("canUndo", "false");
 				method.alertAndRedirectError("Placing excluded succesfully", request, response);
 				return;
 			}
@@ -217,6 +218,7 @@ public class ExcludePlacing extends HttpServlet {
 			
 			}
 			else {
+				session.setAttribute("canUndo", "false");
 				method.alertAndRedirectError("Placing included successfully", request, response);
 				return;
 			}

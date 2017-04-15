@@ -287,7 +287,7 @@ public class ImportFromFile extends HttpServlet {
 		session.setAttribute("excludedMatches", excludedMatches);
 		session.setAttribute("tournaments", tournaments);
 		session.setAttribute("includedPlacings", includedPlacings);
-		session.setAttribute("pr", new SortablePlayerList(players, 2));
+		session.setAttribute("canUndo", "false");
 		method.alertAndRedirectError("Everything imported successfully", request, response);
 		return;
 	}

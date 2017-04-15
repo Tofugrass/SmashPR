@@ -51,6 +51,7 @@ public class Sort extends HttpServlet {
 			for(int i = 0; i < sorts; i++){
 				pr.sort();
 			}
+			session.setAttribute("canUndo", "false");
 			method.alertAndRedirectError("Players sorted successfully", request, response);
 			return;
 		}else {
@@ -66,6 +67,7 @@ public class Sort extends HttpServlet {
 			for(int i = 0; i < sorts; i++){
 				pr.sort();
 			}
+			session.setAttribute("canUndo", "false");
 			method.alertAndRedirectError("Players sorted successfully", request, response);
 			return;
 		}

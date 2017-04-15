@@ -57,7 +57,6 @@ public class ExcludeMatch extends HttpServlet {
 		else {
 			ArrayList<Match> includedMatches = method.getSessionIncludedMatches(session);
 			ArrayList<Match> excludedMatches = method.getSessionExcludedMatches(session);
-			ArrayList<Tournament> tournaments = method.getSessionTournaments(session);
 			Player w = null;
 			Player l = null;
 			try{

@@ -180,7 +180,7 @@ public class MergePlayers extends HttpServlet {
 
 			players.remove(playerA);
 			session.setAttribute("players", players);
-			session.setAttribute("pr", new SortablePlayerList(players, 2));
+			session.setAttribute("canUndo", "false");
 			method.alertAndRedirectError("Players merged successfully", request, response);
 			return;
 		}catch(Exception y){

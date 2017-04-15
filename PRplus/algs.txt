@@ -9,10 +9,7 @@ ArrayList<TournamentPlacings> includedPlacings = new ArrayList<TournamentPlacing
 ArrayList<TournamentPlacings> excludedPlacings = new ArrayList<TournamentPlacings>();
 SortablePlayerList pr = new SortablePlayerList(players, 2);
 
-file to import from will be request.getParameter("importFile");
-url to import from will be request.getParameter("importUrl");
-game to pick from challonge will be request.getParameter("game");
-
+we must exclude every match and every placing, then remove the tournament and new players. 
 
 	protected void service(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		

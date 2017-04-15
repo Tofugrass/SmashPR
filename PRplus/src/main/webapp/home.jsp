@@ -293,6 +293,24 @@ function CreateSmashGGParams()
 							<a href="ExportToFile" target="_blank" style="color:white;">Save Data (Right click and Save As...)</a>
                         </div>
                     </div>
+                    <div class="panel panel-danger">
+                        <div class="panel-heading accordion-toggle collapsed"
+                             data-toggle="collapse" data-parent="#fixed" data-target="#undo">
+                            <h4 class="panel-title" style="color: white;">Undo</h4>
+                        </div>
+                        <div id="undo" class="panel-collapse collapse">
+                            <div class="panel-body" style="color: black;">
+                            <%if(session.getAttribute("canUndo").equals("true")){ %>
+                                <form method="POST" action="UndoImport">
+                                    <h4>This will undo your last import from URL</h4>
+                                    <button type="submit" class="btn btn-sm" style="color: black;">Undo Last Import</button>
+                                </form>
+                                <%}else{%>
+                                	 <h4>You can no longer undo last URL import</h4>
+                                <%}%>
+                            </div>
+                        </div>
+                    </div>
                     <%}%>
                         </div>
                     </div>
