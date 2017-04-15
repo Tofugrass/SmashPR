@@ -50,12 +50,6 @@ enable_page_level_ads: true
 Methods method = new Methods();
 ArrayList<Player> manualTournamentResults = new ArrayList<Player>();
 ArrayList<Player> players = method.getSessionPlayers(session);
-ArrayList<Match> includedMatches = method.getSessionIncludedMatches(session);
-ArrayList<Match> excludedMatches = method.getSessionExcludedMatches(session);
-ArrayList<Tournament> tournaments = method.getSessionTournaments(session);
-ArrayList<TournamentPlacings> includedPlacings = method.getSessionIncludedPlacings(session);
-ArrayList<TournamentPlacings> excludedPlacings = method.getSessionExcludedPlacings(session);
-SortablePlayerList pr = new SortablePlayerList(players, 2);
 %>
 <link rel="shortcut icon" type="image/x-icon" href="favIcon.ico" />
 <body>

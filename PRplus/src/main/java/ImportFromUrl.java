@@ -88,7 +88,6 @@ public class ImportFromUrl extends HttpServlet {
 						return;
 					}
 				}
-
 				Tournament newTourney = new Tournament(tourneyName);
 				JSONObject json = null;
 				try {

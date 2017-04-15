@@ -53,7 +53,7 @@ public class LoadExcludedMatches extends HttpServlet {
 			return;
 		}
 		String player = request.getParameter("player");
-		if(player == null) {
+		if(player == null || player.equals("")) {
 			String returnString = "Excluded Matches\n";
 			for(int i = 0; i < excludedMatches.size(); i++) {
 				Match match = excludedMatches.get(i);
@@ -69,8 +69,9 @@ public class LoadExcludedMatches extends HttpServlet {
 				String returnString = "Excluded Matches for "+playerA.getName()+"\n";
 				for(int i = 0; i< excludedMatches.size(); i++){
 					Match mat = excludedMatches.get(i);
-					if(mat.getWinner().equals(player)||mat.getLoser().equals(player))
-						returnString+=(mat.getWinner().getName()+" "+mat.getWinScore()+"-"+mat.getLoseScore()+" "+mat.getLoser().getName()+" at "+mat.getTourney()+"\n");
+					if(mat.getWinner().equals(playerA)||mat.getLoser().equals(playerA)) {
+						returnString+=mat.getWinner().getName()+" won ("+mat.getWinScore()+"-"+mat.getLoseScore()+") over "+mat.getLoser().getName()+" at "+mat.getTourney()+"\n";
+					}
 				}
 				request.setAttribute("displayData", true);
 				request.setAttribute("playerData", returnString);

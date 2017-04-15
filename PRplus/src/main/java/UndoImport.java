@@ -70,64 +70,11 @@ public class UndoImport extends HttpServlet {
 			for(int i = includedMatches.size() - 1; i >= 0 ;i--){
 				Match curr = includedMatches.get(i);
 				if(curr.getTourney().getName().contains(matchString)){
-					//if we find the correct match we must exclude it and update player rankings				
-					Player w = curr.getWinner();
-					Player l = curr.getLoser();
-					int ws = curr.getWinScore();
-					int ls = curr.getLoseScore();
-					for(int j = 0; j<w.getMatchRankings().size();j++){
-						PlayerRanking playerRanking = w.getMatchRankings().get(j);
-						if(playerRanking.getPlayer().equals(l)){
-							if(playerRanking.getAttempts()==1){
-								w.getMatchRankings().remove(j);
-							}
-							else{
-								playerRanking.addAttempt(-1);
-								playerRanking.addUpset(1);
-								playerRanking.addGameWin(-1*ws);
-								playerRanking.addGameLoss(-1*ls);
-								for(int k = 0; k < playerRanking.getMatches().size(); k++){
-									if(playerRanking.getMatches().get(k).equals(curr)){
-										playerRanking.getMatches().remove(k);
-										break;
-									}
-								}
-							}
-							break;
-						}
-					}
-					ArrayList<Match> matchList = w.getWins();
-					matchList.remove(matchList.indexOf(curr));
-					for(int j = 0; j<l.getMatchRankings().size();j++){
-						PlayerRanking playerRanking = l.getMatchRankings().get(j);
-						if(playerRanking.getPlayer().equals(w)){
-							if(playerRanking.getAttempts()==1){
-								l.getMatchRankings().remove(j);
-							}
-							else{
-								playerRanking.addAttempt(-1);
-								playerRanking.addUpset(-1);
-								playerRanking.addGameWin(-1*ls);
-								playerRanking.addGameLoss(-1*ws);
-								//loser and winner dont have the same match
-								for(int k = 0; k < playerRanking.getMatches().size(); k++){
-									Match newMatch = playerRanking.getMatches().get(k);
-									if(newMatch.getWinner().equals(w) && newMatch.getLoser().equals(l)&&newMatch.getWinScore() == ws && newMatch.getLoseScore() == ls && newMatch.getTourney().equals( tournament.getName())){
-										playerRanking.getMatches().remove(k);
-										break;
-									}
-								}
-							}
-							break;
-						}
-					}
-					includedMatches.remove(i);
-					matchList = l.getLosses();
-					matchList.remove(matchList.indexOf(curr));
+					curr.exclude(includedMatches, null, session);
 				}
-				/*else {
+				else {
 					break;
-				}	*/
+				}	
 			}
 			for(int z = includedPlacings.size() - 1; z >= 0; z--) {
 				TournamentPlacings currPlacing = includedPlacings.get(z);
@@ -180,9 +127,9 @@ public class UndoImport extends HttpServlet {
 						}
 					}
 				}
-				/*else {
+				else {
 					break;
-				}*/
+				}
 			}
 			tournaments.remove(t);
 		}
