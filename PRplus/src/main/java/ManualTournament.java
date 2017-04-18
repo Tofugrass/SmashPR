@@ -44,7 +44,7 @@ protected void service(HttpServletRequest request, HttpServletResponse response)
 		//1 initialize all objects we need, these are the players, matches, tournaments and standings
 		HttpSession session = request.getSession();
 		ArrayList<pr.smash.Dependencies.Player> players = method.getSessionPlayers(session);
-		session.setAttribute("canUndo", "false");
+		//session.setAttribute("canUndo", "false");
 		method.alertAndRedirectError("Coming soon", request, response);
 		return;
 		//TODO: THIS

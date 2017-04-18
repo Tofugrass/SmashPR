@@ -73,15 +73,16 @@ public class LoadPlayerData extends HttpServlet {
 							returnString += (player.getName()+" lost ("+player.getLosses().get(i).getWinScore()+"-"+player.getLosses().get(i).getLoseScore()+") to "+player.getLosses().get(i).getWinner().getName()+" at "+player.getLosses().get(i).getTourney().getName()+"\n");
 						}
 						Collections.sort(player.getMatchRankings());
+						returnString += ("___Match Rankings___\n");
 						for(int i = 0; i < player.getMatchRankings().size(); i++){
 							if(player.getMatchRankings().get(i).getRatio()<0){
-								returnString += ("Has a WINNING RECORD against "+ player.getMatchRankings().get(i).getPlayer().getName()+" "+ player.getMatchRankings().get(i).getRatio()+". They have "+player.getMatchRankings().get(i).getAttempts()+" sets.\n");
+								returnString += ("Has a WINNING RECORD against "+ player.getMatchRankings().get(i).getPlayer().getName()+" "+ (double) player.getMatchRankings().get(i).getWins()/player.getMatchRankings().get(i).getAttempts() +". They have "+player.getMatchRankings().get(i).getAttempts()+" sets.\n");
 							}
 							else if(player.getMatchRankings().get(i).getRatio()==0){
-								returnString += ("Has a TIEING RECORD against "+ player.getMatchRankings().get(i).getPlayer().getName()+" "+ player.getMatchRankings().get(i).getRatio()+". They have "+player.getMatchRankings().get(i).getAttempts()+" sets.\n");
+								returnString += ("Has a TIEING RECORD against "+ player.getMatchRankings().get(i).getPlayer().getName()+" "+ (double) (player.getMatchRankings().get(i).getWins())/player.getMatchRankings().get(i).getAttempts() +". They have "+player.getMatchRankings().get(i).getAttempts()+" sets.\n");
 							}
 							else {
-								returnString += ("Has a LOSING RECORD against "+ player.getMatchRankings().get(i).getPlayer().getName()+" "+ player.getMatchRankings().get(i).getRatio()+". They have "+player.getMatchRankings().get(i).getAttempts()+" sets.\n");
+								returnString += ("Has a LOSING RECORD against "+ player.getMatchRankings().get(i).getPlayer().getName()+" "+ (double) player.getMatchRankings().get(i).getWins()/player.getMatchRankings().get(i).getAttempts() +". They have "+player.getMatchRankings().get(i).getAttempts()+" sets.\n");
 							}
 						}
 
@@ -92,6 +93,7 @@ public class LoadPlayerData extends HttpServlet {
 							returnString += ("Placed "+player.getPlacings().get(i).getPlacing()+" at "+ player.getPlacings().get(i).getTournament()+"\n");
 						}
 						Collections.sort(player.getPlacingRankings());
+						returnString += ("___Placing Rankings___\n");
 						for(int i = 0; i < player.getPlacingRankings().size(); i++){
 							if(player.getPlacingRankings().get(i).getRatio()<0){
 								returnString += ("Places HIGHER than "+ player.getPlacingRankings().get(i).getPlayer().getName()+" ("+ player.getPlacingRankings().get(i).getRatio()+"). With "+player.getPlacingRankings().get(i).getAttempts()+" attempts.\n");

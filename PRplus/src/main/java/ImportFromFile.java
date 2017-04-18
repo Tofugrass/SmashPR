@@ -86,17 +86,23 @@ public class ImportFromFile extends HttpServlet {
 		// Parse the request
 
 		List<FileItem> items = null;
+		String total;
+		Scanner scan;
+		String line;
 		try {
 			items =  upload.parseRequest(request);
+			total = items.get(0).getString();
+			scan = new Scanner(total);
+			line = scan.nextLine();
 		}catch(Exception e) {
-			method.alertAndRedirectError("oof", request, response);
+			method.alertAndRedirectError("Please enter a valid file", request, response);
 			return;
 		}
 
-		String total = items.get(0).getString();
+		
 		// Process the uploaded items
-		Scanner scan = new Scanner(total);
-		String line = scan.nextLine();
+		
+		
 		if(!line.equals("__Tournaments__")){
 			scan.close();
 			method.alertAndRedirectError("Please import a valid file", request, response);

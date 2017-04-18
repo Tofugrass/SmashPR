@@ -57,6 +57,7 @@
 					<li><a href="home.jsp">Home</a></li>
 					<li><a href="FAQ.jsp"  class="active">FAQ</a></li>
 					<li class="active"><a href="contact.jsp">Contact</a></li>
+					<li><a href="tournaments.jsp">Tournaments</a></li>
 				</ul>
 			</div>
 			<!--/.nav-collapse -->

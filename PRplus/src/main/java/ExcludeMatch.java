@@ -67,6 +67,7 @@ public class ExcludeMatch extends HttpServlet {
 						//excludedMatches.add(curr);
 					curr.exclude(includedMatches, excludedMatches, session);
 					method.alertAndRedirectError("Match excluded successfully", request, response);
+					session.setAttribute("canUndo", "false");
 					return;
 					}
 				}
@@ -80,6 +81,7 @@ public class ExcludeMatch extends HttpServlet {
 						//if we find the correct match we must exclude it and update player rankings
 						curr.include(includedMatches, excludedMatches, method);
 						method.alertAndRedirectError("Match included successfully", request, response);
+						session.setAttribute("canUndo", "false");
 						return;
 					}
 				}
