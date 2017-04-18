@@ -94,6 +94,12 @@
   	<description></description>
   	<servlet-class>UndoImport</servlet-class>
   </servlet>
+  <servlet>
+  	<servlet-name>Clear</servlet-name>
+  	<display-name>Clear</display-name>
+  	<description>Clears all data</description>
+  	<servlet-class>Clear</servlet-class>
+  </servlet>
   <servlet-mapping>
   	<servlet-name>ImportFromUrl</servlet-name>
   	<url-pattern>/ImportFromUrl</url-pattern>
@@ -153,5 +159,9 @@
   <servlet-mapping>
   	<servlet-name>UndoImport</servlet-name>
   	<url-pattern>/UndoImport</url-pattern>
+  </servlet-mapping>
+  <servlet-mapping>
+  	<servlet-name>Clear</servlet-name>
+  	<url-pattern>/Clear</url-pattern>
   </servlet-mapping>
 </web-app>

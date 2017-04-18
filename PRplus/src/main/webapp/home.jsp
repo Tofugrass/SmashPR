@@ -146,7 +146,7 @@ function CreateSmashGGParams()
 </script>
 							
 
-								<form method="POST" action="ManualMatch">
+								<!-- <form method="POST" action="ManualMatch">
                                 <h4>Manually Enter new Match</h4>
                                 <input type="text" name="winner" placeholder="Winner">
                                 <input type="text" name="loser" placeholder="Loser"> <input
@@ -165,7 +165,7 @@ function CreateSmashGGParams()
                                     <button type="submit" class="btn btn-sm" style="color: black;">Enter</button>
                                 </p>
 
-                            </form>
+                            </form> -->
                             </div>
                         </div>
                 </div>
@@ -303,6 +303,20 @@ function CreateSmashGGParams()
                                 <%}else{%>
                                 	 <h4>You can no longer undo last URL import</h4>
                                 <%}%>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="panel panel-danger">
+                        <div class="panel-heading accordion-toggle collapsed"
+                             data-toggle="collapse" data-parent="#fixed" data-target="#clear">
+                            <h4 class="panel-title" style="color: white;">Clear All Data</h4>
+                        </div>
+                        <div id="clear" class="panel-collapse collapse">
+                            <div class="panel-body" style="color: black;">
+                                <form method="POST" action="Clear">
+                                    <h4>This will clear all data.</h4>
+                                    <button type="submit" class="btn btn-sm" style="color: black;">Clear Data</button>
+                                </form>
                             </div>
                         </div>
                     </div>

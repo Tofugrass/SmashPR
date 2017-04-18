@@ -66,6 +66,8 @@
 		<h3>How are players sorted? </h3>
 		<p>Currently, they are sorted based on matches and placings. Say we need to sort out two players, you and I. The program first looks at all of the players you have played, and all of the players I have played. If any of these players match, i.e. we have found a mutual player, the program analyzes how you have performed against that player. If you beat that player 100% of the time, and I beat that player 50% of the time, then the program awards one 'match point' to you. If it was a tie, we then look at game count. If both of those are a tie, then no point is awarded. The program does this for all players that we have played directly. 
 Then, the program does the same thing for placings. Every player you have attended the same event with is stored in a list. If you placed higher than Mango, for example, the one time you have attended the same event, and I did not, then the system awards one 'placing point' to you. The program does this for all placings and matches for all players, and the listed is sorted.</p>
+	<h3>How can I enter a tournament manually?</h3>
+	<p>You can create a text document in the same format as an exported file.</p>
 	</div>
 
 
